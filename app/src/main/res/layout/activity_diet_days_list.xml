@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="30dp">
+
+            <TextView
+                android:id="@+id/textViewDietName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@string/FontFamilyTitle"
+                android:paddingTop="50dp"
+                android:paddingBottom="50dp"
+                android:text="Nazwa diety"
+                android:textAlignment="center"
+                android:textSize="@dimen/textSizeTitle" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="60dp"
+                android:paddingRight="60dp">
+
+
+                <Button
+                    android:id="@+id/buttonMonday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@string/MainPageButtonFontFamily"
+                    android:text="Poniedziałek"
+                    android:textSize="@dimen/textSizeButton" />
+
+                <Button
+                    android:id="@+id/buttonTuesday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@string/MainPageButtonFontFamily"
+                    android:text="Wtorek"
+                    android:textSize="@dimen/textSizeButton" />
+
+                <Button
+                    android:id="@+id/buttonWednsday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@string/MainPageButtonFontFamily"
+                    android:text="Środa"
+                    android:textSize="@dimen/textSizeButton" />
+
+                <Button
+                    android:id="@+id/buttonThursday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@string/MainPageButtonFontFamily"
+                    android:text="Czwartek"
+                    android:textSize="@dimen/textSizeButton" />
+
+                <Button
+                    android:id="@+id/buttonFriday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@string/MainPageButtonFontFamily"
+                    android:text="Piątek"
+                    android:textSize="@dimen/textSizeButton" />
+
+                <Button
+                    android:id="@+id/buttonSaturday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@string/MainPageButtonFontFamily"
+                    android:text="Sobota"
+                    android:textSize="@dimen/textSizeButton" />
+
+                <Button
+                    android:id="@+id/buttonSunday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@string/MainPageButtonFontFamily"
+                    android:text="Niedziela"
+                    android:textSize="@dimen/textSizeButton" />
+            </LinearLayout>
+            <Button
+            android:id="@+id/buttonDeleteDiet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Usuń dietę"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</LinearLayout>

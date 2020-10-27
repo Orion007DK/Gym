@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/optionHomePage"
+        android:title="Strona główna"
+        app:showAsAction="never"/>
+    <item android:id="@+id/optionGym"
+        android:title="Moja siłownia"
+         app:showAsAction="never"/>
+    <item android:id="@+id/optionTrainingPlans"
+        android:title="Moje plany treningowe"
+        app:showAsAction="never"/>
+    <item android:id="@+id/optionTrainer"
+        android:title="Mój trener"
+        app:showAsAction="never"/>
+    <item android:id="@+id/optionClasses"
+        android:title="Zajęcia"
+        app:showAsAction="never"/>
+    <item android:id="@+id/optionDiets"
+        android:title="Moje diety"
+        app:showAsAction="never"/>
+    <item android:id="@+id/optionDietician"
+        android:title="Mój dietetyk"
+        app:showAsAction="never"/>
+    <item android:id="@+id/optionMyProfile"
+        android:title="Mój profil"
+        app:showAsAction="never"/>
+    <item android:id="@+id/optionLogout"
+        android:title="Wyloguj"
+        app:showAsAction="never"/>
+
+</menu>

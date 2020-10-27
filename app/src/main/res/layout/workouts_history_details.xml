@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="30dp">
+
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@string/FontFamilyTitle"
+                android:paddingTop="50dp"
+                android:paddingBottom="50dp"
+                android:text="Wymiary"
+                android:textAlignment="center"
+                android:textSize="@dimen/textSizeTitle" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="60dp"
+                android:paddingRight="60dp">
+
+                <TextView
+                    android:id="@+id/textViewTrainingPlanName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nazwa planu treningowego:"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/textViewTrainingPlanNameValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:paddingLeft="10dp"
+                    android:textSize="20dp"
+                    />
+
+                <TextView
+                    android:id="@+id/textViewWorkoutDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Data treningu:"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/textViewWorkoutDateValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:paddingLeft="10dp"
+                    android:textSize="20dp"
+                    />
+
+                <TextView
+                    android:id="@+id/textViewWorkoutDuration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Czas trwania treningu:"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/textViewWorkoutDurationValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:textSize="20dp"
+                    android:paddingLeft="10dp" />
+
+                <TextView
+                    android:id="@+id/textViewBurnedCalories"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Spalone kalorie:"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/textViewBurnedCaloriesValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:textSize="20dp"
+                    android:paddingLeft="10dp" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/linearLayoutMyClassesListTitle">
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@string/FontFamilyTitle"
+        android:paddingTop="50dp"
+        android:paddingBottom="50dp"
+        android:text="Moje zajęcia:"
+        android:textAlignment="center"
+        android:textSize="@dimen/textSizeTitle" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/textViewClassesNameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:paddingLeft="20dp"
+            android:text="Nazwa zajęć:" />
+
+        <TextView
+            android:id="@+id/textViewClassesDateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:paddingRight="10dp"
+            android:text="Data odbywania się zajęć:" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listViewMyClasses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        >
+
+    </ListView>
+
+    <Button
+        android:id="@+id/buttonAddClassses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:text="Zapisz się na zajecia" />
+</LinearLayout>

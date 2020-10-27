@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activites.AddDimensionsActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="30dp">
+
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@string/FontFamilyTitle"
+                android:paddingTop="50dp"
+                android:paddingBottom="50dp"
+                android:text="Dodaj wymiary"
+                android:textAlignment="center"
+                android:textSize="@dimen/textSizeTitle" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="60dp"
+                android:paddingRight="60dp">
+
+                <TextView
+                    android:id="@+id/textViewHeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Wzrost[cm]:"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/editTextName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Height"
+                    android:paddingLeft="10dp"
+                    android:inputType="numberDecimal" />
+
+                <TextView
+                    android:id="@+id/textViewWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Waga[kg]:"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/editTextWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Weight"
+                    android:paddingLeft="10dp"
+                    android:inputType="numberDecimal" />
+
+                <TextView
+                    android:id="@+id/textViewAdiposeTissue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Poziom tkanki tłuszczowej[%]:"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/editTextAdiposeTissue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Adipose tissue"
+                    android:paddingLeft="10dp"
+                    android:inputType="numberDecimal" />
+
+                <TextView
+                    android:id="@+id/textViewMuscleTissue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Poziom tkanki mięśniowej[%]:"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/editTextMuscleTissue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="eq. 20%"
+                    android:paddingLeft="10dp"
+                    android:inputType="numberDecimal" />
+
+                <TextView
+                    android:id="@+id/textViewBodyWaterPercentage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Poziom wody w ciele[%]:"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/editTextBodyWaterPercentage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="eq. 20%"
+                    android:paddingLeft="10dp"
+                    android:inputType="numberDecimal" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textViewInvisible"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="" />
+
+                    <Button
+                        android:id="@+id/buttonSaveChanges"
+                        android:layout_width="170dp"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:text="Zapisz" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</androidx.appcompat.widget.LinearLayoutCompat>

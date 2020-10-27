@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activites.RegistrationActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="50dp"
+                android:paddingBottom="50dp"
+                android:text="Rejestracja"
+                android:textAlignment="center"
+                android:textSize="@dimen/textSizeTitle"
+                android:fontFamily="@string/FontFamilyTitle"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="60dp"
+                android:paddingRight="60dp">
+
+                <TextView
+                    android:id="@+id/textViewName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Imię:"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/editTextName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Name"
+                    android:paddingLeft="10dp"
+                    android:inputType="textPersonName" />
+
+                <TextView
+                    android:id="@+id/textViewSurname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nazwisko:"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/editTextSurname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Surname"
+                    android:paddingLeft="10dp"
+                    android:inputType="textPersonName" />
+
+                <TextView
+                    android:id="@+id/textViewEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Email:"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/editTextEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="email"
+                    android:paddingLeft="10dp"
+                    android:inputType="textWebEmailAddress" />
+
+                <TextView
+                    android:id="@+id/textViewPhoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Numer telefonu:"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/editTextPhoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="eq. 764237862"
+                    android:paddingLeft="10dp"
+                    android:inputType="numberDecimal" />
+
+                <TextView
+                    android:id="@+id/textViewPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hasło:"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/editTextPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="password"
+                    android:paddingLeft="10dp"
+                    android:inputType="textPassword" />
+
+                <TextView
+                    android:id="@+id/textViewRepeatedPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Powtórz hasło"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/editTextRepeatedPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="password"
+                    android:paddingLeft="10dp"
+                    android:inputType="textPassword" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxAcceptRegulations"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Potwierdzam że zapoznałem się z regulaminem i akceptuję go." />
+
+                <TextView
+                    android:id="@+id/textViewRegulations"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Regulamin"
+                    android:textColor="#0D29DD"
+                    android:textAlignment="center"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textViewInvisible"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="" />
+
+                    <Button
+                        android:id="@+id/buttonRegister"
+                        android:layout_width="170dp"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:text="Zarejestruj" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

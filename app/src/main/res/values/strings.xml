@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Gym</string>
+    <string name="MainPageButtonFontFamily">monospace</string>
+
+    <array name="statisticsDataNames">
+        <item name="Weight">Waga</item>
+        <item name="Heigh">Wzrost</item>
+        <item name="AdiposeTissue">Poziom tkanki tłuszczowej</item>
+        <item name="MuscleTissue">Poziom tkanki mięśniowej</item>
+        <item name="BodyWaterPercentage">Poziom wody w ciele</item>
+    </array>
+</resources>

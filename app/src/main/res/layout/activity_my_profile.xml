@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activites.MyProfileActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="30dp">
+
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="50dp"
+                android:paddingBottom="50dp"
+                android:text="Mój profil"
+                android:textAlignment="center"
+                android:textSize="@dimen/textSizeTitle"
+                android:fontFamily="@string/FontFamilyTitle"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="60dp"
+                android:paddingRight="60dp">
+
+
+                <Button
+                    android:id="@+id/buttonMyPersonalData"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Moje dane osobowe"
+                    android:textSize="@dimen/textSizeButton"
+                    android:fontFamily="@string/MainPageButtonFontFamily"/>
+
+                <Button
+                    android:id="@+id/buttonAddDimensions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dodaj wymiary"
+                    android:fontFamily="@string/MainPageButtonFontFamily"
+                    android:textSize="@dimen/textSizeButton"/>
+
+                <Button
+                    android:id="@+id/buttonMyStatistics"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Moje statystyki"
+                    android:textSize="@dimen/textSizeButton"
+                    android:fontFamily="@string/MainPageButtonFontFamily"/>
+
+                <Button
+                    android:id="@+id/buttonMyGymTickets"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Moje karnety"
+                    android:textSize="@dimen/textSizeButton"
+                    android:fontFamily="@string/MainPageButtonFontFamily"/>
+
+                <Button
+                    android:id="@+id/buttonDeleteAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Usuń konto"
+                    android:textSize="@dimen/textSizeButton"
+                    android:fontFamily="@string/MainPageButtonFontFamily"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="30dp">
+
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@string/FontFamilyTitle"
+                android:paddingTop="50dp"
+                android:paddingBottom="50dp"
+                android:text="Dieta na dzień tygodnia"
+                android:textAlignment="center"
+                android:textSize="@dimen/textSizeTitle" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="60dp"
+                android:paddingRight="60dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:id="@+id/linearLayoutBreakfast"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/textViewBreakfast"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Śniadanie:"
+                        android:textSize="20dp"/>
+
+                    <ListView
+                        android:id="@+id/listViewBreakfast"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:id="@+id/linearLayoutBrunch"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/textViewBrunch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Drugie śniadanie:"
+                        android:textSize="20dp"/>
+
+                    <ListView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/listViewBrunch"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:id="@+id/linearLayoutLunch"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/textViewLunch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Obiad:"
+                        android:textSize="20dp"/>
+
+                    <ListView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/listViewLunch"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:id="@+id/linearLayoutTea"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/textViewTea"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Podwieczorek:"
+                        android:textSize="20dp"/>
+
+                    <ListView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/listViewTea"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:id="@+id/linearLayoutDinner"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/textViewDinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Kolacja:"
+                        android:textSize="20dp"/>
+
+                    <ListView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/listViewDinner"/>
+                </LinearLayout>
+            </LinearLayout>
+            </LinearLayout>
+    </ScrollView>
+</LinearLayout>

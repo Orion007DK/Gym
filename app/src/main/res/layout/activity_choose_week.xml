@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Niepotrzebne.ChooseWeekActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="30dp">
+
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="50dp"
+                android:paddingBottom="50dp"
+                android:text="Wybierz tydzień"
+                android:textAlignment="center"
+                android:textSize="@dimen/textSizeTitle"
+                android:fontFamily="@string/FontFamilyTitle"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="60dp"
+                android:paddingRight="60dp">
+
+
+                <Button
+                    android:id="@+id/buttonPlanForCurrentWeekClasses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Wyświetl plan na obecny tydzień"
+                    android:textSize="@dimen/textSizeButton"
+                    android:fontFamily="@string/MainPageButtonFontFamily"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="30dp">
+
+                    <TextView
+                        android:id="@+id/textViewCurrentWeekStartDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="15.04.2020"
+                        android:textSize="@dimen/textSizeButton"
+                        android:layout_weight="1"
+                        />
+
+                    <TextView
+                        android:id="@+id/textView-"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="-"
+                        android:textAlignment="center"/>
+
+                    <TextView
+                        android:id="@+id/textViewCurrentWeekEndDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="22.04.2020" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/buttonPlanForNextWeekClasses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Wyświetl plan na następny tydzień"
+                    android:fontFamily="@string/MainPageButtonFontFamily"
+                    android:textSize="@dimen/textSizeButton"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="30dp">
+
+                    <TextView
+                        android:id="@+id/textViewNextWeekStartDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="15.04.2020"
+                        android:textSize="@dimen/textSizeButton"
+                        android:layout_weight="1"
+                        />
+
+                    <TextView
+                        android:id="@+id/textView--"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="-"
+                        android:textAlignment="center"/>
+
+                    <TextView
+                        android:id="@+id/textViewNextWeekEndDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="22.04.2020" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </ScrollView>
+</androidx.appcompat.widget.LinearLayoutCompat>

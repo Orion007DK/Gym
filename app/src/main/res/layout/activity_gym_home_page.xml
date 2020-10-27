@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activites.HomePageActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="30dp">
+
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="50dp"
+                android:paddingBottom="50dp"
+                android:text="Siłownia"
+                android:textAlignment="center"
+                android:textSize="@dimen/textSizeTitle"
+                android:fontFamily="@string/FontFamilyTitle"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="60dp"
+                android:paddingRight="60dp">
+
+
+                <Button
+                    android:id="@+id/buttonShowGymProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Wyświetl profil siłowni"
+                    android:textSize="@dimen/textSizeButton"
+                    android:fontFamily="@string/MainPageButtonFontFamily"/>
+
+                <Button
+                    android:id="@+id/buttonFindGym"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Wyszukaj siłownię"
+                    android:fontFamily="@string/MainPageButtonFontFamily"
+                    android:textSize="@dimen/textSizeButton"/>
+
+                <Button
+                    android:id="@+id/buttonShowTrainersList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Wyświetl listę trenerów"
+                    android:textSize="@dimen/textSizeButton"
+                    android:fontFamily="@string/MainPageButtonFontFamily"/>
+
+                <Button
+                    android:id="@+id/buttonShowDieticiansList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Wyświetl listę dietetyków"
+                    android:textSize="@dimen/textSizeButton"
+                    android:fontFamily="@string/MainPageButtonFontFamily"/>
+
+                <Button
+                    android:id="@+id/buttonUnsubscribeFromGym"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Wypisz się z siłowni"
+                    android:textSize="@dimen/textSizeButton"
+                    android:fontFamily="@string/MainPageButtonFontFamily"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.gym">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".MyDimensionChartActivity"></activity>
+        <activity android:name=".ClassesDetailsActivity" />
+        <activity android:name=".activites.classesPlan.ClassesPlanActivity" />
+        <activity android:name=".Niepotrzebne.ChooseWeekActivity" />
+        <activity android:name=".activites.myClassesList.MyClassesList" />
+        <activity android:name=".activites.availableTreningPlansList.AvailableTrainingPlansListActivity" />
+        <activity android:name=".activites.trainingPlansList.MyTrainingPlansListActivity" />
+        <activity android:name=".activites.myDietsList.dietsDay.DietsDayActivity" />
+        <activity android:name=".activites.myDietsList.DietDaysListActivity" />
+        <activity android:name=".Niepotrzebne.Diet_activity" />
+        <activity android:name=".activites.myDietsList.MyDietsListActivity" />
+        <activity android:name=".activites.gymsList.GymDetailsActivity" />
+        <activity android:name=".activites.gymsList.GymsListActivity" />
+        <activity android:name=".activites.GymHomePageActivity" />
+        <activity android:name=".activites.dieticianList.DieticianListActivity" />
+        <activity android:name=".activites.dieticianList.DieticianDetailsActivity" />
+        <activity android:name=".activites.DieticianHomePage" />
+        <activity android:name=".activites.TrainerHomePageActivity" />
+        <activity android:name=".activites.workoutsHistory.WorkoutsHistoryActivity" />
+        <activity android:name=".activites.dimensionHistory.DimensionHistoryActivity" />
+        <activity android:name=".activites.MyStatisticGeneralPageActivity" />
+        <activity android:name=".activites.AddDimensionsActivity" />
+        <activity android:name=".activites.PasswordChangeActivity" />
+        <activity android:name=".activites.MyPersonalDataActivity" />
+        <activity android:name=".activites.MyProfileActivity" />
+        <activity android:name=".activites.TrainerDetailActivity" />
+        <activity android:name=".activites.trainersList.TrainersListActivity" />
+        <activity android:name=".activites.HomePageActivity" />
+        <activity
+            android:name=".activites.RegistrationActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activites.MainActivity"
+            android:windowSoftInputMode="stateVisible">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

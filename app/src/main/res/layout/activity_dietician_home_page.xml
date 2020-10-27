@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activites.MyStatisticGeneralPageActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="30dp">
+
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="50dp"
+                android:paddingBottom="50dp"
+                android:text="Mój Dietetyk"
+                android:textAlignment="center"
+                android:textSize="@dimen/textSizeTitle"
+                android:fontFamily="@string/FontFamilyTitle"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="60dp"
+                android:paddingRight="60dp">
+
+
+                <Button
+                    android:id="@+id/buttonShowDieticianProfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pokaż profil dietetyka"
+                    android:textSize="@dimen/textSizeButton"
+                    android:fontFamily="@string/MainPageButtonFontFamily"/>
+
+                <Button
+                    android:id="@+id/buttonFindDietician"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Znajdź dietetyka"
+                    android:fontFamily="@string/MainPageButtonFontFamily"
+                    android:textSize="@dimen/textSizeButton"/>
+
+                <Button
+                    android:id="@+id/buttonUnsubscribeFromDietician"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Wypisz się od dietetyka"
+                    android:textSize="@dimen/textSizeButton"
+                    android:fontFamily="@string/MainPageButtonFontFamily"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</androidx.appcompat.widget.LinearLayoutCompat>

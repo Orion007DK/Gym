@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fillViewport="true"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="30dp">
+
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@string/FontFamilyTitle"
+            android:paddingTop="50dp"
+            android:paddingBottom="50dp"
+            android:text="Nazwa posiłku"
+            android:textAlignment="center"
+            android:textSize="@dimen/textSizeTitle" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="60dp"
+            android:paddingRight="60dp">
+
+            <LinearLayout
+                android:id="@+id/linearLayoutBreakfast"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewComponents"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Składniki:"
+                    android:textSize="20dp" />
+
+                <ListView
+                    android:id="@+id/listViewComponents"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutPreparation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewPreparation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Opis przygotowania:"
+                    android:textSize="20dp" />
+
+                <ListView
+                    android:id="@+id/listViewPreparation"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                     />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
