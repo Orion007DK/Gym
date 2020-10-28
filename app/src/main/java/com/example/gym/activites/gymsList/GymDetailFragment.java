@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -16,17 +17,46 @@ import androidx.fragment.app.Fragment;
 
 import com.example.gym.Address;
 import com.example.gym.R;
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageListener;
 
 public class GymDetailFragment extends Fragment {
+
+
+    CarouselView carouselView;
+
+    int[] sampleImages = {
+            R.drawable.gym1,
+            R.drawable.gym2,
+            R.drawable.gym3,
+            R.drawable.gym4,
+            R.drawable.gym5
+    };
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.gym_details, container, false);
 
+        carouselView = (CarouselView) view.findViewById(R.id.carouselView);
+        carouselView.setPageCount(sampleImages.length);
+
+        carouselView.setImageListener(imageListener);
+
         landscapeConfiguration(view);
         return view;
     }
+
+
+    ImageListener imageListener = new ImageListener() {
+        @Override
+        public void setImageForPosition(int position, ImageView imageView) {
+            imageView.setImageResource(sampleImages[position]);
+        }
+    };
+
+
 
     public void setText(String textName, Address address, String aboutGym) {
         TextView textViewName = getView().findViewById(R.id.textViewGymNameValue);
@@ -61,8 +91,8 @@ public class GymDetailFragment extends Fragment {
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     3.0f
             );
-            ScrollView scrollViewAboutGymValue=view.findViewById(R.id.scrollViewAboutGymValue);
-            scrollViewAboutGymValue.setLayoutParams(param3);
+           // ScrollView scrollViewAboutGymValue=view.findViewById(R.id.scrollViewAboutGymValue);
+            //scrollViewAboutGymValue.setLayoutParams(param3);
         }
     }
 }

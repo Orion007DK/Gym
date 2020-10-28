@@ -1,27 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    >
+<LinearLayout
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
 
-    <ImageView
-        android:id="@+id/imageViewTrainerPhoto"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5"
-        app:srcCompat="@android:drawable/ic_menu_myplaces" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_weight="6"
+        android:paddingTop="30dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingBottom="10dp"
         android:orientation="vertical">
 
-        <LinearLayout
+        <com.rishabhharit.roundedimageview.RoundedImageView
+            android:id="@+id/roundedViewTrainer"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:src="@drawable/trainer"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            app:cornerRadius="500dp"
+            app:roundedCorners="topRight|bottomLeft|topLeft|bottomRight"
+            />
+    </LinearLayout>
+
+
+    <!--
+        <ImageView
+            android:id="@+id/imageViewTrainerPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            app:srcCompat="@android:drawable/ic_menu_myplaces" />
+    -->
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp"
+        android:paddingTop="20dp"
+        >
+
+        <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="5"
+            />
+        <LinearLayout
+            android:id="@+id/linearLayoutLabels"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="horizontal">
 
             <TextView
@@ -29,33 +66,94 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:text="Imię"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/textViewSurname"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:text="Nazwisko"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textViewAboutTrainer"
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:text="TextView" />
-
+            android:layout_height="match_parent" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="5"
             android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/textViewNameValue"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/textViewSurnameValue"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                android:text="" />
+        </LinearLayout>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="5dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textViewAboutTrainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="O trenerze:"
+            android:textSize="20sp"
+
+            android:textStyle="bold"/>
+        </LinearLayout>
+    </TableLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/textViewAboutTrainerValue"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="20sp"
+            android:text="TextView"
+            />
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:layout_weight="0.1"
+            android:orientation="horizontal">
+
             <Button
                 android:id="@+id/buttonBack"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="10dp"
                 android:text="Wróć" />
@@ -63,11 +161,10 @@
             <Button
                 android:id="@+id/buttonSign"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="10dp"
                 android:text="Zapisz się" />
         </LinearLayout>
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

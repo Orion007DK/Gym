@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activites.MainActivity">
+    tools:context=".activites.MainActivity"
+    >
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,7 +24,7 @@
             <xyz.sahildave.arclayout.ArcLayout
                 android:id="@+id/arc_layout"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="200dp"
                 app:arc_cropCurve="cropConcave"
                 app:arc_height="20dp"
                 app:arc_position="bottom"
@@ -69,15 +70,28 @@
                     android:text="Adres e-mail:"
                     android:textSize="20dp"/>
 
-                <EditText
-                    android:id="@+id/editTextEmail"
+                <ss.anoop.awesometextinputlayout.AwesomeTextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
-                    android:drawableLeft="@drawable/ic_email"
-                    android:hint="e-mail address"/>
+                    app:borderColor="@color/colorPrimary"
+                    app:borderWidth="2dp"
+                    app:cornerRadius="8dp"
+                    android:padding="16dp">
+
+                    <EditText
+                        android:id="@+id/editTextEmailk"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text=""
+                        android:drawableRight="@drawable/ic_email"
+                        android:hint="e-mail address"/>
+
+
+
+                </ss.anoop.awesometextinputlayout.AwesomeTextInputLayout>
+
 
                 <TextView
                     android:id="@+id/textViewPassword"
@@ -86,6 +100,14 @@
                     android:text="Hasło:"
                     android:textSize="20dp" />
 
+                <ss.anoop.awesometextinputlayout.AwesomeTextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:borderColor="@color/colorPrimary"
+                    app:borderWidth="2dp"
+                    app:cornerRadius="8dp"
+                    android:padding="16dp">
+
                 <EditText
                     android:id="@+id/editTextPassword"
                     android:layout_width="match_parent"
@@ -93,8 +115,10 @@
                     android:ems="10"
                     android:inputType="textPassword"
                     android:hint="password"
-                    android:drawableLeft="@drawable/ic_password"
+                    android:drawableRight="@drawable/ic_password"
+
                     />
+                </ss.anoop.awesometextinputlayout.AwesomeTextInputLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -111,15 +135,30 @@
                         android:id="@+id/checkBoxSavePassword"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:buttonTint="@color/colorPrimary"
                         android:text="Zapamiętaj hasło"
                         android:layout_gravity="right"/>
                 </LinearLayout>
-
+<!--
                 <Button
                     android:id="@+id/buttonLogIn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Zaloguj"/>
+-->
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonLogIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Zaloguj"
+                    app:circular="false"
+                    app:end_color="#1CBC7C"
+                    android:textColor="#FFFFFF"
+                    app:filled="true"
+                    app:orientation="top_bottom"
+                    app:start_color="@color/colorPrimary"
+                    app:stroke="3dp" />
+
 
                 <LinearLayout
                     android:layout_width="match_parent"

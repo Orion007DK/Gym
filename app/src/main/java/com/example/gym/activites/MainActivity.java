@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         kenBurnsViewInit();
-        showSoftKeyboard(findViewById(R.id.editTextEmail));
+        //showSoftKeyboard(findViewById(R.id.editTextEmail));
      //   Toolbar toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
         register = findViewById(R.id.textViewRegister);
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 //background.execute(email,password);
                /// registerReceiver(broadcastReceiver, filter);
                // readUsers();
-                getUSerId();
+               // getUSerId();
 
 
 

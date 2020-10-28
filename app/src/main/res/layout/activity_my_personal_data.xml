@@ -40,6 +40,14 @@
                     android:text="Imię:"
                     android:textSize="20dp" />
 
+                <ss.anoop.awesometextinputlayout.AwesomeTextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:borderColor="@color/colorPrimary"
+                    app:borderWidth="2dp"
+                    app:cornerRadius="8dp"
+                    android:padding="16dp">
+
                 <EditText
                     android:id="@+id/editTextName"
                     android:layout_width="match_parent"
@@ -49,12 +57,22 @@
                     android:paddingLeft="10dp"
                     android:inputType="textPersonName" />
 
+                </ss.anoop.awesometextinputlayout.AwesomeTextInputLayout>
+
                 <TextView
                     android:id="@+id/textViewSurname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Nazwisko:"
                     android:textSize="20dp" />
+
+                <ss.anoop.awesometextinputlayout.AwesomeTextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:borderColor="@color/colorPrimary"
+                    app:borderWidth="2dp"
+                    app:cornerRadius="8dp"
+                    android:padding="16dp">
 
                 <EditText
                     android:id="@+id/editTextSurname"
@@ -65,12 +83,22 @@
                     android:paddingLeft="10dp"
                     android:inputType="textPersonName" />
 
+                </ss.anoop.awesometextinputlayout.AwesomeTextInputLayout>
+
                 <TextView
                     android:id="@+id/textViewEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Adres email:"
                     android:textSize="20dp" />
+
+                <ss.anoop.awesometextinputlayout.AwesomeTextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:borderColor="@color/colorPrimary"
+                    app:borderWidth="2dp"
+                    app:cornerRadius="8dp"
+                    android:padding="16dp">
 
                 <EditText
                     android:id="@+id/editTextEmail"
@@ -81,12 +109,22 @@
                     android:paddingLeft="10dp"
                     android:inputType="textWebEmailAddress" />
 
+                </ss.anoop.awesometextinputlayout.AwesomeTextInputLayout>
+
                 <TextView
                     android:id="@+id/textViewPhoneNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Numer telefonu:"
                     android:textSize="20dp" />
+
+                <ss.anoop.awesometextinputlayout.AwesomeTextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:borderColor="@color/colorPrimary"
+                    app:borderWidth="2dp"
+                    app:cornerRadius="8dp"
+                    android:padding="16dp">
 
                 <EditText
                     android:id="@+id/editTextPhoneNumber"
@@ -96,6 +134,8 @@
                     android:hint="eq. 764237862"
                     android:paddingLeft="10dp"
                     android:inputType="numberDecimal" />
+
+                </ss.anoop.awesometextinputlayout.AwesomeTextInputLayout>
 
 
                 <TextView
