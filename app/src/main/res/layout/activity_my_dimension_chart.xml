@@ -30,12 +30,15 @@
         app:spinner_divider_color="#FFFFFF"
         app:spinner_divider_show="true"
         app:spinner_divider_size="0.4dp"
-        app:spinner_item_array="@array/statisticsDataNames"
+
         app:spinner_popup_animation="dropdown"
         app:spinner_popup_background="#5C57D8"
         app:spinner_popup_elevation="14dp"
         app:spinner_arrow_animate="true" />
 
+
+
+       <!--   app:spinner_item_array="@array/statisticsDataNames"-->
      <com.anychart.anychart.AnyChartView
      android:id="@+id/any_chart_view"
      android:layout_width="match_parent"

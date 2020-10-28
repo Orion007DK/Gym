@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
@@ -7,15 +9,31 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:orientation="horizontal"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/trainers_list_one_line_background"
         android:padding="10dp"
+        android:weightSum="5"
         >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="4">
+
+            <ss.anoop.avtarview.AvtarView
+                android:id="@+id/avtarViewTrainer"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/gym1"
+                android:layout_gravity="center|end"
+                app:useSingleLetter="true"
+                app:text="1"
+                 />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textViewName"
@@ -24,8 +42,9 @@
             android:layout_weight="1"
             android:text="TextView"
             android:textSize="20sp"
-            android:textAlignment="center"/>
-
+            android:gravity="center|start"
+            android:textAlignment="textStart"/>
+<!--
         <TextView
             android:id="@+id/textViewSurname"
             android:layout_width="match_parent"
@@ -33,7 +52,9 @@
             android:layout_weight="1"
             android:text="TextView"
             android:textSize="20dp"
+            android:gravity="center"
             android:textAlignment="center"/>
+            -->
     </LinearLayout>
 
 </LinearLayout>

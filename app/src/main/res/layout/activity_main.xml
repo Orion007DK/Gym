@@ -17,7 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-
             >
 
 
@@ -152,11 +151,11 @@
                     android:layout_height="wrap_content"
                     android:text="Zaloguj"
                     app:circular="false"
-                    app:end_color="#1CBC7C"
-                    android:textColor="#FFFFFF"
+                    app:end_color="@color/buttonEndColor"
+                    android:textColor="@color/buttonTextColor"
                     app:filled="true"
                     app:orientation="top_bottom"
-                    app:start_color="@color/colorPrimary"
+                    app:start_color="@color/buttonStartColor"
                     app:stroke="3dp" />
 
 
@@ -184,8 +183,9 @@
                         android:textColor="#0D29DD" />
                 </LinearLayout>
 
-
             </LinearLayout>
+
+
         </LinearLayout>
 
     </ScrollView>

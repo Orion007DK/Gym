@@ -56,6 +56,7 @@ public class GymDetailFragment extends Fragment {
         }
     };
 
+    private static String loremIpsum="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fringilla rutrum neque sit amet viverra. Integer neque purus, tristique eget ante ac, pharetra rhoncus felis. Vestibulum lacinia tellus condimentum lobortis congue. In hac habitasse platea dictumst. Nullam est nulla, cursus eget pretium sed, congue non ante. Vivamus ac ligula et nisl varius vestibulum. Vestibulum vitae tellus vitae ligula ultricies blandit vitae at ligula. Integer faucibus fringilla eleifend. Morbi vehicula aliquet consectetur. ";
 
 
     public void setText(String textName, Address address, String aboutGym) {
@@ -64,7 +65,7 @@ public class GymDetailFragment extends Fragment {
         TextView textViewAboutGym = getView().findViewById(R.id.textViewAboutGymValue);
         textViewName.setText(textName);
         textViewSurname.setText(address.getStringAddress());
-        textViewAboutGym.setText(aboutGym);
+        textViewAboutGym.setText(loremIpsum);
     }
 
     private void landscapeConfiguration(View view) {

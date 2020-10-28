@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.anychart.anychart.AnyChart;
@@ -44,6 +46,8 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.skydoves.powerspinner.IconSpinnerAdapter;
+import com.skydoves.powerspinner.IconSpinnerItem;
 import com.skydoves.powerspinner.OnSpinnerItemSelectedListener;
 import com.skydoves.powerspinner.PowerSpinnerView;
 import com.skydoves.powerspinner.SpinnerAnimation;
@@ -67,7 +71,7 @@ public class MyDimensionChartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_dimension_chart);
 
-        spinnerDataNamesInit();
+       spinnerDataNamesInit();
         arrayListsInit();
 
 /*
@@ -128,7 +132,7 @@ public class MyDimensionChartActivity extends AppCompatActivity {
         data.add(new ValueDataEntry("Eyeshadows", 249980));*/
 
 
-        CartesianSeriesColumn column = cartesian.column(data);
+       CartesianSeriesColumn column = cartesian.column(data);
 
 
        /*Tooltip tp = new Tooltip().setTitle("{%X}")
@@ -139,13 +143,13 @@ public class MyDimensionChartActivity extends AppCompatActivity {
                 .setFormat("${%Value}{groupsSeparator: }");
 
         column.setTooltip(tp);
-        */
+
 
        column.getTooltip()
                 .setTitle(true)
                 .setPosition(Position.CENTER_BOTTOM)
                 .setAnchor(EnumsAnchor.CENTER_BOTTOM)
-                .setFormat("{%Value}");
+               .setFormat("{%Value}");
 
 
 
@@ -158,7 +162,7 @@ public class MyDimensionChartActivity extends AppCompatActivity {
                 .format("${%Value}{groupsSeparator: }");
 */
 
-        cartesian.setAnimation(true);
+      cartesian.setAnimation(true);
         //cartesian.animation();
 
         cartesian.setTitle(("Pomiary wagi"));
@@ -191,8 +195,7 @@ public class MyDimensionChartActivity extends AppCompatActivity {
         xZoom.setToPointsCount((double)4, false, null);
 
         anyChartView.setChart(cartesian);
-
-
+        Log.e("t","uy");
 
 /*
         //Dobry graf liniowy
@@ -302,8 +305,22 @@ public class MyDimensionChartActivity extends AppCompatActivity {
      //   leftAxis.setValueFormatter(new ClaimsYAxisValueFormatter());
 */
     }
+
         private void spinnerDataNamesInit(){
             PowerSpinnerView powerSpinnerView = findViewById(R.id.powerSpinnerDataNames);
+            List<String> dataTypesList= new ArrayList<>();
+            dataTypesList.add("Waga");
+            dataTypesList.add("Wzrost");
+
+            List<IconSpinnerItem> iconSpinnerItems = new ArrayList<>();
+            iconSpinnerItems.add(new IconSpinnerItem(null, "item1"));
+            iconSpinnerItems.add(new IconSpinnerItem(null, "item2"));
+
+            IconSpinnerAdapter iconSpinnerAdapter = new IconSpinnerAdapter(powerSpinnerView);
+            powerSpinnerView.setSpinnerAdapter(iconSpinnerAdapter);
+            powerSpinnerView.setItems(iconSpinnerItems);
+
+            //powerSpinnerView.setItems(dataTypesList);
             powerSpinnerView.setSpinnerPopupAnimation(SpinnerAnimation.FADE);
             powerSpinnerView.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener<String>() {
                 @Override public void onItemSelected(int position, String item) {

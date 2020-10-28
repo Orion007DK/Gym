@@ -1,5 +1,6 @@
 package com.example.gym.activites.trainersList;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import androidx.fragment.app.Fragment;
 import com.example.gym.R;
 
 import java.util.List;
+
+import ss.anoop.avtarview.AvtarView;
 
 public class TrainersListAdapter extends ArrayAdapter<String> {
 
@@ -39,6 +42,7 @@ public class TrainersListAdapter extends ArrayAdapter<String> {
         View line;
         TextView textViewName;
         TextView textViewSurname;
+        AvtarView avtarView;
         //jeśli nie ma linii do przetworzenia(ponownego uzycia)
         if(convertView==null) {
             //tworzenie tzw. "pompki" do tworzenia listy ocen
@@ -51,11 +55,14 @@ public class TrainersListAdapter extends ArrayAdapter<String> {
             //jeśli jest linia, to użycie jej
             line=convertView;
         }
-        textViewName = line.findViewById(R.id.textViewName);
-        textViewSurname= line.findViewById(R.id.textViewSurname);
-        textViewName.setText(trainersListNames.get(position));
-        textViewSurname.setText(trainersListSurnames.get(position));
 
+
+        textViewName = line.findViewById(R.id.textViewName);
+     //   textViewSurname= line.findViewById(R.id.textViewSurname);
+        avtarView=line.findViewById(R.id.avtarViewTrainer);
+        textViewName.setText(trainersListNames.get(position)+" "+trainersListSurnames.get(position));
+     //   textViewSurname.setText(trainersListSurnames.get(position));
+        avtarView.setText(trainersListNames.get(position)+" "+trainersListSurnames.get(position));
         line.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
