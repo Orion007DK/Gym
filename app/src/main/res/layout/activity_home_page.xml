@@ -7,11 +7,12 @@
     tools:context=".activites.HomePageActivity">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingBottom="30dp">
 
@@ -28,7 +29,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:paddingLeft="60dp"
                 android:paddingRight="60dp">
@@ -46,63 +47,65 @@
                     />
 -->
 
-                <Button
-                    android:id="@+id/buttonGym"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Siłownia"
-                    android:textSize="@dimen/textSizeButton"
-                    android:fontFamily="@string/MainPageButtonFontFamily"
-                    />
 
+                    <Button
+                        android:id="@+id/buttonGym"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Siłownia"
+                        android:textSize="@dimen/textSizeButton"
+                        android:fontFamily="@string/MainPageButtonFontFamily"
+                        />
 
-                <Button
-                    android:id="@+id/buttonTrainingPlans"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Plany treningowe"
-                    android:fontFamily="@string/MainPageButtonFontFamily"
-                    android:textSize="@dimen/textSizeButton"/>
+                    <Button
+                        android:id="@+id/buttonTrainingPlans"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Plany treningowe"
+                        android:fontFamily="@string/MainPageButtonFontFamily"
+                        android:textSize="@dimen/textSizeButton"
 
-                <Button
-                    android:id="@+id/buttonTrainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Trener"
-                    android:textSize="@dimen/textSizeButton"
-                    android:fontFamily="@string/MainPageButtonFontFamily"/>
+                        />
 
-                <Button
-                    android:id="@+id/buttonClasses"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Zajęcia"
-                    android:textSize="@dimen/textSizeButton"
-                    android:fontFamily="@string/MainPageButtonFontFamily"/>
+                    <Button
+                        android:id="@+id/buttonTrainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Trener"
+                        android:textSize="@dimen/textSizeButton"
+                        android:fontFamily="@string/MainPageButtonFontFamily"/>
 
-                <Button
-                    android:id="@+id/buttonDiets"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Diety"
-                    android:textSize="@dimen/textSizeButton"
-                    android:fontFamily="@string/MainPageButtonFontFamily"/>
+                    <Button
+                        android:id="@+id/buttonClasses"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Zajęcia"
+                        android:textSize="@dimen/textSizeButton"
+                        android:fontFamily="@string/MainPageButtonFontFamily"/>
 
-                <Button
-                    android:id="@+id/buttonDietician"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Dietetyk"
-                    android:textSize="@dimen/textSizeButton"
-                    android:fontFamily="@string/MainPageButtonFontFamily"/>
+                    <Button
+                        android:id="@+id/buttonDiets"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Diety"
+                        android:textSize="@dimen/textSizeButton"
+                        android:fontFamily="@string/MainPageButtonFontFamily"/>
 
-                <Button
-                    android:id="@+id/buttonMyProfile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Mój profil"
-                    android:textSize="@dimen/textSizeButton"
-                    android:fontFamily="@string/MainPageButtonFontFamily"/>
+                    <Button
+                        android:id="@+id/buttonDietician"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Dietetyk"
+                        android:textSize="@dimen/textSizeButton"
+                        android:fontFamily="@string/MainPageButtonFontFamily"/>
+
+                    <Button
+                        android:id="@+id/buttonMyProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Mój profil"
+                        android:textSize="@dimen/textSizeButton"
+                        android:fontFamily="@string/MainPageButtonFontFamily"/>
             </LinearLayout>
         </LinearLayout>
 

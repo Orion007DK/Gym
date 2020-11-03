@@ -31,6 +31,10 @@ public class HomePageActivity extends OptionsMenuActivity {
         onClickListenersInit();
     }
 
+    @Override
+    public void onBackPressed() {
+    }
+
     private void idInit(){
         buttonGym = findViewById(R.id.buttonGym);
         buttonTrainingPlans=findViewById(R.id.buttonTrainingPlans);

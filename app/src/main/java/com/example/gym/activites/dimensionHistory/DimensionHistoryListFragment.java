@@ -15,9 +15,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.gym.Dimensions;
 import com.example.gym.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 public class DimensionHistoryListFragment extends Fragment {
@@ -36,6 +38,12 @@ public class DimensionHistoryListFragment extends Fragment {
             dimensionHistoryListsInit();
 
         listView = view.findViewById(R.id.listViewDimensionsHistory);
+
+        ArrayList<Dimensions> dimensionsArrayList = new ArrayList<>();
+        dimensionsArrayList.add(new Dimensions(new Date(2003-1900,1,2)));
+        dimensionsArrayList.add(new Dimensions(new Date(2007-1900,7,5)));
+
+
         dimensionsHistoryListAdapter=new DimensionsHistoryListAdapter((AppCompatActivity)view.getContext(),dimensionsHistoryDates,this);
         listView.setAdapter(dimensionsHistoryListAdapter);
 
@@ -45,7 +53,7 @@ public class DimensionHistoryListFragment extends Fragment {
     }
 
     public interface DimensionsHistoryListFragmentActivityListener{
-        public void onItemSelected(Date date);
+        public void onItemSelected(Date date, String height, String weight, String adiposeTissue, String muscleTissue, String bodyWaterPercentage);
     }
 
     public void onAttach(@NonNull Activity activity) {
@@ -58,7 +66,7 @@ public class DimensionHistoryListFragment extends Fragment {
     }
 
     public void updateDetail(Date date) {
-        listFragmentActivityListener.onItemSelected(date);
+        listFragmentActivityListener.onItemSelected(date, null, null, null, null, null);
     }
 
     private void landscapeConfiguration(View view){

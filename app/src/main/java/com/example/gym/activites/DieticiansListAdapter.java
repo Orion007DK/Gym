@@ -1,5 +1,6 @@
 package com.example.gym.activites;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,6 @@ public class DieticiansListAdapter extends ArrayAdapter<String> {
         this.dieticianListNames=names;
         this.dieticianListSurnames=surnames;
         this.fragmentParrent=fragment;
-
     }
 
     @NonNull

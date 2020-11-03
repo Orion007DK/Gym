@@ -25,6 +25,7 @@ public class GymHomePageActivity extends OptionsMenuActivity {
         setContentView(R.layout.activity_gym_home_page);
         idInit();
         buttonOnClickListenersInit();
+
     }
 
     private void idInit(){

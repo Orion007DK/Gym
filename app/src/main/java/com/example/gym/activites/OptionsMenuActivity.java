@@ -1,6 +1,9 @@
 package com.example.gym.activites;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -9,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.gym.Constants;
 import com.example.gym.R;
 import com.example.gym.activites.trainersList.TrainersListActivity;
 
@@ -18,8 +22,14 @@ public class OptionsMenuActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.general_menu, menu);
+        MenuItem menuItem = menu.findItem(R.id.optionLogout);
+        String name=getSharedPreferences(Constants.USER_DATA,Context.MODE_PRIVATE).getString(Constants.USER_NAME, null);
+        String surname=getSharedPreferences(Constants.USER_DATA,Context.MODE_PRIVATE).getString(Constants.USER_SURNAME, null);
+        if(name!=null)
+            menuItem.setTitle(menuItem.getTitle()+"("+name+" "+surname+")");
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -58,6 +68,16 @@ public class OptionsMenuActivity extends AppCompatActivity {
             }
             case R.id.optionMyProfile:{
                 goToMyProfileActivity();
+                return true;
+            }
+
+            case R.id.optionLogout:{
+                SharedPreferences data = getSharedPreferences(Constants.USER_DATA, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = data.edit();
+                editor.clear();
+                editor.commit();
+                Intent nextActivityIntent = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(nextActivityIntent);
                 return true;
             }
 

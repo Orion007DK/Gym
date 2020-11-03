@@ -78,7 +78,7 @@
                     android:padding="16dp">
 
                     <EditText
-                        android:id="@+id/editTextEmailk"
+                        android:id="@+id/editTextEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
