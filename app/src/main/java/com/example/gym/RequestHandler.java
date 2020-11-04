@@ -1,5 +1,7 @@
 package com.example.gym;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
@@ -53,9 +55,9 @@ public class RequestHandler {
             writer.close();
             os.close();
             int responseCode = conn.getResponseCode();
-
+            //Log.e("połączenie","?");
             if (responseCode == HttpsURLConnection.HTTP_OK) {
-
+                //Log.e("połączono","t");
                 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 sb = new StringBuilder();
                 String response;
@@ -63,7 +65,9 @@ public class RequestHandler {
                 while ((response = br.readLine()) != null) {
                     sb.append(response);
                 }
+                //Log.e("sb",sb.toString());
             }
+            // else   Log.e("NIE połączono",sb.toString());
 
         } catch (Exception e) {
             e.printStackTrace();

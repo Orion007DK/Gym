@@ -7,4 +7,5 @@
     <color name="buttonStartColor">#6200EE</color>
     <color name="buttonEndColor">#1CBC7C</color>
     <color name="buttonTextColor">#FFFFFF</color>
+    <color name="spots_dialog_color">#64C69A</color>
 </resources>

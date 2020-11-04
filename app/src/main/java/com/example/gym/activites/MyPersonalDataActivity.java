@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,7 +48,6 @@ public class MyPersonalDataActivity extends OptionsMenuActivity {
     private final static String GET_USER_DATA = "getUserData";
     private final static String UPDATE_USER_DATA = "updateUserData";
 
-    private static int ID=3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +75,11 @@ public class MyPersonalDataActivity extends OptionsMenuActivity {
         filter.addAction(UPDATE_USER_DATA); //dodanie akcji aktualizowania informacji o użytkowniku w bazie danych
         // registerReceiver(broadcastReceiver, new IntentFilter(NetworkService.NOTIFICATION));
         //registerReceiver(broadcastReceiver, filter); //zarejestrowanie odbiorcy ze stworzonym filtrem
-        getUserData(ID);
+
+        SharedPreferences data = getSharedPreferences(Constants.USER_DATA, Context.MODE_PRIVATE);
+        int id = data.getInt(Constants.USER_ID, -1);
+
+        getUserData(id);
 
     }
 
@@ -126,6 +130,7 @@ public class MyPersonalDataActivity extends OptionsMenuActivity {
         params.put("name", name);
         params.put("surname", surname);
         params.put("phoneNumber", phoneNumber);
+
         PerformNetworkRequest request = new PerformNetworkRequest(Constants.URL_UPDATE_USER, params, Constants.CODE_POST_REQUEST, getApplicationContext(), UPDATE_USER_DATA);
         Log.e("reqest","req");
         request.execute();
@@ -168,10 +173,13 @@ public class MyPersonalDataActivity extends OptionsMenuActivity {
             public void onClick(View v) {
                 if(changeDataCorrectWatcher.isChanged() && changeDataCorrectWatcher.isDataCorrect()){
                     setNewData(editTextName.getText().toString(), editTextSurname.getText().toString(), editTextEmail.getText().toString(), editTextPhoneNumber.getText().toString());
-                    buttonSaveChanges.setBackgroundColor(Color.BLUE);
+                    //buttonSaveChanges.setBackgroundColor(Color.BLUE);
+                    buttonSaveChanges.setTextColor(Color.WHITE);
                     buttonSaveChanges.setEnabled(false);
                     changeDataCorrectWatcher.setDataChanged(false);
-                    updateUserData(ID, editTextEmail.getText().toString(), editTextName.getText().toString(),  editTextSurname.getText().toString(), editTextPhoneNumber.getText().toString());
+                    SharedPreferences data = getSharedPreferences(Constants.USER_DATA, Context.MODE_PRIVATE);
+                    int id = data.getInt(Constants.USER_ID, -1);
+                    updateUserData(id, editTextEmail.getText().toString(), editTextName.getText().toString(),  editTextSurname.getText().toString(), editTextPhoneNumber.getText().toString());
                 }
             }
         });

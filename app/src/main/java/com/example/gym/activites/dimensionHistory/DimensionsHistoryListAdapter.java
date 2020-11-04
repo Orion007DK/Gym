@@ -13,22 +13,24 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.gym.Dimensions;
 import com.example.gym.R;
 
 import java.util.Date;
 import java.util.List;
 
-public class DimensionsHistoryListAdapter extends ArrayAdapter<Date> {
+public class DimensionsHistoryListAdapter extends ArrayAdapter<Dimensions> {
 
     private AppCompatActivity context;
-    private List<Date> dimensionsHistoryListDates;
+   // private List<Date> dimensionsHistoryListDates;
+    private List<Dimensions> dimensionsList;
     private Fragment fragmentParrent; //fragment nadrzędny, do którego należy adapter
 
 
-    public DimensionsHistoryListAdapter(@NonNull AppCompatActivity context, @NonNull List<Date> dates, Fragment fragment) {
-        super(context, R.layout.dimensions_history_one_line, dates);
+    public DimensionsHistoryListAdapter(@NonNull AppCompatActivity context, @NonNull List<Dimensions> dimensions, Fragment fragment) {
+        super(context, R.layout.dimensions_history_one_line, dimensions);
         this.context=context;
-        this.dimensionsHistoryListDates=dates;
+        this.dimensionsList=dimensions;
         this.fragmentParrent=fragment;
     }
 
@@ -49,13 +51,13 @@ public class DimensionsHistoryListAdapter extends ArrayAdapter<Date> {
             line=convertView;
         }
         textViewDate = line.findViewById(R.id.textViewDate);
-        String stringDate = DateFormat.format("dd.MM.yyyy",dimensionsHistoryListDates.get(position)).toString();
-        textViewDate.setText(stringDate);
+        //String stringDate = DateFormat.format("dd.MM.yyyy",dimensionsList.get(position).getDate()).toString();
+        textViewDate.setText(dimensionsList.get(position).getStringDate());
         line.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, dimensionsHistoryListDates.get(position).toString(),Toast.LENGTH_SHORT).show();
-                ((DimensionHistoryListFragment) fragmentParrent).updateDetail(dimensionsHistoryListDates.get(position));
+                //Toast.makeText(context, dimensionsHistoryListDates.get(position).toString(),Toast.LENGTH_SHORT).show();
+                ((DimensionHistoryListFragment) fragmentParrent).updateDetail(dimensionsList.get(position));
             }
         });
         return line;

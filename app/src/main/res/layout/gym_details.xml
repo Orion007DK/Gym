@@ -140,7 +140,7 @@
         android:gravity="bottom"
         android:baselineAligned="false"
         android:orientation="horizontal">
-
+<!--
         <Button
             android:id="@+id/buttonBack"
             android:layout_width="match_parent"
@@ -148,7 +148,25 @@
             android:layout_weight="1"
             android:padding="10dp"
             android:text="Wróć" />
-
+-->
+        <com.bartbergmans.gradientbutton.views.GradientButton
+            android:id="@+id/buttonSign"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Zapisz się"
+            app:circular="false"
+            app:end_color="@color/buttonEndColor"
+            android:textColor="@color/buttonTextColor"
+            app:filled="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:layout_weight="2"
+            app:orientation="top_bottom"
+            app:start_color="@color/buttonStartColor"
+            app:stroke="3dp" />
+<!--
         <Button
             android:id="@+id/buttonSign"
             android:layout_width="match_parent"
@@ -156,6 +174,7 @@
             android:layout_weight="1"
             android:padding="10dp"
             android:text="Zapisz się" />
+            -->
     </LinearLayout>
 </LinearLayout>
     </ScrollView>

@@ -3,6 +3,8 @@ package com.example.gym.changePersonalDataWatchers;
 import android.graphics.Color;
 import android.widget.Button;
 
+import com.bartbergmans.gradientbutton.views.GradientButton;
+
 public class ChangeDataCorrectWatcher {
 
     private boolean nameCorrect=true;
@@ -72,14 +74,17 @@ public class ChangeDataCorrectWatcher {
             buttonSaveChanges.setEnabled(true);
             if (isValidated()) {
                 dataCorrect = true;
-                buttonSaveChanges.setBackgroundColor(Color.GREEN);
+                //buttonSaveChanges.setBackgroundColor(Color.GREEN);
+                buttonSaveChanges.setTextColor(Color.GREEN);
             } else {
                 dataCorrect = false;
-                buttonSaveChanges.setBackgroundColor(Color.GRAY);
+                buttonSaveChanges.setTextColor(Color.RED);
+                //buttonSaveChanges.setBackgroundColor(Color.GRAY);
             }
         } else {
             dataChanged=false;
-            buttonSaveChanges.setBackgroundColor(Color.BLUE);//zmienić na początkowy kolor
+            buttonSaveChanges.setTextColor(Color.WHITE);
+          //  buttonSaveChanges.setBackgroundColor(Color.BLUE);//zmienić na początkowy kolor
             buttonSaveChanges.setEnabled(false);
         }
 

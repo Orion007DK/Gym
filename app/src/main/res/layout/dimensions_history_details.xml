@@ -18,24 +18,34 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@string/FontFamilyTitle"
                 android:paddingTop="50dp"
-                android:paddingBottom="50dp"
                 android:text="Wymiary"
                 android:textAlignment="center"
                 android:textSize="@dimen/textSizeTitle" />
+
+            <TextView
+                android:id="@+id/textViewDateValue"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:gravity="top|center"
+                android:textSize="20dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:paddingLeft="60dp"
+                android:paddingTop="50dp"
                 android:paddingRight="60dp">
 
                 <TextView
                     android:id="@+id/textViewHeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:text="Wzrost:"
-                    android:textSize="20dp" />
+                    android:textSize="24dp" />
 
                 <TextView
                     android:id="@+id/textViewHeightValue"
@@ -44,14 +54,16 @@
                     android:ems="10"
                     android:paddingLeft="10dp"
                     android:textSize="20dp"
+                    android:paddingBottom="5dp"
                     />
 
                 <TextView
                     android:id="@+id/textViewWeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:text="Waga:"
-                    android:textSize="20dp" />
+                    android:textSize="24dp" />
 
                 <TextView
                     android:id="@+id/textViewWeightValue"
@@ -60,14 +72,16 @@
                     android:ems="10"
                     android:paddingLeft="10dp"
                     android:textSize="20dp"
+                    android:paddingBottom="5dp"
                     />
 
                 <TextView
                     android:id="@+id/textViewAdiposeTissue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:text="Poziom tkanki tłuszczowej[%]:"
-                    android:textSize="20dp" />
+                    android:textSize="24dp" />
 
                 <TextView
                     android:id="@+id/textViewAdiposeTissueValue"
@@ -75,14 +89,16 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:textSize="20dp"
-                    android:paddingLeft="10dp" />
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="5dp"/>
 
                 <TextView
                     android:id="@+id/textViewMuscleTissue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:text="Poziom tkanki mięśniowej[%]:"
-                    android:textSize="20dp" />
+                    android:textSize="24dp" />
 
                 <TextView
                     android:id="@+id/textViewMuscleTissueValue"
@@ -90,14 +106,16 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:textSize="20dp"
-                    android:paddingLeft="10dp" />
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="5dp"/>
 
                 <TextView
                     android:id="@+id/textViewBodyWaterPercentage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:text="Poziom wody w ciele[%]:"
-                    android:textSize="20dp" />
+                    android:textSize="24dp" />
 
                 <TextView
                     android:id="@+id/textViewBodyWaterPercentageValue"
@@ -105,19 +123,21 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:textSize="20dp"
-                    android:paddingLeft="10dp" />
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="5dp"/>
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
-
+<!--
                     <TextView
                         android:id="@+id/textViewDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textStyle="bold"
                         android:text="Data:"
                         android:textSize="20dp"/>
 
@@ -127,6 +147,8 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:textSize="20dp" />
+
+                        -->
                 </LinearLayout>
 
             </LinearLayout>

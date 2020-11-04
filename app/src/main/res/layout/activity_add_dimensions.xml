@@ -40,8 +40,16 @@
                     android:text="Wzrost[cm]:"
                     android:textSize="20dp" />
 
+                <ss.anoop.awesometextinputlayout.AwesomeTextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:borderColor="@color/colorPrimary"
+                    app:borderWidth="2dp"
+                    app:cornerRadius="8dp"
+                    android:padding="16dp">
+
                 <EditText
-                    android:id="@+id/editTextName"
+                    android:id="@+id/editTextHeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -49,12 +57,22 @@
                     android:paddingLeft="10dp"
                     android:inputType="numberDecimal" />
 
+                </ss.anoop.awesometextinputlayout.AwesomeTextInputLayout>
+
                 <TextView
                     android:id="@+id/textViewWeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Waga[kg]:"
                     android:textSize="20dp" />
+
+                <ss.anoop.awesometextinputlayout.AwesomeTextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:borderColor="@color/colorPrimary"
+                    app:borderWidth="2dp"
+                    app:cornerRadius="8dp"
+                    android:padding="16dp">
 
                 <EditText
                     android:id="@+id/editTextWeight"
@@ -65,12 +83,22 @@
                     android:paddingLeft="10dp"
                     android:inputType="numberDecimal" />
 
+                </ss.anoop.awesometextinputlayout.AwesomeTextInputLayout>
+
                 <TextView
                     android:id="@+id/textViewAdiposeTissue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Poziom tkanki tłuszczowej[%]:"
                     android:textSize="20dp" />
+
+                <ss.anoop.awesometextinputlayout.AwesomeTextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:borderColor="@color/colorPrimary"
+                    app:borderWidth="2dp"
+                    app:cornerRadius="8dp"
+                    android:padding="16dp">
 
                 <EditText
                     android:id="@+id/editTextAdiposeTissue"
@@ -81,6 +109,8 @@
                     android:paddingLeft="10dp"
                     android:inputType="numberDecimal" />
 
+                </ss.anoop.awesometextinputlayout.AwesomeTextInputLayout>
+
                 <TextView
                     android:id="@+id/textViewMuscleTissue"
                     android:layout_width="match_parent"
@@ -88,14 +118,24 @@
                     android:text="Poziom tkanki mięśniowej[%]:"
                     android:textSize="20dp" />
 
+                <ss.anoop.awesometextinputlayout.AwesomeTextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:borderColor="@color/colorPrimary"
+                    app:borderWidth="2dp"
+                    app:cornerRadius="8dp"
+                    android:padding="16dp">
+
                 <EditText
                     android:id="@+id/editTextMuscleTissue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="eq. 20%"
+                    android:hint="Muscle tissue"
                     android:paddingLeft="10dp"
                     android:inputType="numberDecimal" />
+
+                </ss.anoop.awesometextinputlayout.AwesomeTextInputLayout>
 
                 <TextView
                     android:id="@+id/textViewBodyWaterPercentage"
@@ -104,34 +144,62 @@
                     android:text="Poziom wody w ciele[%]:"
                     android:textSize="20dp" />
 
+                <ss.anoop.awesometextinputlayout.AwesomeTextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:borderColor="@color/colorPrimary"
+                    app:borderWidth="2dp"
+                    app:cornerRadius="8dp"
+                    android:padding="16dp">
+
                 <EditText
                     android:id="@+id/editTextBodyWaterPercentage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="eq. 20%"
+                    android:hint="Body water percentage"
                     android:paddingLeft="10dp"
                     android:inputType="numberDecimal" />
+
+                </ss.anoop.awesometextinputlayout.AwesomeTextInputLayout>
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp"
+                    android:weightSum="2">
 
                     <TextView
                         android:id="@+id/textViewInvisible"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="1.2"
                         android:text="" />
 
+                    <com.bartbergmans.gradientbutton.views.GradientButton
+                        android:id="@+id/buttonSaveChanges"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Zapisz"
+                        app:circular="false"
+                        app:end_color="@color/buttonEndColor"
+                        android:textColor="@color/buttonTextColor"
+                        app:filled="true"
+                        android:layout_weight="1"
+                        android:layout_gravity="end"
+                        app:start_color="@color/buttonStartColor"
+                        app:stroke="3dp" />
+<!--
                     <Button
                         android:id="@+id/buttonSaveChanges"
                         android:layout_width="170dp"
                         android:layout_height="wrap_content"
-                        android:enabled="false"
+                        android:enabled="true"
                         android:text="Zapisz" />
+
+                        -->
                 </LinearLayout>
 
             </LinearLayout>

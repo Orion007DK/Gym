@@ -13,5 +13,21 @@
         <item name="android:typeface">monospace</item>
         <item name="android:textSize">10sp</item>
     </style>
+    <style name="Custom" parent="android:Theme.DeviceDefault.Dialog">
+        <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
+        <item name="DialogTitleText">Proszę czekać</item>
+        <item name="android:windowBackground">#806200EE</item>
+        <item name="DialogSpotColor">#FFFFFF</item>
+        <item name="DialogSpotCount">8</item>
+    </style>
+
+<!--
+    <style name="Custom" parent="android:Theme.DeviceDefault.Dialog">
+        <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
+        <item name="DialogTitleText">Proszę czekać</item>
+        <item name="DialogSpotColor">@android:color/holo_orange_dark</item>
+        <item name="DialogSpotCount">8</item>
+    </style>
+-->
 
 </resources>

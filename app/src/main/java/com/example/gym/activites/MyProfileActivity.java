@@ -64,7 +64,12 @@ public class MyProfileActivity extends OptionsMenuActivity {
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+       // super.onBackPressed();
+        Intent homePageActivityIntent = new Intent(this, HomePageActivity.class);
+        startActivity(homePageActivityIntent);
+    }
 
     private void idInit(){
     buttonMyPersonalData=findViewById(R.id.buttonMyPersonalData);

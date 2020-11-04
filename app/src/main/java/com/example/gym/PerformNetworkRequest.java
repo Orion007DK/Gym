@@ -73,7 +73,6 @@ public class PerformNetworkRequest extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... voids) {
         RequestHandler requestHandler = new RequestHandler();
-
         if (requestCode == Constants.CODE_POST_REQUEST)
             return requestHandler.sendPostRequest(url, params);
 

@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.gym.Dimensions;
 import com.example.gym.R;
 
 public class DimensionsHistoryDetailFragment extends Fragment {
@@ -25,19 +26,19 @@ public class DimensionsHistoryDetailFragment extends Fragment {
         return  view;
     }
 
-    public void setText(String textHeight, String textWeight, String textAdiposeTissue, String textMuscleTissue, String textBodyWaterPercentage, String textDate){
+    public void setText(Dimensions dimensions){
         TextView textViewHeighValue = getView().findViewById(R.id.textViewHeightValue);
         TextView textViewWeightValue= getView().findViewById(R.id.textViewWeightValue);
         TextView textViewAdiposeTissueValue = getView().findViewById(R.id.textViewAdiposeTissueValue);
         TextView textViewMuscleTissueValue= getView().findViewById(R.id.textViewMuscleTissueValue);
         TextView textViewBodyWaterPercentageValue = getView().findViewById(R.id.textViewBodyWaterPercentageValue);
         TextView textViewDate = getView().findViewById(R.id.textViewDateValue);
-        textViewHeighValue.setText(textHeight);
-        textViewWeightValue.setText(textWeight);
-        textViewAdiposeTissueValue.setText(textAdiposeTissue);
-        textViewMuscleTissueValue.setText(textMuscleTissue);
-        textViewBodyWaterPercentageValue.setText(textBodyWaterPercentage);
-        textViewDate.setText(textDate);
+        textViewHeighValue.setText(dimensions.getHeightWithoutNull());
+        textViewWeightValue.setText(dimensions.getWeightWithoutNull());
+        textViewAdiposeTissueValue.setText(dimensions.getAdiposeTissueWithoutNull());
+        textViewMuscleTissueValue.setText(dimensions.getMuscleTissueWithoutNull());
+        textViewBodyWaterPercentageValue.setText(dimensions.getBodyWaterPercentageWithoutNull());
+        textViewDate.setText(dimensions.getStringDate());
     }
 
     private void landscapeConfiguration(View view){

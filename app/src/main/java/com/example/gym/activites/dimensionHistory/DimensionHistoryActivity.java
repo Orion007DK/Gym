@@ -7,6 +7,7 @@ import android.text.format.DateFormat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.gym.Dimensions;
 import com.example.gym.R;
 import com.example.gym.activites.OptionsMenuActivity;
 
@@ -32,13 +33,13 @@ public class DimensionHistoryActivity extends OptionsMenuActivity implements Dim
 
 
     @Override
-    public void onItemSelected(Date date, String height, String weight, String adiposeTissue, String muscleTissue, String bodyWaterPercentage) {
+    public void onItemSelected(Dimensions dimensions) {
         DimensionsHistoryDetailFragment dimensionsHistoryDetailFragment = (DimensionsHistoryDetailFragment)getSupportFragmentManager().findFragmentById(R.id.dimensionsHistoryDetailFragment);
         // jeżeli fragment istnieje w tej aktywności,
         // znaczy, że jesteśmy w trybie landscape
-        String stringDate= DateFormat.format("dd.MM.yyyy",date).toString();
+        //String stringDate= DateFormat.format("dd.MM.yyyy",dimensions.getDate()).toString();
         if(dimensionsHistoryDetailFragment!=null && dimensionsHistoryDetailFragment.isInLayout()){
-            dimensionsHistoryDetailFragment.setText(height,weight,adiposeTissue,muscleTissue,bodyWaterPercentage, stringDate);
+            dimensionsHistoryDetailFragment.setText(dimensions);
         } else {
             // w trybie portrait podmieniamy fragmenty w kontenerze
             setDimensionHistoryDetailFragment();
@@ -46,7 +47,7 @@ public class DimensionHistoryActivity extends OptionsMenuActivity implements Dim
             // i możemy korzystać z fragmentu
             getSupportFragmentManager().executePendingTransactions();
             // ustawiamy tekst fragmentu
-            ((DimensionsHistoryDetailFragment)this.currentFragment).setText(height,weight,adiposeTissue,muscleTissue,bodyWaterPercentage,stringDate);
+            ((DimensionsHistoryDetailFragment)this.currentFragment).setText(dimensions);
         }
     }
 

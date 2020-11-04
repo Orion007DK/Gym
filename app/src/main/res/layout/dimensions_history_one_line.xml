@@ -13,6 +13,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="5dp"
+        android:textSize="20dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/trainers_list_one_line_background"
         android:padding="10dp"
