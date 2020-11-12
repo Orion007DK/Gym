@@ -22,11 +22,40 @@
             android:textAlignment="center"
             android:textSize="@dimen/textSizeTitle" />
 
-        <ListView
-            android:id="@+id/listViewDiets"
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/listViewDiets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp" >
+
+            </ListView>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButtonAddDiet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:layout_margin="16dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:src="@drawable/add_sign" />
+
+            <TextView
+            android:id="@+id/emptyListViewText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="20dp" />
+            android:textAlignment="center"
+            android:layout_gravity="center|center_horizontal"
+                android:textSize="20dp"
+            android:text="Brak dodanych diet, dodasz jakąś?"
+            />
+        </FrameLayout>
+
+
+
     </LinearLayout>
 
 

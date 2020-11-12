@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.gym.GymWorker;
 import com.example.gym.R;
 import com.example.gym.activites.dimensionHistory.DimensionsHistoryDetailFragment;
 
@@ -27,12 +28,12 @@ public class DieticianListActivity extends AppCompatActivity implements Dieticia
     }
 
     @Override
-    public void onItemSelected(String name, String surname) {
+    public void onItemSelected(GymWorker dietician) {
         DieticiansDetailFragment fragment = (DieticiansDetailFragment) getSupportFragmentManager().findFragmentById(R.id.DieticianDetailsFragment);
         // jeżeli fragment istnieje w tej aktywności,
         // znaczy, że jesteśmy w trybie landscape
         if (fragment != null && fragment.isInLayout()) {
-            fragment.setText(name, surname);
+            fragment.setText(dietician);
         } else {
             // w trybie portrait podmieniamy fragmenty w kontenerze
             setDieticianDetailFragment();
@@ -40,7 +41,7 @@ public class DieticianListActivity extends AppCompatActivity implements Dieticia
             // i możemy korzystać z fragmentu
             getSupportFragmentManager().executePendingTransactions();
             // ustawiamy tekst fragmentu
-            ((DieticiansDetailFragment)currentFragment).setText(name,surname);
+            ((DieticiansDetailFragment)currentFragment).setText(dietician);
         }
     }
 

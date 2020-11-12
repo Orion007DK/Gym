@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.gym.activites.myDietsList.DietDaysListActivity;
+import com.example.gym.Constants;
 import com.example.gym.R;
 
 import java.util.List;
@@ -20,12 +20,14 @@ import java.util.List;
 public class DietsListAdapter extends ArrayAdapter<String> {
 
     private AppCompatActivity context;
-    private List<String> dietsListNames;
+    private List<String> dietsNamesList;
+    private List<Integer> dietsIdList;
 
-    public DietsListAdapter(@NonNull AppCompatActivity context, @NonNull List<String> dietsListNames) {
-        super(context, R.layout.diets_list_one_line, dietsListNames);
+    public DietsListAdapter(@NonNull AppCompatActivity context, @NonNull List<String> dietsNamesList, List<Integer> dietsIdList) {
+        super(context, R.layout.diets_list_one_line, dietsNamesList);
         this.context = context;
-        this.dietsListNames = dietsListNames;
+        this.dietsNamesList = dietsNamesList;
+        this.dietsIdList=dietsIdList;
     }
 
     @NonNull
@@ -40,21 +42,22 @@ public class DietsListAdapter extends ArrayAdapter<String> {
             //tworzenie pojedyńczej linii na podstawie XML-a
             line = inflater.inflate(R.layout.diets_list_one_line, null);
 
-
         } else {
             //jeśli jest linia, to użycie jej
             line=convertView;
         }
         textViewDietName = line.findViewById(R.id.textViewDietName);
-        textViewDietName.setText(dietsListNames.get(position));
+        textViewDietName.setText(dietsNamesList.get(position));
 
         line.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, dietsListNames.get(position),Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, dietsNamesList.get(position),Toast.LENGTH_SHORT).show();
                // ((DieticiansListFragment) fragmentParrent).updateDetail(dieticianListNames.get(position),dieticianListSurnames.get(position));
                 Intent dietDaysListActivityIntent = new Intent(getContext(), DietDaysListActivity.class);
-                dietDaysListActivityIntent.putExtra("dietName", dietsListNames.get(position));
+                dietDaysListActivityIntent.putExtra(Constants.BUNDLE_DIET_NAME, dietsNamesList.get(position));
+                dietDaysListActivityIntent.putExtra(Constants.BUNDLE_DIET_ID, dietsIdList.get(position));
+                dietDaysListActivityIntent.putExtra(Constants.BUNDLE_DIET_SUB_STATUS, false);
                 getContext().startActivity(dietDaysListActivityIntent);
             }
         });

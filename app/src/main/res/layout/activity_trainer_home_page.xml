@@ -50,6 +50,7 @@
                     android:fontFamily="@string/MainPageButtonFontFamily"
                     android:textSize="@dimen/textSizeButton"/>
 
+                <!--
                 <Button
                     android:id="@+id/buttonUnsubscribeFromTrainer"
                     android:layout_width="match_parent"
@@ -57,6 +58,7 @@
                     android:text="Wypisz się od trenera"
                     android:textSize="@dimen/textSizeButton"
                     android:fontFamily="@string/MainPageButtonFontFamily"/>
+          -->
             </LinearLayout>
         </LinearLayout>
 

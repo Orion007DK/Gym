@@ -1,4 +1,4 @@
-package com.example.gym.activites.myDietsList;
+package com.example.gym.activites.availableDietsList;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,17 +8,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.gym.activites.availableDietsList.AvailableDietsList;
 import com.example.gym.Constants;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
-import com.example.gym.activites.HomePageActivity;
 import com.example.gym.SharedPreferencesOperations;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,59 +26,50 @@ import java.util.Objects;
 
 import dmax.dialog.SpotsDialog;
 
+public class AvailableDietsList extends AppCompatActivity {
 
-public class MyDietsListActivity extends AppCompatActivity {
+    AvailableDietsListAdapter dietsListAdapter;
+
     ArrayList<String> dietNamesList = new ArrayList<>();
     ArrayList<Integer> dietIdList = new ArrayList<>();
-    DietsListAdapter dietsListAdapter;
+
     ListView dietListView;
-    TextView emptyListViewText;
-    private FloatingActionButton floatingActionButtonAddDiet;
-
     IntentFilter filter;
-
     private SpotsDialog progressDialog;
+    TextView emptyListViewText;
 
-    final private static String GET_USER_DIETS = "getUserDiets";
+    final private static String GET_USER_AVAILABLE_DIETS = "getUserAvailableDiets";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_diets_list);
-      //  dietListInit();
+        setContentView(R.layout.activity_available_diets_list);
 
         filter = new IntentFilter(); //utworzenie filtru zamiaru
-        filter.addAction(GET_USER_DIETS); //dodanie akcji od pobierania informacji o użytkownikach
+        filter.addAction(GET_USER_AVAILABLE_DIETS); //dodanie akcji od pobierania informacji o użytkownikach
 
 
-        floatingActionButtonAddDiet=findViewById(R.id.floatingActionButtonAddDiet);
+        //dietsListAdapter=new AvailableDietsListAdapter(AvailableDietsList.this, dietNamesList);
+        dietListView=findViewById(R.id.listViewAvailableDiets);
         emptyListViewText=findViewById(R.id.emptyListViewText);
-
-        dietListView=findViewById(R.id.listViewDiets);
-     //   dietsListAdapter=new DietsListAdapter(MyDietsListActivity.this, dietNamesList, dietIdList);
-     //   dietListView.setAdapter(dietsListAdapter);
-
-       // progressDialog = new SpotsDialog(MyDietsListActivity.this, R.style.Custom);
-        //progressDialog.show();
+        //dietListInit();
+       // dietListView.setAdapter(dietsListAdapter);
         getDiets();
+    }
 
-        floatingActionButtonAddDiet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent addDiets = new Intent(getApplicationContext(), AvailableDietsList.class);
-                startActivity(addDiets);
-            }
-        });
-       // dietListAdapter= new ArrayAdapter<>(getApplicationContext(), R.layout.diets_list_one_line,dietNamesList);
+    private void dietListInit(){
+        dietNamesList.add("Pierwsza dieta");
+        dietNamesList.add("Dieta niskokaloryczna");
+        dietNamesList.add("Dieta białkowa");
     }
 
     private void getDiets(){
-        progressDialog = new SpotsDialog(MyDietsListActivity.this, R.style.Custom);
+        progressDialog = new SpotsDialog(AvailableDietsList.this, R.style.Custom);
         progressDialog.show();
         registerReceiver(broadcastReceiver, filter);
         HashMap<String, String> params = new HashMap<>();
         params.put("userId", String.valueOf(SharedPreferencesOperations.getUserId(getApplicationContext())));
-        PerformNetworkRequest request = new PerformNetworkRequest(Constants.URL_GET_USER_DIETS, params, Constants.CODE_POST_REQUEST, getApplicationContext(), GET_USER_DIETS);
+        PerformNetworkRequest request = new PerformNetworkRequest(Constants.URL_GET_USER_AVAILABLE_DIETS, params, Constants.CODE_POST_REQUEST, getApplicationContext(), GET_USER_AVAILABLE_DIETS);
         request.execute();
         Log.e("getDiets","diets");
     }
@@ -92,7 +79,7 @@ public class MyDietsListActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             Log.e("rec","Start");
             Bundle bundle = intent.getExtras(); //pobranie pakunku danych z zamiaru
-            if (Objects.equals(intent.getAction(), GET_USER_DIETS)) {
+            if (Objects.equals(intent.getAction(), GET_USER_AVAILABLE_DIETS)) {
                 try {
                     Log.e("Reciever","tre");
                     String jsonstr =bundle.getString("JSON");
@@ -114,12 +101,13 @@ public class MyDietsListActivity extends AppCompatActivity {
                     Log.e("jsonArray: ",jsonArray.toString());
                     //Log.e("gymsArrayList: ",trainersArrayList.toString());
 
-                   // trainersListAdapter=new TrainersListAdapter(appContext, trainersArrayList, fragment);
+                    // trainersListAdapter=new TrainersListAdapter(appContext, trainersArrayList, fragment);
                     //listView.setAdapter(trainersListAdapter);
 
-                    dietsListAdapter=new DietsListAdapter(MyDietsListActivity.this, dietNamesList, dietIdList);
+                    dietsListAdapter=new AvailableDietsListAdapter(AvailableDietsList.this, dietNamesList, dietIdList);
                     dietListView.setAdapter(dietsListAdapter);
                     dietListView.setEmptyView(emptyListViewText);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -131,27 +119,6 @@ public class MyDietsListActivity extends AppCompatActivity {
             }
         }
     };
-
-    @Override
-    public void onBackPressed() {
-        Intent backIntent = new Intent(MyDietsListActivity.this, HomePageActivity.class);
-        startActivity(backIntent);
-        //super.onBackPressed();
-    }
-
-    private void dietListInit(){
-        dietNamesList.add("Pierwsza dieta");
-        dietNamesList.add("Dieta niskokaloryczna");
-        dietNamesList.add("Dieta białkowa");
-
-        dietIdList.add(1);
-        dietIdList.add(2);
-        dietIdList.add(3);
-
-    }
-
-
-
 
 
 }

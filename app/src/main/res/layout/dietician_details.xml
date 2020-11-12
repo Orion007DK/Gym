@@ -1,71 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ImageView
-        android:id="@+id/imageViewTrainerPhoto"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5"
-        app:srcCompat="@android:drawable/ic_menu_myplaces" />
-
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    >
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5"
-        android:orientation="vertical">
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:orientation="horizontal">
+            android:layout_height="0dp"
+            android:layout_weight="6"
+            android:paddingTop="30dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="10dp"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textViewName"
-                android:layout_width="match_parent"
+            <com.rishabhharit.roundedimageview.RoundedImageView
+                android:id="@+id/roundedViewTrainer"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="TextView" />
-
-            <TextView
-                android:id="@+id/textViewSurname"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="TextView" />
+                android:src="@drawable/trainer"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                app:cornerRadius="500dp"
+                app:roundedCorners="topRight|bottomLeft|topLeft|bottomRight"
+                />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textViewAboutDietician"
+            android:id="@+id/textViewNameSurnameValue"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:text="TextView" />
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:text="Imię i nazwisko"
+            android:textAlignment="center"/>
+
+
+
+        <!--
+            <ImageView
+                android:id="@+id/imageViewTrainerPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                app:srcCompat="@android:drawable/ic_menu_myplaces" />
+        -->
+
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
+            android:paddingTop="20dp"
+            >
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+            <TextView
+                android:id="@+id/textViewEmail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Email"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/textViewEmailValue"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text=""
+                android:textSize="20sp" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/textViewPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="Numer telefonu:" />
+
+            <TextView
+                android:id="@+id/textViewPhoneNumberValue"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="20sp"
+                android:text="" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="5dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+        </TableLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/textViewAboutDietician"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="O trenerze:"
+                android:textSize="20sp"
+
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/textViewAboutDieticianValue"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="20sp"
+                android:text="TextView"
+                />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/buttonBack"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:padding="10dp"
-                android:text="Wróć" />
-
-            <Button
+            <com.bartbergmans.gradientbutton.views.GradientButton
                 android:id="@+id/buttonSign"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Zapisz się"
+                app:circular="false"
+                app:end_color="@color/buttonEndColor"
+                android:textColor="@color/buttonTextColor"
+                app:filled="true"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
                 android:layout_weight="1"
-                android:padding="10dp"
-                android:text="Zapisz się" />
+                app:orientation="top_bottom"
+                app:start_color="@color/buttonStartColor"
+                app:stroke="3dp" />
+            <!--
+                 <Button
+                     android:id="@+id/buttonSign"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"
+                     android:padding="10dp"
+                     android:text="Zapisz się" />
+
+                     -->
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</ScrollView>

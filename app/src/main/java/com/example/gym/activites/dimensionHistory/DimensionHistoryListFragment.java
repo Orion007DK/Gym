@@ -1,13 +1,10 @@
 package com.example.gym.activites.dimensionHistory;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,10 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.annotation.Dimension;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -29,14 +24,12 @@ import com.example.gym.Constants;
 import com.example.gym.Dimensions;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
-import com.example.gym.activites.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
@@ -50,6 +43,7 @@ public class DimensionHistoryListFragment extends Fragment {
     private ArrayList<Date> dimensionsHistoryDates= new ArrayList<Date>();
     private DimensionsHistoryListFragmentActivityListener listFragmentActivityListener;
     private ArrayList<Dimensions> dimensionsArrayList = new ArrayList<>();
+
     IntentFilter filter;
     private AppCompatActivity appContext;
     private Fragment fragment;
@@ -141,8 +135,8 @@ public class DimensionHistoryListFragment extends Fragment {
 
     private void getUserAllDimensions(){
             getContext().registerReceiver(broadcastReceiver, filter);
-        if(getContext().getSharedPreferences(Constants.USER_DATA, Context.MODE_PRIVATE)!=null && getContext().getSharedPreferences(Constants.USER_DATA, Context.MODE_PRIVATE).getInt(Constants.USER_ID,-1)!=-1){
-            int userId=getContext().getSharedPreferences(Constants.USER_DATA, Context.MODE_PRIVATE).getInt(Constants.USER_ID,-1);
+        if(getContext().getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE)!=null && getContext().getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE).getInt(Constants.SP_USER_ID,-1)!=-1){
+            int userId=getContext().getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE).getInt(Constants.SP_USER_ID,-1);
             HashMap<String, String> params = new HashMap<>();
             params.put("userId", String.valueOf(userId));
             PerformNetworkRequest request = new PerformNetworkRequest(Constants.URL_GET_USER_ALL_DIMENSIONS, params, Constants.CODE_POST_REQUEST, getContext(), GET_USER_ALL_DIMENSIONS);

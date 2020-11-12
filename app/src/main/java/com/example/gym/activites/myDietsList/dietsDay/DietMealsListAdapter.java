@@ -1,5 +1,6 @@
 package com.example.gym.activites.myDietsList.dietsDay;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,22 +13,25 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.gym.Meal;
 import com.example.gym.R;
 
 import java.util.List;
 
-public class DietMealsListAdapter extends ArrayAdapter<String> {
+public class DietMealsListAdapter extends ArrayAdapter<Meal> {
 
     private AppCompatActivity context;
-    private List<String> mealsListNames;
-    private List<String> mealsListCalories;
+    //private List<String> mealsListNames;
+    //private List<String> mealsListCalories;
+    private List<Meal> mealsList;
     private Fragment fragmentParrent; //fragment nadrzędny, do którego należy adapter
 
-    public DietMealsListAdapter(@NonNull AppCompatActivity context, List<String> mealsListNames, List<String> mealsListCalories, Fragment fragment) {
-        super(context, R.layout.meals_list_one_line,mealsListNames);
+    public DietMealsListAdapter(@NonNull AppCompatActivity context,@NonNull List<Meal> mealsList, Fragment fragment) {
+        super(context, R.layout.meals_list_one_line, mealsList);
         this.context=context;
-        this.mealsListNames=mealsListNames;
-        this.mealsListCalories=mealsListCalories;
+        //this.mealsListNames=mealsListNames;
+        //this.mealsListCalories=mealsListCalories;
+        this.mealsList=mealsList;
         this.fragmentParrent=fragment;
     }
 
@@ -51,14 +55,14 @@ public class DietMealsListAdapter extends ArrayAdapter<String> {
         }
         textViewMealName = line.findViewById(R.id.textViewMealName);
         textViewMealCalories= line.findViewById(R.id.textViewMealCalories);
-        textViewMealName.setText(mealsListNames.get(position));
-        textViewMealCalories.setText(mealsListCalories.get(position));
+        textViewMealName.setText(mealsList.get(position).getName());
+        textViewMealCalories.setText(mealsList.get(position).getCalories());
 
         line.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, mealsListNames.get(position)+" "+mealsListCalories.get(position),Toast.LENGTH_SHORT).show();
-                ((MealsListFragment) fragmentParrent).updateDetail(mealsListNames.get(position),mealsListCalories.get(position));
+                //Toast.makeText(context, mealsListNames.get(position)+" "+mealsListCalories.get(position),Toast.LENGTH_SHORT).show();
+                ((MealsListFragment) fragmentParrent).updateDetail(mealsList.get(position));
             }
         });
         return line;

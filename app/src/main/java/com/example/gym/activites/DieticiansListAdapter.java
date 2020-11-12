@@ -13,23 +13,26 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.gym.Gym;
+import com.example.gym.GymWorker;
 import com.example.gym.R;
 import com.example.gym.activites.dieticianList.DieticiansListFragment;
 
 import java.util.List;
 
-public class DieticiansListAdapter extends ArrayAdapter<String> {
+public class DieticiansListAdapter extends ArrayAdapter<GymWorker> {
 
     private AppCompatActivity context;
     private List<String> dieticianListNames;
     private List<String> dieticianListSurnames;
     private Fragment fragmentParrent; //fragment nadrzędny, do którego należy adapter
 
-    public DieticiansListAdapter(@NonNull AppCompatActivity context, @NonNull List<String> names, @NonNull List<String> surnames, Fragment fragment) {
-        super(context, R.layout.dietician_list_one_line_layout, names);
+    private List<GymWorker> dieticiansList;
+
+    public DieticiansListAdapter(@NonNull AppCompatActivity context, @NonNull List<GymWorker> dieticiansList, Fragment fragment) {
+        super(context, R.layout.dietician_list_one_line_layout, dieticiansList);
         this.context=context;
-        this.dieticianListNames=names;
-        this.dieticianListSurnames=surnames;
+        this.dieticiansList=dieticiansList;
         this.fragmentParrent=fragment;
     }
 
@@ -53,14 +56,14 @@ public class DieticiansListAdapter extends ArrayAdapter<String> {
         }
         textViewName = line.findViewById(R.id.textViewName);
         textViewSurname= line.findViewById(R.id.textViewSurname);
-        textViewName.setText(dieticianListNames.get(position));
-        textViewSurname.setText(dieticianListSurnames.get(position));
+        textViewName.setText(dieticiansList.get(position).getName());
+        textViewSurname.setText(dieticiansList.get(position).getSurname());
 
         line.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, dieticianListNames.get(position)+" "+dieticianListSurnames.get(position),Toast.LENGTH_SHORT).show();
-                ((DieticiansListFragment) fragmentParrent).updateDetail(dieticianListNames.get(position),dieticianListSurnames.get(position));
+//                Toast.makeText(context, dieticianListNames.get(position)+" "+dieticianListSurnames.get(position),Toast.LENGTH_SHORT).show();
+                ((DieticiansListFragment) fragmentParrent).updateDetail(dieticiansList.get(position));
             }
         });
         return line;

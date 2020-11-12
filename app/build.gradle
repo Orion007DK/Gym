@@ -30,7 +30,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-  //  implementation 'org.jetbrains:annotations-java5:15.0' //było domyślnie, wyrzucone z powodu błędu duplikacji
+    //  implementation 'org.jetbrains:annotations-java5:15.0' //było domyślnie, wyrzucone z powodu błędu duplikacji
     implementation 'com.github.AnyChart:AnyChart-Android:1.1.2' //niepotrzebne
     //implementation 'com.github.florent37:arclayout:1.0.3'
     implementation 'com.jjoe64:graphview:4.2.2' //charts

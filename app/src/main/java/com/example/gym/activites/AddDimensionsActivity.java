@@ -79,7 +79,7 @@ public class AddDimensionsActivity extends AppCompatActivity {
         params.put("muscleTissue", editTextMuscleTissue.getText().toString());
         params.put("bodyWaterPercentage", editTextBodyWaterPercentage.getText().toString());
         Log.e("params",params.toString());
-        int userId=getSharedPreferences(Constants.USER_DATA, Context.MODE_PRIVATE).getInt(Constants.USER_ID,-1);
+        int userId=getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE).getInt(Constants.SP_USER_ID,-1);
         Date date = new Date(System.currentTimeMillis());
         String dateString = DateFormat.format(Constants.DATABASE_DATA_FORMAT, date).toString();
         Log.e("Date",dateString);

@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:fillViewport="true"
+    android:layout_height="match_parent"
+    android:paddingBottom="30dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="30dp">
+            android:paddingBottom="0dp">
 
             <TextView
                 android:id="@+id/textViewTitle"
@@ -19,21 +22,21 @@
                 android:fontFamily="@string/FontFamilyTitle"
                 android:paddingTop="50dp"
                 android:paddingBottom="50dp"
-                android:text="Dieta na dzień tygodniak"
+                android:text="Dieta na dzień tygodnia"
                 android:textAlignment="center"
                 android:textSize="@dimen/textSizeTitle" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="60dp"
-                android:paddingRight="60dp"
-                android:id="@+id/linearLayoutDayOfDiet">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:id="@+id/linearLayoutDayOfDiet">
 
                 <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:id="@+id/linearLayoutBreakfast">
 
@@ -53,7 +56,7 @@
             </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:id="@+id/linearLayoutBrunch">
 
@@ -71,7 +74,7 @@
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:id="@+id/linearLayoutLunch">
 
@@ -85,12 +88,13 @@
                     <ListView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/listViewLunch"/>
+                        android:id="@+id/listViewLunch"
+                        android:nestedScrollingEnabled="false"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:id="@+id/linearLayoutTea">
 
@@ -108,7 +112,7 @@
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:id="@+id/linearLayoutDinner">
 
@@ -130,6 +134,4 @@
 
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
-
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>

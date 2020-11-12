@@ -35,6 +35,9 @@ public class MyClassesList extends AppCompatActivity {
         myClasseslistView=findViewById(R.id.listViewMyClasses);
         MyClassesListAdapter myClassesListAdapter = new MyClassesListAdapter(this, classNames, classesDates, classesStartTime, classesEndTime);
         myClasseslistView.setAdapter(myClassesListAdapter);
+        View header_view =getLayoutInflater().inflate(R.layout.my_classes_list_header, null);
+        myClasseslistView.addHeaderView(header_view);
+
         landscapeConfiguration();
         buttonAddClassesInit();
     }

@@ -1,8 +1,13 @@
 package com.example.gym.activites.myDietsList.dietsDay;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +21,21 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.gym.UIUtils;
+import com.example.gym.Constants;
+import com.example.gym.Meal;
+import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
+import com.example.gym.UIUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Objects;
+
+import dmax.dialog.SpotsDialog;
 
 public class MealsListFragment extends Fragment {
 
@@ -35,6 +51,12 @@ public class MealsListFragment extends Fragment {
     DietMealsListAdapter teaDietMealsListAdapter;
     DietMealsListAdapter dinnerDietMealsListAdapter;
 
+    private ArrayList<Meal> breakfastMealsList = new ArrayList<Meal>();
+    private ArrayList<Meal> brunchMealsList = new ArrayList<Meal>();
+    private ArrayList<Meal> lunchMealsList = new ArrayList<Meal>();
+    private ArrayList<Meal> teaMealsList = new ArrayList<Meal>();
+    private ArrayList<Meal> dinnerMealsList = new ArrayList<Meal>();
+
     private ArrayList<String> breakfastMealsListNames = new ArrayList<String>();
     private ArrayList<String> breakfastMealsListCalories = new ArrayList<String>();
     private ArrayList<String> brunchMealsListNames = new ArrayList<String>();
@@ -47,25 +69,63 @@ public class MealsListFragment extends Fragment {
     private ArrayList<String> dinnerMealsListCalories = new ArrayList<String>();
 
     private MealsListFragmentActivityListener listener;
+
+    IntentFilter filter;
+    private SpotsDialog progressDialog;
+
+    final private static String GET_DIET_DAY_MEALS = "getDietDayMeals";
+
+    int dietId=2;
+    String dayOfWeekName ="przypadek";
+    int dayOfWeekId=1;
+    TextView textViewTitle;
+    View view;
+
+
+  /*  MealsListFragment(int dietId, String dayofWeekName, int dayOfWeekId){
+        this.dietId=dietId;
+        this.dayofWeekName=dayofWeekName;
+        this.dayOfWeekId=dayOfWeekId;
+
+    }*
+
+   */
     @Nullable
-    @Override
+   // @Override
+    // public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.one_day_of_diet,container,false);
+        this.view=view;
 
-        listMealsInit();
-        listsViewInit(view);
+        dayOfWeekName =getArguments().getString(Constants.BUNDLE_DIET_DAY_OF_WEEK_NAME);
+        dayOfWeekId=getArguments().getInt(Constants.BUNDLE_DIET_DAY_OF_WEEK_ID);
+        dietId=getArguments().getInt(Constants.BUNDLE_DIET_ID);
+
+        filter = new IntentFilter(); //utworzenie filtru zamiaru
+        filter.addAction(GET_DIET_DAY_MEALS); //dodanie akcji od pobierania informacji o użytkownikach
+        textViewTitle=view.findViewById(R.id.textViewTitle);
+        textViewTitle.setText(dayOfWeekName);
+        listViewIdInit();
+        //listMealsInit();
+        //listsViewInit(view);
         landscapeConfiguration(view);
         //listViewBreakfast.setScrollContainer(false);
-        UIUtils.setListViewHeightBasedOnItems(listViewBreakfast, R.id.textViewMealName);
-        UIUtils.setListViewHeightBasedOnItems(listViewBrunch, R.id.textViewMealName);
+     //   UIUtils.setListViewHeightBasedOnItems(listViewBreakfast, R.id.textViewMealName);
+      //  UIUtils.setListViewHeightBasedOnItems(listViewBrunch, R.id.textViewMealName);
 
-
+        if(breakfastMealsList.size()==0 && brunchMealsList.size()==0 && lunchMealsList.size()==0 && teaMealsList.size()==0 && dinnerMealsList.size()==0)
+        getDietDayMeals();
+        else {
+            listsViewInit();
+            //justifyListViewHeight();
+            //setwHeight();
+        }
 
         return view;
     }
 
     public interface MealsListFragmentActivityListener{
-        public void onItemFromMealsListFragmentSelected(String mealName, String calories);
+        public void onItemFromMealsListFragmentSelected(Meal meal);
     }
 
     public void onAttach(@NonNull Activity activity) {
@@ -77,8 +137,8 @@ public class MealsListFragment extends Fragment {
         }
     }
 
-    public void updateDetail(String mealName, String mealCalories) {
-        listener.onItemFromMealsListFragmentSelected( mealName, mealCalories);
+    public void updateDetail(Meal meal) {
+        listener.onItemFromMealsListFragmentSelected(meal);
     }
 
     private void landscapeConfiguration(View view){
@@ -87,6 +147,113 @@ public class MealsListFragment extends Fragment {
             textView.setPadding(10,20,10,0);
         }
     }
+
+    private void getDietDayMeals(){
+        progressDialog = new SpotsDialog(getContext(), R.style.Custom);
+        progressDialog.show();
+        getContext().registerReceiver(broadcastReceiver, filter);
+        HashMap<String, String> params = new HashMap<>();
+     //   Log.e("dietId",String.valueOf(dietId));
+     //   Log.e("dayId", String.valueOf(dayOfWeekId));
+        params.put("dietId", String.valueOf(dietId));
+        params.put("dayId", String.valueOf(dayOfWeekId));
+        PerformNetworkRequest request = new PerformNetworkRequest(Constants.URL_GET_DIET_DAY_MEALS, params, Constants.CODE_POST_REQUEST, getContext(), GET_DIET_DAY_MEALS);
+        request.execute();
+        Log.e("getDiets","diets");
+    }
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+       //     Log.e("rec","Start");
+            Bundle bundle = intent.getExtras(); //pobranie pakunku danych z zamiaru
+            if (Objects.equals(intent.getAction(), GET_DIET_DAY_MEALS)) {
+                try {
+               //     Log.e("Reciever","tre");
+                    String jsonstr =bundle.getString("JSON");
+                    JSONObject json = new JSONObject(jsonstr);
+                    JSONArray jsonArray = json.getJSONArray("mealsList");
+                    //jsonArray.getJSONObject(1);
+                 //   Log.e("arrayLength ", String.valueOf(jsonArray.length()));
+                    for(int i=0;i<jsonArray.length();i++){
+                        JSONObject js = jsonArray.getJSONObject(i);
+                 //       Log.e("js!", js.toString());
+                        Meal meal = new Meal(js);
+                        switch (js.getInt("mealTypeId")) {
+                            case 1:
+                     //           Log.e("meal", "nr1");
+                                breakfastMealsList.add(meal);
+                                break;
+                            case 2:
+                                brunchMealsList.add(meal);
+                                break;
+                            case 3:
+                                lunchMealsList.add(meal);
+                                break;
+                            case 4:
+                                teaMealsList.add(meal);
+                                break;
+                            case 5:
+                                dinnerMealsList.add(meal);
+                                break;
+                        }
+
+                    }
+
+                    listsViewInit();
+                    //Log.e("gymsArrayList: ",trainersArrayList.toString());
+
+                    // trainersListAdapter=new TrainersListAdapter(appContext, trainersArrayList, fragment);
+                    //listView.setAdapter(trainersListAdapter);
+
+                   // dietsListAdapter=new DietsListAdapter(MyDietsListActivity.this, dietNamesList, dietIdList);
+                    //dietListView.setAdapter(dietsListAdapter);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if(getContext()!=null)
+                getContext().unregisterReceiver(broadcastReceiver);
+                progressDialog.dismiss();
+                //if (dialog.isShowing()) {
+                //     dialog.dismiss();
+                //}
+               // progressDialog.dismiss();
+                //justifyListViewHeight();
+              //  setwHeight();
+               // UIUtils.setListViewHeightBasedOnItems(listViewBreakfast, R.id.textViewMealName);
+                //UIUtils.setListViewHeightBasedOnItems(listViewBrunch, R.id.textViewMealName);
+            }
+        }
+    };
+
+private void justifyListViewHeight() {
+    if(breakfastMealsListNames.size()!=0)
+    justifyListViewHeightBasedOnChildren(listViewBreakfast);
+    if(brunchMealsListNames.size()!=0)
+    justifyListViewHeightBasedOnChildren(listViewBrunch);
+    if(lunchMealsListNames.size()!=0)
+    justifyListViewHeightBasedOnChildren(listViewLunch);
+    if(teaMealsListNames.size()!=0)
+    justifyListViewHeightBasedOnChildren(listViewTea);
+    if(dinnerMealsListNames.size()!=0)
+    justifyListViewHeightBasedOnChildren(listViewDinner);
+}
+
+private void setwHeight() {
+        if(breakfastMealsListNames.size()!=0)
+            setListViewHeightBasedOnChildren(listViewBreakfast);
+        if(brunchMealsListNames.size()!=0)
+            setListViewHeightBasedOnChildren(listViewBrunch);
+        if(lunchMealsListNames.size()!=0)
+            setListViewHeightBasedOnChildren(listViewLunch);
+        if(teaMealsListNames.size()!=0)
+            setListViewHeightBasedOnChildren(listViewTea);
+        if(dinnerMealsListNames.size()!=0)
+            setListViewHeightBasedOnChildren(listViewDinner);
+    }
+
+
+
 
     private void listMealsInit(){
         if(breakfastMealsListNames.size()==0)//żeby przy powrocie z fragmentu do fragmentu lista się nie powielała
@@ -124,28 +291,55 @@ public class MealsListFragment extends Fragment {
         dinnerMealsListCalories.add("150");
     }
 
-    private void listsViewInit(View view){
-        if(breakfastMealsListNames.size()!=0){
-            listViewBreakfast=view.findViewById(R.id.listViewBreakfast);
-            breakfastDietMealsListAdapter = new DietMealsListAdapter((AppCompatActivity)view.getContext(),breakfastMealsListNames, breakfastMealsListCalories, this);
-            listViewBreakfast.setAdapter(breakfastDietMealsListAdapter);}
-        if(brunchMealsListNames.size()!=0){
-            listViewBrunch=view.findViewById(R.id.listViewBrunch);
-            brunchDietMealsListAdapter = new DietMealsListAdapter((AppCompatActivity)view.getContext(),brunchMealsListNames, brunchMealsListCalories, this);
+    private void listViewIdInit(){
+        listViewBreakfast=view.findViewById(R.id.listViewBreakfast);
+        listViewBrunch=view.findViewById(R.id.listViewBrunch);
+        listViewLunch=view.findViewById(R.id.listViewLunch);
+        listViewTea=view.findViewById(R.id.listViewTea);
+        listViewDinner=view.findViewById(R.id.listViewDinner);
+    }
+
+    private void listsViewInit(){
+        if(breakfastMealsList.size()!=0){//było listNames
+       //     Log.e("breakfastListinit","tak");
+            //listViewBreakfast=view.findViewById(R.id.listViewBreakfast);
+            breakfastDietMealsListAdapter = new DietMealsListAdapter((AppCompatActivity)view.getContext(), breakfastMealsList, this);
+            listViewBreakfast.setAdapter(breakfastDietMealsListAdapter);
+        //    Log.e("cokolwiek","nie");
+        }
+        if(brunchMealsList.size()!=0){
+            //listViewBrunch=view.findViewById(R.id.listViewBrunch);
+            //brunchDietMealsListAdapter = new DietMealsListAdapter((AppCompatActivity)view.getContext(),brunchMealsListNames, brunchMealsListCalories, this);
+            brunchDietMealsListAdapter = new DietMealsListAdapter((AppCompatActivity)view.getContext(),brunchMealsList, this);
             listViewBrunch.setAdapter(brunchDietMealsListAdapter);}
-        if(lunchMealsListNames.size()!=0){
-            listViewLunch=view.findViewById(R.id.listViewLunch);
-            lunchDietMealsListAdapter = new DietMealsListAdapter((AppCompatActivity)view.getContext(),lunchMealsListNames, lunchMealsListCalories, this);
+        if(lunchMealsList.size()!=0){
+            //listViewLunch=view.findViewById(R.id.listViewLunch);
+            //lunchDietMealsListAdapter = new DietMealsListAdapter((AppCompatActivity)view.getContext(),lunchMealsListNames, lunchMealsListCalories, this);
+            lunchDietMealsListAdapter = new DietMealsListAdapter((AppCompatActivity)view.getContext(),lunchMealsList, this);
             listViewLunch.setAdapter(lunchDietMealsListAdapter);}
-        if(teaMealsListNames.size()!=0){
-            listViewTea=view.findViewById(R.id.listViewTea);
-            teaDietMealsListAdapter = new DietMealsListAdapter((AppCompatActivity)view.getContext(),teaMealsListNames, teaMealsListCalories, this);
+        if(teaMealsList.size()!=0){
+           //listViewTea=view.findViewById(R.id.listViewTea);
+            //teaDietMealsListAdapter = new DietMealsListAdapter((AppCompatActivity)view.getContext(),teaMealsListNames, teaMealsListCalories, this);
+            teaDietMealsListAdapter = new DietMealsListAdapter((AppCompatActivity)view.getContext(),teaMealsList, this);
             listViewTea.setAdapter(teaDietMealsListAdapter);}
-        if(dinnerMealsListNames.size()!=0){
-            listViewDinner=view.findViewById(R.id.listViewDinner);
-            dinnerDietMealsListAdapter = new DietMealsListAdapter((AppCompatActivity)view.getContext(),dinnerMealsListNames, dinnerMealsListCalories, this);
-            listViewDinner.setAdapter(dinnerDietMealsListAdapter);}
-        emptyLabelsHide(view);
+        if(dinnerMealsList.size()!=0){
+            //listViewDinner=view.findViewById(R.id.listViewDinner);
+            //dinnerDietMealsListAdapter = new DietMealsListAdapter((AppCompatActivity)view.getContext(),dinnerMealsListNames, dinnerMealsListCalories, this);
+            dinnerDietMealsListAdapter = new DietMealsListAdapter((AppCompatActivity)view.getContext(),dinnerMealsList, this);
+            listViewDinner.setAdapter(dinnerDietMealsListAdapter);
+               // setListViewHeightBasedOnChildren(listViewBreakfast);
+               // setListViewHeightBasedOnChildren(listViewBrunch);
+               // setListViewHeightBasedOnChildren(listViewLunch);
+               // setListViewHeightBasedOnChildren(listViewTea);
+              //  setListViewHeightBasedOnChildren(listViewDinner);
+                UIUtils.setListViewHeightBasedOnItems(listViewBreakfast, R.id.textViewMealName, getContext());
+                UIUtils.setListViewHeightBasedOnItems(listViewBrunch, R.id.textViewMealName, getContext());
+                UIUtils.setListViewHeightBasedOnItems(listViewLunch, R.id.textViewMealName, getContext());
+                UIUtils.setListViewHeightBasedOnItems(listViewTea, R.id.textViewMealName, getContext());
+                UIUtils.setListViewHeightBasedOnItems(listViewDinner, R.id.textViewMealName, getContext());
+        }
+       emptyLabelsHide();
+        setwHeight();
     }
 
     public void setText(String title){
@@ -153,23 +347,44 @@ public class MealsListFragment extends Fragment {
         textViewTitle.setText(title);
     }
 
-    private void emptyLabelsHide(View view){
+    private void emptyLabelsHide(){
         LinearLayout linearLayoutBreakfast = view.findViewById(R.id.linearLayoutBreakfast);
         LinearLayout linearLayoutBrunch = view.findViewById(R.id.linearLayoutBrunch);
         LinearLayout linearLayoutLunch = view.findViewById(R.id.linearLayoutLunch);
         LinearLayout linearLayoutTea = view.findViewById(R.id.linearLayoutTea);
         LinearLayout linearLayoutDinner = view.findViewById(R.id.linearLayoutDinner);
 
-        if(breakfastMealsListNames.size()==0)
+        if(breakfastMealsList.size()==0)//było Names
             linearLayoutBreakfast.setVisibility(View.GONE);
-        if(brunchMealsListNames.size()==0)
+      //  else
+       //     linearLayoutBreakfast.setVisibility(View.VISIBLE);
+
+
+       // Log.e("BR:", String.valueOf(brunchMealsList.size()));
+        if(brunchMealsList.size()==0) {
             linearLayoutBrunch.setVisibility(View.GONE);
-        if(lunchMealsListNames.size()==0)
+          //  Log.e("za malo", "btunch");
+        }
+       // else
+       //     linearLayoutBreakfast.setVisibility(View.VISIBLE);
+
+
+        if(lunchMealsList.size()==0)
             linearLayoutLunch.setVisibility(View.GONE);
-        if(teaMealsListNames.size()==0)
+     //   else
+       //     linearLayoutBreakfast.setVisibility(View.VISIBLE);
+
+
+        if(teaMealsList.size()==0)
             linearLayoutTea.setVisibility(View.GONE);
-        if(dinnerMealsListNames.size()==0)
+      //  else
+        //    linearLayoutBreakfast.setVisibility(View.VISIBLE);
+
+
+        if(dinnerMealsList.size()==0)
             linearLayoutDinner.setVisibility(View.GONE);
+       // else
+         //   linearLayoutBreakfast.setVisibility(View.VISIBLE);
 
     }
 
@@ -192,6 +407,28 @@ public class MealsListFragment extends Fragment {
         ViewGroup.LayoutParams par = listView.getLayoutParams();
         par.height = totalHeight + (listView.getDividerHeight() * (adapter.getCount() - 1));
         listView.setLayoutParams(par);
+        listView.requestLayout();
+    }
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+    ListAdapter listAdapter = listView.getAdapter();
+    if (listAdapter == null) return;
+    int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(),
+            View.MeasureSpec.AT_MOST); int totalHeight = 0;
+        View view = null;for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);if (i == 0) view.setLayoutParams(new
+                    ViewGroup.LayoutParams(desiredWidth,
+                    ListView.LayoutParams.WRAP_CONTENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+
+        listView.setLayoutParams(params);
         listView.requestLayout();
     }
 }

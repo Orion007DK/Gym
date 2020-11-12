@@ -1,5 +1,6 @@
 package com.example.gym.activites.gymsList;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,22 +13,23 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import com.example.gym.Address;
+import com.example.gym.Gym;
 import com.example.gym.R;
 
 import java.util.List;
 
-public class GymsListAdapter extends ArrayAdapter<String> {
+public class GymsListAdapter extends ArrayAdapter<Gym> {
 
     private AppCompatActivity context;
-    private List<String> gymsListNames;
-    private List<Address> gymsListAddresses;
+   // private List<String> gymsListNames;
+    //private List<Address> gymsListAddresses;
+    private List<Gym> gymsList;
     private Fragment fragmentParrent; //fragment nadrzędny, do którego należy adapter
 
-    public GymsListAdapter(@NonNull AppCompatActivity context, List<String> gymsListNames, List<Address> gymsListAddresses, Fragment fragment) {
-        super(context, R.layout.gyms_list_one_line_layout, gymsListNames);
+    public GymsListAdapter(@NonNull AppCompatActivity context, List<Gym> gymsList, Fragment fragment) {
+        super(context, R.layout.gyms_list_one_line_layout, gymsList);
         this.context=context;
-        this.gymsListNames=gymsListNames;
-        this.gymsListAddresses=gymsListAddresses;
+        this.gymsList=gymsList;
         this.fragmentParrent=fragment;
     }
 
@@ -49,16 +51,16 @@ public class GymsListAdapter extends ArrayAdapter<String> {
         }
         textViewGymName = line.findViewById(R.id.textViewGymName);
         textViewGymAdress= line.findViewById(R.id.textViewGymAddress);
-        textViewGymName.setText(gymsListNames.get(position));
+        textViewGymName.setText(gymsList.get(position).getName());
         //Address address=gymsListAddresses.get(position);
        // final String stringAddress = address.getCityName()+", ul. "+address.getStreetName()+" "+address.getStreetNumber();
-        textViewGymAdress.setText(gymsListAddresses.get(position).getStringAddress());
+        textViewGymAdress.setText(gymsList.get(position).getStringAddress());
 
         line.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, gymsListNames.get(position),Toast.LENGTH_SHORT).show();
-                ((GymsListFragment) fragmentParrent).updateDetail(gymsListNames.get(position),gymsListAddresses.get(position));
+              //  Toast.makeText(context, gymsListNames.get(position),Toast.LENGTH_SHORT).show();
+                ((GymsListFragment) fragmentParrent).updateDetail(gymsList.get(position));
             }
         });
         return line;

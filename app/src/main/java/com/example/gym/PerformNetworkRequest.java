@@ -49,8 +49,10 @@ public class PerformNetworkRequest extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
+        Log.e("exec","Eex");
        // progressBar.setVisibility(GONE);
         try {
+            Log.e("wynik","w");
             Log.e("wynik",s);
             JSONObject object = new JSONObject(s);
             if (!object.getBoolean("error")) {

@@ -1,10 +1,15 @@
 package com.example.gym.activites;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.AlertDialog;
+
+import com.example.gym.SharedPreferencesOperations;
+import com.example.gym.activites.gymsList.GymsListActivity;
 import com.example.gym.activites.myClassesList.MyClassesList;
 import com.example.gym.activites.trainingPlansList.MyTrainingPlansListActivity;
 import com.example.gym.activites.myDietsList.MyDietsListActivity;
@@ -22,6 +27,8 @@ public class HomePageActivity extends OptionsMenuActivity {
     private Button buttonMyProfile;
     private QButton buttonGym2;
 
+    private int gymId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +36,12 @@ public class HomePageActivity extends OptionsMenuActivity {
 
         idInit();
         onClickListenersInit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        gymId= SharedPreferencesOperations.getGymId(getApplicationContext());
     }
 
     @Override
@@ -90,7 +103,7 @@ public class HomePageActivity extends OptionsMenuActivity {
         buttonDietician.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            Intent myDieticianIntent = new Intent(getApplicationContext(), DieticianHomePage.class);
+            Intent myDieticianIntent = new Intent(getApplicationContext(), DieticianHomePageActivity.class);
             startActivity(myDieticianIntent);
             }
         });
@@ -108,5 +121,25 @@ public class HomePageActivity extends OptionsMenuActivity {
     //nadpisanie metody pustą metodą, żeby nie dało się przejś do tej samej aktywności
     @Override
     protected void goToHomePageActivity() {
+    }
+
+    private void noGymDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(HomePageActivity.this);
+        builder.setMessage("Nie masz jeszcze wybranej siłowni, czy chcesz ją teraz wybrać?")
+                .setCancelable(true)
+                .setTitle("Brak Siłowni")
+                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent gymListActivityIntent = new Intent(getApplicationContext(), GymsListActivity.class);
+                        startActivity(gymListActivityIntent);
+                    }
+                })
+                .setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        builder.show();
     }
 }

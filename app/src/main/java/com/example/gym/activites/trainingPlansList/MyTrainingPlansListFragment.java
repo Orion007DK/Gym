@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,12 +17,14 @@ import androidx.fragment.app.Fragment;
 
 import com.example.gym.activites.availableTreningPlansList.AvailableTrainingPlansListActivity;
 import com.example.gym.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 public class MyTrainingPlansListFragment extends Fragment {
 
-    private Button buttonAddTrainingPlan;
+    //private Button buttonAddTrainingPlan;
+    private FloatingActionButton floatingActionButtonAddTrainingPlan;
     protected ListView listView;
     //TrainersListAdapter trainersListAdapter;
     private ArrayList<String> trainingPlansNames= new ArrayList<String>();
@@ -44,8 +45,8 @@ public class MyTrainingPlansListFragment extends Fragment {
         MyTrainingPlansListAdapter trainingPlansListAdapter= new MyTrainingPlansListAdapter((AppCompatActivity)view.getContext(),trainingPlansNames, trainingPlansDifficulty, this);
         listView.setAdapter(trainingPlansListAdapter);
         landscapeConfiguration(view);
-        buttonAddTrainingPlan=view.findViewById(R.id.buttonAddTrainingPlan);
-        buttonAddTrainingPlan.setOnClickListener(new View.OnClickListener() {
+        floatingActionButtonAddTrainingPlan =view.findViewById(R.id.buttonAddTrainingPlan);
+        floatingActionButtonAddTrainingPlan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent availableTrainingPlansIntent = new Intent(getActivity(), AvailableTrainingPlansListActivity.class);

@@ -118,8 +118,8 @@ public class PasswordChangeActivity extends AppCompatActivity {
 
     private void changePassword(String oldPassword, String newPassword) {
         registerReceiver(broadcastReceiver, filter);
-        SharedPreferences data = getSharedPreferences(Constants.USER_DATA, Context.MODE_PRIVATE);
-        int id = data.getInt(Constants.USER_ID, -1);
+        SharedPreferences data = getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE);
+        int id = data.getInt(Constants.SP_USER_ID, -1);
         HashMap<String, String> params = new HashMap<>();
         params.put("userId", String.valueOf(id));
         params.put("password", oldPassword);

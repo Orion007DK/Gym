@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 import com.example.gym.R;
 import com.example.gym.activites.dieticianList.DieticiansDetailFragment;
-
+/*
 public class Diet_activity extends AppCompatActivity implements OneDayOfDietFragment.OneDayOfDietFragmentActivityListener, DietDayListFragment.DietDayListFragmentActivityListener {
 
     private boolean isLand=false;
@@ -36,7 +36,7 @@ public class Diet_activity extends AppCompatActivity implements OneDayOfDietFrag
         }
 
 
-        DieticiansDetailFragment fragment = (DieticiansDetailFragment) getSupportFragmentManager().findFragmentById(R.id.DieticianDetailsFragment);
+     /*   DieticiansDetailFragment fragment = (DieticiansDetailFragment) getSupportFragmentManager().findFragmentById(R.id.DieticianDetailsFragment);
         // jeżeli fragment istnieje w tej aktywności,
         // znaczy, że jesteśmy w trybie landscape
         if (fragment != null && fragment.isInLayout()) {
@@ -127,3 +127,4 @@ public class Diet_activity extends AppCompatActivity implements OneDayOfDietFrag
     }
 
 }
+*/

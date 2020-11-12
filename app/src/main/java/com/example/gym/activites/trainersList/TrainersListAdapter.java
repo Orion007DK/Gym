@@ -13,27 +13,27 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.gym.GymWorker;
 import com.example.gym.R;
 
 import java.util.List;
 
 import ss.anoop.avtarview.AvtarView;
 
-public class TrainersListAdapter extends ArrayAdapter<String> {
+public class TrainersListAdapter extends ArrayAdapter<GymWorker> {
 
     private AppCompatActivity context;
     private List<String> trainersListNames;
     private List<String> trainersListSurnames;
     private Fragment fragmentParrent; //fragment nadrzędny, do którego należy adapter
+    private List<GymWorker> trainersList;
 
 
-    public TrainersListAdapter(@NonNull AppCompatActivity context, @NonNull List<String> names, @NonNull List<String> surnames, Fragment fragment) {
-        super(context, R.layout.trainers_one_line_layout, names);
+    public TrainersListAdapter(@NonNull AppCompatActivity context, @NonNull List<GymWorker> trainersList, Fragment fragment) {
+        super(context, R.layout.trainers_one_line_layout, trainersList);
         this.context=context;
-        this.trainersListNames=names;
-        this.trainersListSurnames=surnames;
+        this.trainersList=trainersList;
         this.fragmentParrent=fragment;
-
     }
 
     @NonNull
@@ -41,7 +41,7 @@ public class TrainersListAdapter extends ArrayAdapter<String> {
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View line;
         TextView textViewName;
-        TextView textViewSurname;
+       // TextView textViewSurname;
         AvtarView avtarView;
         //jeśli nie ma linii do przetworzenia(ponownego uzycia)
         if(convertView==null) {
@@ -60,14 +60,14 @@ public class TrainersListAdapter extends ArrayAdapter<String> {
         textViewName = line.findViewById(R.id.textViewName);
      //   textViewSurname= line.findViewById(R.id.textViewSurname);
         avtarView=line.findViewById(R.id.avtarViewTrainer);
-        textViewName.setText(trainersListNames.get(position)+" "+trainersListSurnames.get(position));
+        textViewName.setText(trainersList.get(position).getName()+" "+trainersList.get(position).getSurname());
      //   textViewSurname.setText(trainersListSurnames.get(position));
-        avtarView.setText(trainersListNames.get(position)+" "+trainersListSurnames.get(position));
+        avtarView.setText(trainersList.get(position).getName()+" "+trainersList.get(position).getSurname());
         line.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, trainersListNames.get(position)+" "+trainersListSurnames.get(position),Toast.LENGTH_SHORT).show();
-                ((TrainersListFragment) fragmentParrent).updateDetail(trainersListNames.get(position),trainersListSurnames.get(position));
+//                Toast.makeText(context, trainersListNames.get(position)+" "+trainersListSurnames.get(position),Toast.LENGTH_SHORT).show();
+                ((TrainersListFragment) fragmentParrent).updateDetail(trainersList.get(position));
             }
         });
         return line;

@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.example.gym.Address;
+import com.example.gym.Gym;
 import com.example.gym.R;
 
 public class GymsListActivity extends AppCompatActivity implements GymsListFragment.GymsListFragmentActivityListener {
@@ -27,12 +28,12 @@ public class GymsListActivity extends AppCompatActivity implements GymsListFragm
 
 
     @Override
-    public void onItemSelected(String name, Address address) {
+    public void onItemSelected(Gym gym) {
         GymDetailFragment fragment = (GymDetailFragment) getSupportFragmentManager().findFragmentById(R.id.GymsDetailFragment);
         // jeżeli fragment istnieje w tej aktywności,
         // znaczy, że jesteśmy w trybie landscape
         if (fragment != null && fragment.isInLayout()) {
-            fragment.setText(name, address, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis, turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus metus leo non est. Etiam sit amet lectus quis est congue mollis. Phasellus congue lacus eget neque. Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor, et mollis pede metus eget nisi. Praesent sodales velit quis augue. Cras suscipit, urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa nibh nec erat.");
+            fragment.setText(gym);
         } else {
             // w trybie portrait podmieniamy fragmenty w kontenerze
             setDetailsFragment();
@@ -40,9 +41,7 @@ public class GymsListActivity extends AppCompatActivity implements GymsListFragm
             // i możemy korzystać z fragmentu
             getSupportFragmentManager().executePendingTransactions();
             // ustawiamy tekst fragmentu
-            ((GymDetailFragment) this.currentFragment).setText(name, address, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis, turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus metus leo non est. Etiam sit amet lectus quis est congue mollis. Phasellus congue lacus eget neque. Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor, et mollis pede metus eget nisi. Praesent sodales velit quis augue. Cras suscipit, urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa nibh nec erat.");
-
-            // w trybie portrait wywołujemy drugą aktywność
+            ((GymDetailFragment) this.currentFragment).setText(gym);
         /*    Intent intent = new Intent(getApplicationContext(), TrainerDetailActivity.class);
             intent.putExtra("name", name);
             intent.putExtra("surname", surname);

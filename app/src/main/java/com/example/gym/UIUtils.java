@@ -13,6 +13,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import kotlin.reflect.KClass;
+
 public class UIUtils {
 
     public static boolean setListViewHeightBasedOnItems(ListView listView, int textViewId) {
@@ -141,7 +143,13 @@ public class UIUtils {
 
             // Set list height.
             ViewGroup.LayoutParams params = listView.getLayoutParams();
-            params.height = (totalItemsHeight + totalDividersHeight)/2;
+            //params.height = (int)((totalItemsHeight + totalDividersHeight)*0.55);
+            double g=0;
+            if(numberOfItems==1)
+                g=20;
+            if(numberOfItems==2)
+                g=8;
+            params.height = (int)((totalItemsHeight + totalDividersHeight)*0.5+g);
 
             listView.setLayoutParams(params);
             listView.requestLayout();

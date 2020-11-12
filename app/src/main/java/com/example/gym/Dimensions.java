@@ -12,13 +12,13 @@ import java.util.Date;
 
 public class Dimensions {
 
-    String height;
-    String weight;
-    String adiposeTissue;
-    String muscleTissue;
-    String bodyWaterPercentage;
-    Date date;
-    int dimensionId;
+    private String height;
+    private String weight;
+    private String adiposeTissue;
+    private String muscleTissue;
+    private String bodyWaterPercentage;
+    private Date date;
+    private int dimensionId;
 
     public Dimensions(int height, int weight, int adiposeTissue, int muscleTissue, int bodyWaterPercentage, Date date, int dimensionId) {
         this.height = String.valueOf(height);

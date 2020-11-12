@@ -7,11 +7,13 @@ public class Address implements Parcelable {
     private String cityName;
     private String streetName;
     private String streetNumber;
+    private String apartmentNumber;
 
     protected Address(Parcel in) {
         cityName = in.readString();
         streetName = in.readString();
         streetNumber = in.readString();
+        apartmentNumber = in.readString();
     }
 
     public static final Creator<Address> CREATOR = new Creator<Address>() {
@@ -50,6 +52,14 @@ public class Address implements Parcelable {
         this.streetNumber = streetNumber;
     }
 
+    public String getApartmentNumber() {
+        return apartmentNumber;
+    }
+
+    public void setApartmentNumber(String apartmentNumber) {
+        this.apartmentNumber = apartmentNumber;
+    }
+
     // private String postalCode;
 
    public Address(String cityName, String streetName, String streetNumber){
@@ -58,8 +68,20 @@ public class Address implements Parcelable {
         this.streetNumber=streetNumber;
     }
 
+    public Address(String cityName, String streetName, String streetNumber, String aparatmentNumber){
+        this.cityName=cityName;
+        this.streetName=streetName;
+        this.streetNumber=streetNumber;
+        this.apartmentNumber=aparatmentNumber;
+    }
+
+
+
     public String getStringAddress(){
-        return cityName +", "+streetName+" "+streetNumber;
+        if(apartmentNumber!=null)
+            return cityName +", "+streetName+" "+streetNumber+"/"+apartmentNumber;
+        else
+            return cityName +", "+streetName+" "+streetNumber;
     }
 
     @Override
@@ -72,5 +94,6 @@ public class Address implements Parcelable {
         dest.writeString(cityName);
         dest.writeString(streetName);
         dest.writeString(streetNumber);
+        dest.writeString(apartmentNumber);
     }
 }

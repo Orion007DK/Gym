@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".activites.myDietsList.dietsDay.DietsDayActivity">
 
+    <FrameLayout
+        android:id="@+id/mealsListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        />
+
+    <FrameLayout
+        android:id="@+id/mealDetailsFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        />
+
+<!--
     <fragment
         android:id="@+id/mealsListFragment"
         android:layout_width="match_parent"
@@ -22,6 +37,6 @@
         android:layout_weight="1"
         >
     </fragment>
-
+-->
 
 </androidx.appcompat.widget.LinearLayoutCompat>

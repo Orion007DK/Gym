@@ -14,7 +14,7 @@
             android:fontFamily="@string/FontFamilyTitle"
             android:paddingTop="50dp"
             android:paddingBottom="50dp"
-            android:text="Lista dostępnych trenerów"
+            android:text="Lista trenerów"
             android:textAlignment="center"
             android:textSize="@dimen/textSizeTitle" />
 

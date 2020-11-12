@@ -3,7 +3,6 @@ package com.example.gym.activites;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.accounts.AccountManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -28,7 +27,6 @@ import com.flaviofaria.kenburnsview.RandomTransitionGenerator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -54,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         kenBurnsViewInit();
 
-        if(getSharedPreferences(Constants.USER_DATA, Context.MODE_PRIVATE).getInt(Constants.USER_ID, -1)!=-1){
+        if(getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE).getInt(Constants.SP_USER_ID, -1)!=-1){
             Intent intent  = new Intent(getApplicationContext(),HomePageActivity.class);
             startActivity(intent);
         }
@@ -84,8 +82,8 @@ public class MainActivity extends AppCompatActivity {
                 //Log.e("klik","klik");
                //  readUsers();
                //  getUSerId();
-                SharedPreferences data = getSharedPreferences(Constants.USER_DATA, Context.MODE_PRIVATE);
-                int id = data.getInt(Constants.USER_ID, -1);
+                SharedPreferences data = getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE);
+                int id = data.getInt(Constants.SP_USER_ID, -1);
                 if(id!=(-1)){
                     //Log.e("MM:","Uzytkownik jest już zalogowany");
                     //nextActivity();
@@ -134,13 +132,23 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject userJson = json.getJSONObject("userData");
                     Log.e("js",jsonstr);
                     Log.e("userjs: ",userJson.toString());
-                    SharedPreferences data = getSharedPreferences(Constants.USER_DATA, Context.MODE_PRIVATE);
+                    SharedPreferences data = getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = data.edit();
-                    editor.putString(Constants.USER_NAME,userJson.getString("name"));
-                    editor.putString(Constants.USER_SURNAME, userJson.getString("surname"));
+                    editor.putString(Constants.SP_USER_NAME,userJson.getString("name"));
+                    editor.putString(Constants.SP_USER_SURNAME, userJson.getString("surname"));
+                    //Log.e("gymId", String.valueOf(userJson.getInt("gymId")));
+                    Log.e("gymIdS", userJson.getString("gymId"));
+                    Log.e("dieticianId:","id"+userJson.getString("dieticianId"));
+                    if(!userJson.isNull("gymId"))
+                    editor.putInt(Constants.SP_GYM_ID, userJson.getInt("gymId"));
+                    if(!userJson.isNull("trainerId"))
+                    editor.putInt(Constants.SP_TRAINER_ID, userJson.getInt("trainerId"));
+                    if(!userJson.isNull("dieticianId"))
+                    editor.putInt(Constants.SP_DIETICIAN_ID, userJson.getInt("dieticianId"));
                     Log.e("jsonName: ",userJson.getString("name"));
                     editor.apply();
-                    Log.e("name111: ",getSharedPreferences(Constants.USER_DATA, Context.MODE_PRIVATE).getString(Constants.USER_NAME, null));
+                    Log.e("name111: ",getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE).getString(Constants.SP_USER_NAME, null));
+                    Log.e("dieticianIDDD: ","t"+String.valueOf(getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE).getInt(Constants.SP_DIETICIAN_ID, -1)));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -156,9 +164,9 @@ public class MainActivity extends AppCompatActivity {
 
 
                     if(userId!=0){
-                        SharedPreferences data = getSharedPreferences(Constants.USER_DATA, Context.MODE_PRIVATE);
+                        SharedPreferences data = getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = data.edit();
-                        editor.putInt(Constants.USER_ID,userId);
+                        editor.putInt(Constants.SP_USER_ID,userId);
                         editor.apply();
                         loginDialog(true);
                         getUserData(userId);

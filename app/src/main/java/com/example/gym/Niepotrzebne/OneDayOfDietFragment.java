@@ -53,7 +53,7 @@ public class OneDayOfDietFragment extends Fragment {
         View view = inflater.inflate(R.layout.one_day_of_diet,container,false);
 
         listMealsInit();
-        listsViewInit(view);
+        //listsViewInit(view);
    //     landscapeConfiguration(view);
 
         return view;
@@ -116,7 +116,7 @@ public class OneDayOfDietFragment extends Fragment {
         dinnerMealsListNames.add("Płatki z mlekiem");
         dinnerMealsListCalories.add("150");
     }
-
+/*
     private void listsViewInit(View view){
         if(breakfastMealsListNames.size()!=0){
             listViewBreakfast=view.findViewById(R.id.listViewBreakfast);
@@ -138,7 +138,7 @@ public class OneDayOfDietFragment extends Fragment {
             listViewDinner=view.findViewById(R.id.listViewDinner);
             dinnerDietMealsListAdapter = new DietMealsListAdapter((AppCompatActivity)view.getContext(),dinnerMealsListNames, dinnerMealsListCalories, this);
             listViewDinner.setAdapter(dinnerDietMealsListAdapter);}
-        }
+        }*/
 
         public void setText(String title){
         TextView textViewTitle=getView().findViewById(R.id.textViewTitle);

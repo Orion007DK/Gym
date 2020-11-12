@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.gym.R;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class ComponentsListAdapter extends ArrayAdapter<String> {
@@ -50,8 +52,20 @@ public class ComponentsListAdapter extends ArrayAdapter<String> {
         }
         textViewComponentName = line.findViewById(R.id.textViewComponentName);
         textViewComponentQuantity= line.findViewById(R.id.textViewComponentQuantity);
+        if(textViewComponentName!=null)
         textViewComponentName.setText(componentsListNames.get(position));
+        else{
+            TextView textViewHeader=line.findViewById(R.id.textViewComponentNameHeader);
+            textViewHeader.setText("Składnik");
+        }
+        if(textViewComponentName!=null)
         textViewComponentQuantity.setText(componentsListQuantity.get(position));
+        else{
+            TextView textViewHeader=line.findViewById(R.id.textViewComponentQuantityHeader);
+            textViewHeader.setText("Ilość");
+        }
+
+
         /*
         line.setOnClickListener(new View.OnClickListener() {
             @Override

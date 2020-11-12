@@ -99,13 +99,19 @@
                         android:textSize="@dimen/textSizeButton"
                         android:fontFamily="@string/MainPageButtonFontFamily"/>
 
+
+
                     <Button
-                        android:id="@+id/buttonMyProfile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Mój profil"
-                        android:textSize="@dimen/textSizeButton"
-                        android:fontFamily="@string/MainPageButtonFontFamily"/>
+                    android:id="@+id/buttonMyProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mój profil"
+                    android:textSize="@dimen/textSizeButton"
+                    android:fontFamily="@string/MainPageButtonFontFamily"/>
+
+
+
+
             </LinearLayout>
         </LinearLayout>
 

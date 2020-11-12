@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MyDimensionChartActivity"></activity>
+        <activity android:name=".activites.availableDietsList.AvailableDietsList"></activity>
+        <activity android:name=".MyDimensionChartActivity" />
         <activity android:name=".ClassesDetailsActivity" />
         <activity android:name=".activites.classesPlan.ClassesPlanActivity" />
         <activity android:name=".Niepotrzebne.ChooseWeekActivity" />
@@ -28,7 +29,7 @@
         <activity android:name=".activites.GymHomePageActivity" />
         <activity android:name=".activites.dieticianList.DieticianListActivity" />
         <activity android:name=".activites.dieticianList.DieticianDetailsActivity" />
-        <activity android:name=".activites.DieticianHomePage" />
+        <activity android:name=".activites.DieticianHomePageActivity" />
         <activity android:name=".activites.TrainerHomePageActivity" />
         <activity android:name=".activites.workoutsHistory.WorkoutsHistoryActivity" />
         <activity android:name=".activites.dimensionHistory.DimensionHistoryActivity" />

@@ -11,20 +11,22 @@
     >
 
     <TextView
-        android:id="@+id/textViewComponentName"
+        android:id="@+id/textViewClassesName"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text="TextView"
+        android:text="Nazwa zajęć"
         android:textSize="20sp"
+        android:textStyle="bold"
         android:textAlignment="center"/>
 
     <TextView
-        android:id="@+id/textViewComponentQuantity"
+        android:id="@+id/textViewClassesDate"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text="TextView"
+        android:text="Data zajeć"
         android:textSize="20dp"
+        android:textStyle="bold"
         android:textAlignment="center"/>
 </LinearLayout>

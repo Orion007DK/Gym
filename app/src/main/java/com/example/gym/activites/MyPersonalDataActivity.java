@@ -1,7 +1,5 @@
 package com.example.gym.activites;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -76,8 +74,8 @@ public class MyPersonalDataActivity extends OptionsMenuActivity {
         // registerReceiver(broadcastReceiver, new IntentFilter(NetworkService.NOTIFICATION));
         //registerReceiver(broadcastReceiver, filter); //zarejestrowanie odbiorcy ze stworzonym filtrem
 
-        SharedPreferences data = getSharedPreferences(Constants.USER_DATA, Context.MODE_PRIVATE);
-        int id = data.getInt(Constants.USER_ID, -1);
+        SharedPreferences data = getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE);
+        int id = data.getInt(Constants.SP_USER_ID, -1);
 
         getUserData(id);
 
@@ -177,8 +175,8 @@ public class MyPersonalDataActivity extends OptionsMenuActivity {
                     buttonSaveChanges.setTextColor(Color.WHITE);
                     buttonSaveChanges.setEnabled(false);
                     changeDataCorrectWatcher.setDataChanged(false);
-                    SharedPreferences data = getSharedPreferences(Constants.USER_DATA, Context.MODE_PRIVATE);
-                    int id = data.getInt(Constants.USER_ID, -1);
+                    SharedPreferences data = getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE);
+                    int id = data.getInt(Constants.SP_USER_ID, -1);
                     updateUserData(id, editTextEmail.getText().toString(), editTextName.getText().toString(),  editTextSurname.getText().toString(), editTextPhoneNumber.getText().toString());
                 }
             }

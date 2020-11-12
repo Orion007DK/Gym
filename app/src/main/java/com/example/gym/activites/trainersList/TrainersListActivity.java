@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
+import com.example.gym.GymWorker;
 import com.example.gym.R;
 
 public class TrainersListActivity extends AppCompatActivity implements TrainersListFragment.TrainersListFragmentActivityListener {
@@ -28,12 +29,12 @@ public class TrainersListActivity extends AppCompatActivity implements TrainersL
     }
 
     @Override
-    public void onItemSelected(String name, String surname) {
+    public void onItemSelected(GymWorker trainer) {
         TrainerDetailFragment fragment = (TrainerDetailFragment) getSupportFragmentManager().findFragmentById(R.id.TrainersDetailFragment);
         // jeżeli fragment istnieje w tej aktywności,
         // znaczy, że jesteśmy w trybie landscape
         if (fragment != null && fragment.isInLayout()) {
-            fragment.setText(name, surname);
+            fragment.setData(trainer);
         } else {
             // w trybie portrait podmieniamy fragmenty w kontenerze
             setDetailsFragment();
@@ -41,7 +42,7 @@ public class TrainersListActivity extends AppCompatActivity implements TrainersL
             // i możemy korzystać z fragmentu
             getSupportFragmentManager().executePendingTransactions();
             // ustawiamy tekst fragmentu
-            ((TrainerDetailFragment) this.currentFragment).setText(name, surname);
+            ((TrainerDetailFragment) this.currentFragment).setData(trainer);
 
             // w trybie portrait wywołujemy drugą aktywność
         /*    Intent intent = new Intent(getApplicationContext(), TrainerDetailActivity.class);
@@ -71,6 +72,20 @@ public class TrainersListActivity extends AppCompatActivity implements TrainersL
 
         // zatwierdzamy transakcję
         ft.commit(); //commitAllowingStateLoss
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+
+        if (count == 0) {
+            super.onBackPressed();
+            //additional code
+        } else {
+            getSupportFragmentManager().popBackStack();
+        }
+
     }
 
 }

@@ -65,7 +65,7 @@
                     android:text="Wyświetl listę dietetyków"
                     android:textSize="@dimen/textSizeButton"
                     android:fontFamily="@string/MainPageButtonFontFamily"/>
-
+<!--
                 <Button
                     android:id="@+id/buttonUnsubscribeFromGym"
                     android:layout_width="match_parent"
@@ -73,6 +73,7 @@
                     android:text="Wypisz się z siłowni"
                     android:textSize="@dimen/textSizeButton"
                     android:fontFamily="@string/MainPageButtonFontFamily"/>
+                    -->
 
             </LinearLayout>
         </LinearLayout>
