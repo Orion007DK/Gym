@@ -5,6 +5,7 @@ public class Constants {
     private static final String ROOT_URL = "http://192.168.0.103/GymApi/v1/Api.php?apicall=";
 
     private static final String DIET_ROOT_URL = "http://192.168.0.103/GymApi/v1/DietApi.php?apicall=";
+    private static final String TICKET_ROOT_URL = "http://192.168.0.103/GymApi/v1/TicketApi.php?apicall=";
    //private static final String ROOT_URL = "http://192.168.43.231/GymApi/v1/Api.php?apicall=";
 
     public static final String URL_CREATE_USER = ROOT_URL + "createUser";
@@ -68,6 +69,8 @@ public class Constants {
     public static final String URL_SUBSCRIBE_DIET= DIET_ROOT_URL + "subscribeDiet";
     public static final String URL_UNSUBSCRIBE_DIET= DIET_ROOT_URL + "unsubscribeDiet";
 
+    public static final String URL_GET_USER_TICKETS=TICKET_ROOT_URL + "getUserTickets";
+    public static final String URL_GET_AVAILABLE_TICKETS=TICKET_ROOT_URL + "getAvailableTickets";
 
 
 

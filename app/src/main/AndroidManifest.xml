@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activites.availableDietsList.AvailableDietsList"></activity>
+        <activity android:name=".AvailableGymTickets"></activity>
+        <activity android:name=".activites.MyGymTickets.MyGymTickets" />
+        <activity android:name=".activites.availableDietsList.AvailableDietsList" />
         <activity android:name=".MyDimensionChartActivity" />
         <activity android:name=".ClassesDetailsActivity" />
         <activity android:name=".activites.classesPlan.ClassesPlanActivity" />

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activites.trainingPlansList.MyTrainingPlansListActivity">
+
+    <fragment
+        android:id="@+id/MyGymTicketsListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="com.example.gym.activites.MyGymTickets.GymTicketListFragment"
+        android:layout_weight="1"
+        >
+    </fragment>
+
+    <fragment
+        android:id="@+id/MyGymTicketDetailsFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="com.example.gym.activites.MyGymTickets.GymTicketDetailFragment"
+        android:layout_weight="1"
+        >
+    </fragment>
+</androidx.appcompat.widget.LinearLayoutCompat>

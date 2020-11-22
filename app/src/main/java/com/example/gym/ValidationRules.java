@@ -7,7 +7,7 @@ public class ValidationRules {
 
     public static boolean isNameRight(String textName){
         //stworzenie wzoru(regex) mającego sprawdzić poprawność imienia
-        Pattern pattern = Pattern.compile("^[A-Z][a-z][a-z]+$");
+        Pattern pattern = Pattern.compile("^[A-ZŻŹĆĄŚĘŁÓŃ][a-zżźćńółęąś][a-zżźćńółęąś]+$");
         //stworzenie matchera i przypisanie wzorowi tekstu wpisanego do pola tekstowego
         Matcher matchName = pattern.matcher(textName);
         //sprawdzenie czy podany tekst pasuje do wzoru
@@ -24,7 +24,7 @@ public class ValidationRules {
 
     public static boolean isSurnameRight(String textSurname){
         //stworzenie wzoru(regex) mającego sprawdzić poprawność nazwiska
-        Pattern pattern = Pattern.compile("^[A-Z][a-z][a-z]+$|[A-Z][a-z]+[-][A-Z][a-z]+$");
+        Pattern pattern = Pattern.compile("^[A-ZŻŹĆĄŚĘŁÓŃ][a-zżźćńółęąś][a-zżźćńółęąś]+$|[A-ZŻŹĆĄŚĘŁÓŃ][a-zżźćńółęąś]+[-][A-ZŻŹĆĄŚĘŁÓŃ][a-zżźćńółęąś]+$");
         //stworzenie matchera i przypisanie wzorowi tekstu wpisanego do pola tekstowego
         Matcher matchSurname = pattern.matcher(textSurname);
         //sprawdzenie czy podany tekst pasuje do wzoru

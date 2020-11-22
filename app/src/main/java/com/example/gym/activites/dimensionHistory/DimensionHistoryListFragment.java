@@ -28,6 +28,7 @@ import com.example.gym.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -64,6 +65,8 @@ public class DimensionHistoryListFragment extends Fragment {
 
 
         listView = view.findViewById(R.id.listViewDimensionsHistory);
+        TextView emptyListViewText = view.findViewById(R.id.emptyListViewText);
+        listView.setEmptyView(emptyListViewText);
 
         filter = new IntentFilter(); //utworzenie filtru zamiaru
         filter.addAction(GET_USER_ALL_DIMENSIONS); //dodanie akcji od pobierania informacji o użytkownikach
@@ -81,6 +84,7 @@ public class DimensionHistoryListFragment extends Fragment {
         } else {
             dimensionsHistoryListAdapter=new DimensionsHistoryListAdapter(appContext, dimensionsArrayList, fragment);
             listView.setAdapter(dimensionsHistoryListAdapter);
+
         }
 
         //ArrayList<Dimensions> dimensionsArrayList = new ArrayList<>();
@@ -156,14 +160,14 @@ public class DimensionHistoryListFragment extends Fragment {
                     JSONObject json = new JSONObject(jsonstr);
                     JSONArray jsonArray = json.getJSONArray("dimensionsData");
                     //JSONObject userJson = json.getJSONObject("dimensionsData");
-                    jsonArray.getJSONObject(1);
+                   // jsonArray.getJSONObject(0);
                     for(int i=0;i<jsonArray.length();i++){
                         Dimensions dimensions = new Dimensions(jsonArray.getJSONObject(i));
                         dimensionsArrayList.add(dimensions);
                     }
                     //Log.e("object1:",jsonArray.getJSONObject(1).toString() );
-                    Dimensions dimensions = new Dimensions(jsonArray.getJSONObject(1));
-                    Log.e("dimensions: ",dimensions.getStringDimension());
+                    //Dimensions dimensions = new Dimensions(jsonArray.getJSONObject(1));
+                    //Log.e("dimensions: ",dimensions.getStringDimension());
                     Log.e("js",jsonstr);
                     //Log.e("userjs: ",userJson.toString());
                     Log.e("jsonArray: ",jsonArray.toString());

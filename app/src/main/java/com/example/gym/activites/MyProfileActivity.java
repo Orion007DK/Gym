@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.gym.activites.MyGymTickets.MyGymTickets;
 import com.example.gym.R;
 
 public class MyProfileActivity extends OptionsMenuActivity {
@@ -51,7 +52,8 @@ public class MyProfileActivity extends OptionsMenuActivity {
         buttonMyGymTickets.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent myGymTicketsIntent = new Intent(getApplicationContext(), MyGymTickets.class);
+                startActivity(myGymTicketsIntent);
             }
         });
 
