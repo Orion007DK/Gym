@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.gym.Classes;
 import com.example.gym.R;
 import com.example.gym.activites.workoutsHistory.WorkoutsHistoryListFragment;
 
@@ -19,7 +20,7 @@ import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
-public class MyClassesListAdapter extends ArrayAdapter<String> {
+public class MyClassesListAdapter extends ArrayAdapter<Classes> {
 
     AppCompatActivity context;
     List<String> classesNames;
@@ -27,14 +28,17 @@ public class MyClassesListAdapter extends ArrayAdapter<String> {
     List<Time> classesStartTime;
     List<Time> classesEndTime;
 
+    List<Classes> classesList;
 
-    MyClassesListAdapter(@NonNull AppCompatActivity context, List<String> classesNames, List<Date> classesDates, List<Time> classesStartTime, List<Time> classesEndTime) {
-        super(context, R.layout.classes_list_one_line, classesNames);
+
+    MyClassesListAdapter(@NonNull AppCompatActivity context, List<Classes> classesList) {
+        super(context, R.layout.classes_list_one_line, classesList);
         this.context=context;
-        this.classesNames=classesNames;
-        this.classesDates=classesDates;
-        this.classesStartTime=classesStartTime;
-        this.classesEndTime=classesEndTime;
+        this.classesList=classesList;
+        //this.classesNames=classesNames;
+        //this.classesDates=classesDates;
+        ///this.classesStartTime=classesStartTime;
+        //this.classesEndTime=classesEndTime;
         //Calendar cal =Calendar.getInstance();
        // cal.set(2004,10,5,5,30);
     }
@@ -56,10 +60,12 @@ public class MyClassesListAdapter extends ArrayAdapter<String> {
         }
         textViewClassesName = line.findViewById(R.id.textViewClassesName);
         textViewClassesDate = line.findViewById(R.id.textViewClassesDate);
-        String stringClassesDate= DateFormat.format("dd.MM.yyyy", classesDates.get(position)).toString();
-        String time = classesStartTime.get(position).getHours()+":"+classesStartTime.get(position).getMinutes()+" - "+classesEndTime.get(position).getHours()+":"+classesEndTime.get(position).getMinutes();
-        textViewClassesName.setText(classesNames.get(position));
-        textViewClassesDate.setText(stringClassesDate +"\n"+ time);
+        //String stringClassesDate= DateFormat.format("dd.MM.yyyy", classesDates.get(position)).toString();
+        //String time = classesStartTime.get(position).getHours()+":"+classesStartTime.get(position).getMinutes()+" - "+classesEndTime.get(position).getHours()+":"+classesEndTime.get(position).getMinutes();
+        //textViewClassesName.setText(classesNames.get(position));
+        //textViewClassesDate.setText(stringClassesDate +"\n"+ time);
+        textViewClassesName.setText(classesList.get(position).getClassesName());
+        textViewClassesDate.setText(classesList.get(position).getStringDate()+"\n"+ classesList.get(position).getTime());
         line.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

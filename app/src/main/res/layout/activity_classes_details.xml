@@ -34,8 +34,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp">
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -49,7 +49,7 @@
 
                     <TextView
                         android:id="@+id/textViewClassesDate"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Data: "
@@ -72,20 +72,21 @@
 
                     <TextView
                         android:id="@+id/textViewClassesTime"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Godziny trwania zajęć:"
+                        android:text="Godziny zajęć"
                         android:textStyle="bold"
                         android:textSize="20dp" />
 
                     <TextView
                         android:id="@+id/textViewClassesTimeValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_weight="0.1"
+                        android:layout_height="wrap_content"
                         android:text="15.30 - 17.30"
-                        android:textAlignment="center"
+                        android:textAlignment="textEnd"
+                        android:layout_gravity="end"
                         android:textSize="20dp" />
                 </TableRow>
 
@@ -98,7 +99,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Pozostało wolnych miejsc:"
+                        android:text="Wolne miejsca:"
                         android:textStyle="bold"
                         android:textSize="20dp" />
 
@@ -106,10 +107,31 @@
                         android:id="@+id/textViewClassesFreeSlotsValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.1"
+                        android:layout_weight="1"
                         android:text="7"
                         android:textAlignment="center"
                         android:textSize="20dp" />
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/textViewRequiredGymTicketType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:text="Wymagany typ karnetu"
+                        android:textSize="20dp"/>
+
+                    <TextView
+                        android:id="@+id/textViewRequiredGymTicketTypeValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.1"
+                        android:textAlignment="center"
+                        android:text="Standard"
+                        android:textSize="20dp"/>
                 </TableRow>
 
             </TableLayout>
@@ -126,6 +148,7 @@
                 android:id="@+id/textViewClassesDescriptionValue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="20dp"
                 android:text="Opis zajęć" />
 
             <LinearLayout
@@ -133,23 +156,6 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textViewRequiredGymTicketType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textStyle="bold"
-                    android:text="Wymagany rodzaj karnetu"
-                    android:textSize="20dp"/>
-
-                <TextView
-                    android:id="@+id/textViewRequiredGymTicketTypeValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.1"
-                    android:textAlignment="center"
-                    android:text="Standard"
-                    android:textSize="20dp"/>
 
 
             </LinearLayout>
@@ -169,15 +175,24 @@
             android:orientation="vertical"
             android:layout_weight="1"
             android:gravity="center|bottom">
-
+            <TextView
+                android:id="@+id/textViewNoUnsubscribes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:textAlignment="center"
+                android:textColor="#FF0000"
+                android:text="" />
             <Button
                 android:id="@+id/buttonAddClassses"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:padding="20dp"
+
                 android:text="Zapisz na zajęcia"
                 android:textAlignment="center" />
+
         </LinearLayout>
     </LinearLayout>
 

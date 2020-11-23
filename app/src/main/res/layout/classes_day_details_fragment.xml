@@ -37,6 +37,15 @@
                 android:layout_height="match_parent"
                 />
 
+            <TextView
+                android:id="@+id/emptyListViewText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="Niestety tego dnia nie odbywają się żadne zajęcia"
+                android:textAlignment="center"
+                android:textSize="20sp" />
 
         </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.gym.Classes;
 import com.example.gym.activites.classesPlan.ClassesPlanActivity;
 import com.example.gym.R;
 
@@ -27,13 +28,15 @@ public class MyClassesList extends AppCompatActivity {
     ArrayList<Time> classesEndTime = new ArrayList<>();
     Button buttonAddClasses;
 
+    ArrayList<Classes> classesArrayList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_classes_list);
         myClassesListInits();
         myClasseslistView=findViewById(R.id.listViewMyClasses);
-        MyClassesListAdapter myClassesListAdapter = new MyClassesListAdapter(this, classNames, classesDates, classesStartTime, classesEndTime);
+        MyClassesListAdapter myClassesListAdapter = new MyClassesListAdapter(this, classesArrayList);
         myClasseslistView.setAdapter(myClassesListAdapter);
         View header_view =getLayoutInflater().inflate(R.layout.my_classes_list_header, null);
         myClasseslistView.addHeaderView(header_view);
@@ -56,13 +59,17 @@ public class MyClassesList extends AppCompatActivity {
     }
 
     private void myClassesListInits(){
+        classesArrayList.add(new Classes("Fitness",new Date(2004-1900, 1, 20),new Time(10,15,0).toString(),new Time(15,30,0).toString()));
+        classesArrayList.add(new Classes("Przypadkowe ćwiczenia",new Date(2019-1900, 5, 12),new Time(10,15,0).toString(),new Time(15,30,0).toString()));
+
         classNames.add("Fitness");
         classNames.add("Przypadkowe ćwiczenia");
         //classNames.add("Trening jakis");
 
         Calendar cal = Calendar.getInstance();
-        cal.set(2004,2,20);
+        cal.set(2017,2,20);
         classesDates.add(cal.getTime());
+
         cal.set(2019,5,12);
         classesDates.add(cal.getTime());
 
