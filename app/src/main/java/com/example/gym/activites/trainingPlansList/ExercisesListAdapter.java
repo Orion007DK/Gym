@@ -13,11 +13,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.gym.Exercise;
 import com.example.gym.R;
 
 import java.util.List;
 
-public class ExercisesListAdapter extends ArrayAdapter {
+public class ExercisesListAdapter extends ArrayAdapter<Exercise> {
 
 
     private AppCompatActivity context;
@@ -25,12 +26,13 @@ public class ExercisesListAdapter extends ArrayAdapter {
     private List<String> exercisesListRepetitions;
     private Fragment fragmentParrent; //fragment nadrzędny, do którego należy adapter
 
+    private List<Exercise> exercisesList;
 
-    public ExercisesListAdapter(@NonNull AppCompatActivity context, @NonNull List<String> names, @NonNull List<String> repetitions, Fragment fragment) {
-        super(context, R.layout.exercises_list_one_line, names);
+
+    public ExercisesListAdapter(@NonNull AppCompatActivity context, @NonNull List<Exercise> exercisesList, Fragment fragment) {
+        super(context, R.layout.exercises_list_one_line, exercisesList);
+        this.exercisesList=exercisesList;
         this.context=context;
-        this.exercisesListNames=names;
-        this.exercisesListRepetitions=repetitions;
         this.fragmentParrent=fragment;
     }
 
@@ -54,8 +56,10 @@ public class ExercisesListAdapter extends ArrayAdapter {
         }
         textViewName = line.findViewById(R.id.textViewExerciseName);
         textViewRepetitions= line.findViewById(R.id.textViewExerciseRepetitions);
-        textViewName.setText(exercisesListNames.get(position));
-        textViewRepetitions.setText(exercisesListRepetitions.get(position));
+        //textViewName.setText(exercisesListNames.get(position));
+        textViewName.setText(exercisesList.get(position).getExerciseName());
+       // textViewRepetitions.setText(exercisesListRepetitions.get(position));
+        textViewRepetitions.setText(exercisesList.get(position).getSets()+"x"+exercisesList.get(position).getRepetitions());
 
 
         //textViewSurname.setText(trainingPlansListDifficulty.get(position));

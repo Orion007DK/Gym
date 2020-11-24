@@ -69,8 +69,8 @@ public class AvailableTrainingPlanDetailsFragment extends Fragment {
 
     private void listViewInit(View view){
         exercisesListInit();
-        ExercisesListAdapter exercisesListAdapter = new ExercisesListAdapter((AppCompatActivity)view.getContext(), exercisesNames, exercisesRepetitions, this);
-        listViewExercises.setAdapter(exercisesListAdapter);
+        //ExercisesListAdapter exercisesListAdapter = new ExercisesListAdapter((AppCompatActivity)view.getContext(), listViewExercises, this);
+        //listViewExercises.setAdapter(exercisesListAdapter);
         // UIUtils.setListViewHeightBasedOnItems(listViewExercises, R.id.textViewExerciseName);
         UIUtils.setListViewHeightBasedOnItems(listViewExercises, R.id.textViewExerciseName, view.getContext());
 

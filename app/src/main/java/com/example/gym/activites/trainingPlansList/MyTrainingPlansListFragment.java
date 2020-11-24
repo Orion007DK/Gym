@@ -119,7 +119,7 @@ public class MyTrainingPlansListFragment extends Fragment {
     }
 
     public interface MyTrainingPlansListFragmentActivityListener{
-        public void onItemSelected(String textName, String textEstimatedDuration, String textBurnedCalories, String textCompletedTrainings, String trainingPlanDescription);
+        public void onItemSelected(TrainingPlan trainingPlan);
     }
 
     public void onAttach(@NonNull Activity activity) {
@@ -131,8 +131,8 @@ public class MyTrainingPlansListFragment extends Fragment {
         }
     }
 
-    public void updateDetail(String textName, String textEstimatedDuration, String textBurnedCalories, String textCompletedTrainings, String trainingPlanDescription) {
-        listener.onItemSelected(textName, textEstimatedDuration, textBurnedCalories, textCompletedTrainings, trainingPlanDescription);
+    public void updateDetail(TrainingPlan trainingPlan) {
+        listener.onItemSelected(trainingPlan);
     }
 
     private void landscapeConfiguration(View view){
@@ -171,10 +171,6 @@ public class MyTrainingPlansListFragment extends Fragment {
                     }
                     MyTrainingPlansListAdapter trainingPlansListAdapter = new MyTrainingPlansListAdapter(appContext, arrayListTrainingPlans, fragment);
                     listView.setAdapter(trainingPlansListAdapter);
-
-                    Log.e("js",jsonstr);
-
-                    Log.e("jsonArray: ",jsonArray.toString());
 
                 } catch (JSONException | ParseException e) {
                     e.printStackTrace();

@@ -110,13 +110,13 @@
                     android:layout_height="wrap_content"
                     android:text="Zajęcia"
                     app:circular="false"
-                    app:end_color="@color/buttonStartColor"
+                    app:end_color="@color/buttonEndColor"
                     android:textColor="@color/buttonStartColor"
                     app:filled="false"
                     app:orientation="top_bottom"
                     android:layout_marginTop="10dp"
                     android:drawableLeft="@drawable/classes_icon"
-                    app:start_color="@color/buttonEndColor"
+                    app:start_color="@color/buttonStartColor"
                     app:stroke="3dp" />
                 <!--
                     <Button
@@ -134,13 +134,13 @@
                     android:layout_height="wrap_content"
                     android:text="Diety"
                     app:circular="false"
-                    app:end_color="@color/buttonEndColor"
+                    app:end_color="@color/buttonStartColor"
                     android:textColor="@color/buttonStartColor"
                     app:filled="false"
                     app:orientation="top_bottom"
                     android:layout_marginTop="10dp"
                     android:drawableLeft="@drawable/diets_icon"
-                    app:start_color="@color/buttonStartColor"
+                    app:start_color="@color/buttonEndColor"
                     app:stroke="3dp" />
                 <!--
                     <Button

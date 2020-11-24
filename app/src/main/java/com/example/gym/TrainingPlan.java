@@ -24,7 +24,6 @@ public class TrainingPlan {
 
 
     public TrainingPlan(JSONObject jsonObjectTicket) throws JSONException, ParseException {
-        Log.e("jsTICKET:", jsonObjectTicket.toString());
         this.trainingPlanId = jsonObjectTicket.getInt("trainingPlanId");
         if (!jsonObjectTicket.isNull("trainingPlanName"))
             this.trainingPlanName= jsonObjectTicket.getString("trainingPlanName");
@@ -42,10 +41,10 @@ public class TrainingPlan {
             this.trainerSurname= jsonObjectTicket.getString("trainerSurname");
 
         JSONArray jsonExercises = jsonObjectTicket.getJSONArray("exercises");
-        Exercise exercises[] = new Exercise[jsonExercises.length()];
+        exercises = new Exercise[jsonExercises.length()];
         for (int j = 0; j < jsonExercises.length(); j++) {
             JSONObject jsExercise = jsonExercises.getJSONObject(j);
-            exercises[j]=new Exercise(jsExercise);
+            this.exercises[j]=new Exercise(jsExercise);
         }
     }
 

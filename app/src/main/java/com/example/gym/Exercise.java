@@ -18,7 +18,7 @@ public class Exercise {
     public Exercise(JSONObject jsonObjectTicket) throws JSONException, ParseException {
         Log.e("jsTICKET:", jsonObjectTicket.toString());
         this.exerciseNumber = jsonObjectTicket.getInt("exerciseNumber");
-        if (!jsonObjectTicket.isNull("trainingPlanName"))
+        if (!jsonObjectTicket.isNull("exerciseName"))
             this.exerciseName = jsonObjectTicket.getString("exerciseName");
         if (!jsonObjectTicket.isNull("image"))
             this.image = jsonObjectTicket.getString("image");
@@ -28,6 +28,12 @@ public class Exercise {
             this.repetitions = jsonObjectTicket.getString("repetitions");
         if (!jsonObjectTicket.isNull("sets"))
             this.sets = jsonObjectTicket.getString("sets");
+    }
+
+    public Exercise(String exerciseName, String repetitions, String sets) {
+        this.exerciseName = exerciseName;
+        this.repetitions = repetitions;
+        this.sets = sets;
     }
 
     public int getExerciseNumber() {

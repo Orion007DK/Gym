@@ -94,7 +94,7 @@ public class MyTrainingPlansListAdapter extends ArrayAdapter<TrainingPlan> {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(context, trainersListNames.get(position)+" "+trainersListSurnames.get(position),Toast.LENGTH_SHORT).show();
-                ((MyTrainingPlansListFragment) fragmentParrent).updateDetail(trainingPlansList.get(position).getTrainingPlanName(),"30 minut","150","2", "Bardzo prosty, a zarazem ciekawy i niezwykły plan treningowy, służący rozwojowi fizycznemu całego ciała.");
+                ((MyTrainingPlansListFragment) fragmentParrent).updateDetail(trainingPlansList.get(position));
             }
         });
         return line;
