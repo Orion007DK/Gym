@@ -10,7 +10,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.example.gym.SharedPreferencesOperations;
 import com.example.gym.activites.gymsList.GymsListActivity;
-import com.example.gym.activites.myClassesList.MyClassesList;
+import com.example.gym.activites.myClassesList.MyClassesListActivity;
 import com.example.gym.activites.trainingPlansList.MyTrainingPlansListActivity;
 import com.example.gym.activites.myDietsList.MyDietsListActivity;
 import com.example.gym.R;
@@ -87,7 +87,7 @@ public class HomePageActivity extends OptionsMenuActivity {
         buttonClasses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myClassesIntent = new Intent(getApplicationContext(), MyClassesList.class);
+                Intent myClassesIntent = new Intent(getApplicationContext(), MyClassesListActivity.class);
                 startActivity(myClassesIntent);
             }
         });

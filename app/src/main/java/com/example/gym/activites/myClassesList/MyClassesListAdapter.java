@@ -1,5 +1,6 @@
 package com.example.gym.activites.myClassesList;
 
+import android.content.Intent;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.gym.Classes;
+import com.example.gym.ClassesDetailsActivity;
+import com.example.gym.Constants;
 import com.example.gym.R;
 import com.example.gym.activites.workoutsHistory.WorkoutsHistoryListFragment;
 
@@ -69,6 +72,11 @@ public class MyClassesListAdapter extends ArrayAdapter<Classes> {
         line.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intentClassesDetailsActivity = new Intent(getContext(), ClassesDetailsActivity.class);
+                intentClassesDetailsActivity.putExtra("classes", classesList.get(position));
+                intentClassesDetailsActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                //intentClassesDetailsActivity.putExtra(Constants.BUNDLE_CLASSES_IS_SUBSCRIBED, true);
+                getContext().startActivity(intentClassesDetailsActivity);
                 //  Toast.makeText(context, dimensionsHistoryListDates.get(position).toString(),Toast.LENGTH_SHORT).show();
                 //((WorkoutsHistoryListFragment) fragmentParrent).updateDetail(workoutsHistoryListDates.get(position), workoutsHistoryListNames.get(position));
             }

@@ -24,22 +24,22 @@ public class Classes implements Serializable {
     private String requiredOption;
 
     public Classes(JSONObject jsonObject) throws JSONException {
-        if(jsonObject.getString("classesId").equals("null"))
+        if(jsonObject.isNull("classesId"))
             this.classesId =-1;
         else
             this.classesId = jsonObject.getInt("classesId");
 
-        if(jsonObject.getString("classesName").equals("null"))
+        if(jsonObject.isNull("classesName"))
             this.classesName =null;
         else
             this.classesName = jsonObject.getString("classesName");
 
-        if(jsonObject.getString("classesDescription").equals("null"))
+        if(jsonObject.isNull("classesDescription"))
             this.classesDescription =null;
         else
             this.classesDescription = jsonObject.getString("classesDescription");
 
-        if(jsonObject.getString("date").equals("null"))
+        if(jsonObject.isNull("date"))
             this.date =null;
         else
             try {
@@ -49,32 +49,32 @@ public class Classes implements Serializable {
                 e.printStackTrace();
             };
 
-        if(jsonObject.getString("classesStartTime").equals("null"))
+        if(jsonObject.isNull("classesStartTime"))
             this.classesStartTime=null;
         else
             this.classesStartTime = jsonObject.getString("classesStartTime");
 
-        if(jsonObject.getString("classesEndTime").equals("null"))
+        if(jsonObject.isNull("classesEndTime"))
             this.classesEndTime=null;
         else
             this.classesEndTime = jsonObject.getString("classesEndTime");
 
-        if(jsonObject.getString("trainerName").equals("null"))
+        if(jsonObject.isNull("trainerName"))
             this.trainerName=null;
         else
             this.trainerName = jsonObject.getString("trainerName");
 
-        if(jsonObject.getString("trainerSurname").equals("null"))
+        if(jsonObject.isNull("trainerSurname"))
             this.trainerSurname=null;
         else
             this.trainerSurname = jsonObject.getString("trainerSurname");
 
-        if(jsonObject.getString("availableEntries").equals("null"))
+        if(jsonObject.isNull("availableEntries"))
             this.availableEntries=null;
         else
             this.availableEntries = jsonObject.getString("availableEntries");
 
-        if(jsonObject.getString("requiredOption").equals("null"))
+        if(jsonObject.isNull("requiredOption"))
             this.requiredOption=null;
         else
             this.requiredOption = jsonObject.getString("requiredOption");

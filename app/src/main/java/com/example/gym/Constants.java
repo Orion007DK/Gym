@@ -96,6 +96,7 @@ public class Constants {
     public final static String BUNDLE_DIET_DAY_OF_WEEK_ID="dayOfWeekId";
     public final static String BUNDLE_DIET_DAY_OF_WEEK_NAME="dayOfWeekName";
     public final static String BUNDLE_DIET_SUB_STATUS="dietSubOrUnsub";
+    public final static String BUNDLE_CLASSES_IS_SUBSCRIBED="isSubscribed";
 
 
 

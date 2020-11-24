@@ -79,11 +79,15 @@ Context context;
         textViewNoUnsubscribes.setText("Z zajęć można wypisać się najpóźniej do 48 godzin przed rozpoczęciem zajęć, pozostały czas do rozpoczęcia zajęć: " + String.valueOf(countLeftHours()) + " godzin");
         //Time classesStartTime = (Time)getIntent().getSerializableExtra(ClassesListAdapter.CLASSES_START_TIME);
         //Time classesEndTime = (Time)getIntent().getSerializableExtra(ClassesListAdapter.CLASSES_END_TIME);
-checkIsUserSubscribing();
+        checkIsUserSubscribing();
         String stringClassStartTime = getIntent().getStringExtra(ClassesListAdapter.CLASSES_START_TIME);
         String stringClassEndTime= getIntent().getStringExtra(ClassesListAdapter.CLASSES_END_TIME);
 
-buttonCheckTicket.setOnClickListener(new View.OnClickListener() {
+        //if(getIntent().getBooleanExtra(Constants.BUNDLE_CLASSES_IS_SUBSCRIBED, false)) {
+        //    buttonsInit(true);
+
+        //}
+        buttonCheckTicket.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         checkTicket();
@@ -125,6 +129,8 @@ buttonCheckTicket.setOnClickListener(new View.OnClickListener() {
         //String stringDate = DateFormat.format(Constants.DATABASE_DATA_FORMAT,calendarSelectedDate).toString();
         params.put("classesId", classes.getStringClassesId());
         params.put("userId", String.valueOf(SharedPreferencesOperations.getUserId(getApplicationContext())));
+        Log.e("userId",String.valueOf(SharedPreferencesOperations.getUserId(getApplicationContext())));
+        Log.e("classId", classes.getStringClassesId());
         PerformNetworkRequest request = new PerformNetworkRequest(Constants.URL_CHECK_IS_USER_SUBSCRIBING, params, Constants.CODE_POST_REQUEST, getApplicationContext(), CHECK_IS_USER_SUBSCRIBING);
         request.execute();
     }

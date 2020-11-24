@@ -19,7 +19,7 @@
         <activity android:name=".ClassesDetailsActivity" />
         <activity android:name=".activites.classesPlan.ClassesPlanActivity" />
         <activity android:name=".Niepotrzebne.ChooseWeekActivity" />
-        <activity android:name=".activites.myClassesList.MyClassesList" />
+        <activity android:name=".activites.myClassesList.MyClassesListActivity" />
         <activity android:name=".activites.availableTreningPlansList.AvailableTrainingPlansListActivity" />
         <activity android:name=".activites.trainingPlansList.MyTrainingPlansListActivity" />
         <activity android:name=".activites.myDietsList.dietsDay.DietsDayActivity" />
