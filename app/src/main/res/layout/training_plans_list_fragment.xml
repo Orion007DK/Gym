@@ -43,6 +43,16 @@
                     android:src="@drawable/add_sign" />
             </FrameLayout>
 
+            <TextView
+                android:id="@+id/emptyListViewText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="Nie masz zapisanych żadnych planów treningowych"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

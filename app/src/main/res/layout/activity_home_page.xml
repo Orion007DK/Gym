@@ -46,8 +46,20 @@
                     android:textColor="#0C7BEA"
                     />
 -->
-
-
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonGym"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Siłownia"
+                    app:circular="false"
+                    app:end_color="@color/buttonEndColor"
+                    android:textColor="@color/buttonStartColor"
+                    app:filled="false"
+                    app:orientation="top_bottom"
+                    android:drawableLeft="@drawable/gym"
+                    app:start_color="@color/buttonStartColor"
+                    app:stroke="3dp" />
+<!--
                     <Button
                         android:id="@+id/buttonGym"
                         android:layout_width="match_parent"
@@ -57,6 +69,22 @@
                         android:fontFamily="@string/MainPageButtonFontFamily"
                         />
 
+-->
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonTrainingPlans"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Plany Treningowe"
+                    app:circular="false"
+                    app:end_color="@color/buttonStartColor"
+                    android:textColor="@color/buttonStartColor"
+                    app:filled="false"
+                    app:orientation="top_bottom"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/training_plans_icon"
+                    app:start_color="@color/buttonEndColor"
+                    app:stroke="3dp" />
+   <!--
                     <Button
                         android:id="@+id/buttonTrainingPlans"
                         android:layout_width="match_parent"
@@ -66,7 +94,8 @@
                         android:textSize="@dimen/textSizeButton"
 
                         />
-
+-->
+                <!--
                     <Button
                         android:id="@+id/buttonTrainer"
                         android:layout_width="match_parent"
@@ -74,7 +103,22 @@
                         android:text="Trener"
                         android:textSize="@dimen/textSizeButton"
                         android:fontFamily="@string/MainPageButtonFontFamily"/>
-
+                        -->
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonClasses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Zajęcia"
+                    app:circular="false"
+                    app:end_color="@color/buttonStartColor"
+                    android:textColor="@color/buttonStartColor"
+                    app:filled="false"
+                    app:orientation="top_bottom"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/classes_icon"
+                    app:start_color="@color/buttonEndColor"
+                    app:stroke="3dp" />
+                <!--
                     <Button
                         android:id="@+id/buttonClasses"
                         android:layout_width="match_parent"
@@ -82,7 +126,23 @@
                         android:text="Zajęcia"
                         android:textSize="@dimen/textSizeButton"
                         android:fontFamily="@string/MainPageButtonFontFamily"/>
+                        -->
 
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonDiets"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Diety"
+                    app:circular="false"
+                    app:end_color="@color/buttonEndColor"
+                    android:textColor="@color/buttonStartColor"
+                    app:filled="false"
+                    app:orientation="top_bottom"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/diets_icon"
+                    app:start_color="@color/buttonStartColor"
+                    app:stroke="3dp" />
+                <!--
                     <Button
                         android:id="@+id/buttonDiets"
                         android:layout_width="match_parent"
@@ -90,7 +150,37 @@
                         android:text="Diety"
                         android:textSize="@dimen/textSizeButton"
                         android:fontFamily="@string/MainPageButtonFontFamily"/>
+-->
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonTrainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Trener"
+                    app:circular="false"
+                    app:end_color="@color/buttonEndColor"
+                    android:textColor="@color/buttonStartColor"
+                    app:filled="false"
+                    app:orientation="top_bottom"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/coach"
+                    app:start_color="@color/buttonStartColor"
+                    app:stroke="3dp" />
 
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                android:id="@+id/buttonDietician"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dietetyk"
+                app:circular="false"
+                app:end_color="@color/buttonStartColor"
+                android:textColor="@color/buttonStartColor"
+                app:filled="false"
+                app:orientation="top_bottom"
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/dietician_icon"
+                app:start_color="@color/buttonEndColor"
+                app:stroke="3dp" />
+                <!--
                     <Button
                         android:id="@+id/buttonDietician"
                         android:layout_width="match_parent"
@@ -99,8 +189,23 @@
                         android:textSize="@dimen/textSizeButton"
                         android:fontFamily="@string/MainPageButtonFontFamily"/>
 
+-->
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonMyProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mój profil"
+                    app:circular="false"
+                    app:end_color="@color/buttonEndColor"
+                    android:textColor="@color/buttonStartColor"
+                    app:filled="false"
+                    app:orientation="top_bottom"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/my_profile_icon"
+                    app:start_color="@color/buttonStartColor"
+                    app:stroke="3dp" />
 
-
+                <!--
                     <Button
                     android:id="@+id/buttonMyProfile"
                     android:layout_width="match_parent"
@@ -109,7 +214,7 @@
                     android:textSize="@dimen/textSizeButton"
                     android:fontFamily="@string/MainPageButtonFontFamily"/>
 
-
+-->
 
 
             </LinearLayout>
