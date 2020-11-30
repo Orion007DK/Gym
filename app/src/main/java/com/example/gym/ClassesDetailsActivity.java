@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -44,6 +45,7 @@ public class ClassesDetailsActivity extends AppCompatActivity {
     private TextView textViewRequiredGymTicketTypeValue;
     private Button buttonCheckTicket;
     private Button buttonAddClassses;
+    private TextView textViewCheckTicket;
 
     TextView textViewNoUnsubscribes;
 
@@ -53,7 +55,7 @@ public class ClassesDetailsActivity extends AppCompatActivity {
     IntentFilter filter;
     private static final String CHECK_TICKET="checkTicket";
     private static final String SUBSCRIBE_CLASSES="subscribeClasses";
-    private static final String UNSUBSCRIBE_CLASSES="subscribeClasses";
+    private static final String UNSUBSCRIBE_CLASSES="unsubscribeClasses";
     private static final String CHECK_IS_USER_SUBSCRIBING="checkIsUserSubscribing";
 
 Context context;
@@ -77,39 +79,39 @@ Context context;
         //String stringDate = getIntent().getStringExtra(ClassesListAdapter.CALENDAR_SELECTED_DATE);
         //textViewClassesDateValue.setText(stringDate);
         textViewNoUnsubscribes.setText("Z zajęć można wypisać się najpóźniej do 48 godzin przed rozpoczęciem zajęć, pozostały czas do rozpoczęcia zajęć: " + String.valueOf(countLeftHours()) + " godzin");
+        textViewTrainerNameSurname.setText(classes.getTrainerName()+" "+classes.getTrainerSurname());
         //Time classesStartTime = (Time)getIntent().getSerializableExtra(ClassesListAdapter.CLASSES_START_TIME);
         //Time classesEndTime = (Time)getIntent().getSerializableExtra(ClassesListAdapter.CLASSES_END_TIME);
         checkIsUserSubscribing();
-        String stringClassStartTime = getIntent().getStringExtra(ClassesListAdapter.CLASSES_START_TIME);
-        String stringClassEndTime= getIntent().getStringExtra(ClassesListAdapter.CLASSES_END_TIME);
+       // String stringClassStartTime = getIntent().getStringExtra(ClassesListAdapter.CLASSES_START_TIME);
+       // String stringClassEndTime= getIntent().getStringExtra(ClassesListAdapter.CLASSES_END_TIME);
 
         //if(getIntent().getBooleanExtra(Constants.BUNDLE_CLASSES_IS_SUBSCRIBED, false)) {
         //    buttonsInit(true);
 
         //}
-        buttonCheckTicket.setOnClickListener(new View.OnClickListener() {
+/*        buttonCheckTicket.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         checkTicket();
     }
 });
-
+*/
         //String time =DateFormat.format("HH:mm",classesStartTime)+" - "+DateFormat.format("HH:mm",classesEndTime);
         textViewClassesTimeValue.setText(classes.getClassesStartTime()+" - "+classes.getClassesEndTime());
         textViewClassesFreeSlotsValue.setText(classes.getAvailableEntries());
         textViewClassesDescriptionValue.setText(classes.getClassesDescription());
         textViewRequiredGymTicketTypeValue.setText(classes.getRequiredOption());
-
     }
 
     private void checkTicket(){
         registerReceiver(broadcastReceiver, filter);
-        progressDialog = new SpotsDialog(context, R.style.Custom);
-        progressDialog.show();
+        //progressDialog = new SpotsDialog(context, R.style.Custom);
+       // progressDialog.show();
         HashMap<String, String> params = new HashMap<>();
         //Date date = new Date();
         //Date date =
-
+Log.e("Check","start");
         //String stringDate = DateFormat.format(Constants.DATABASE_DATA_FORMAT,calendarSelectedDate).toString();
         params.put("ticketOption", classes.getRequiredOption());
         params.put("date", classes.getStringDateInDatabaseFormat());
@@ -174,12 +176,22 @@ Context context;
         public void onReceive(Context context, Intent intent) {
             Bundle bundle = intent.getExtras(); //pobranie pakunku danych z zamiaru
             if (Objects.equals(intent.getAction(), CHECK_TICKET)) {
+                Log.e("check","broad");
                 try {
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
-               //     unregisterReceiver(broadcastReceiver);
-                    progressDialog.dismiss();
-                    checkTicketDialog(json.getBoolean("checkTicket"));
+                    unregisterReceiver(broadcastReceiver);
+                    //progressDialog.dismiss();
+                    //checkTicketDialog(json.getBoolean("checkTicket"));
+                    if(json.getBoolean("checkTicket")){
+                        textViewCheckTicket.setText("Posiadasz odpowiedni karnet");
+                        textViewCheckTicket.setTextColor(Color.parseColor("#0eb35e"));
+                        Log.e("Check","true");
+                    } else {
+                        textViewCheckTicket.setText("Nie posiadasz wymaganego karnetu");
+                        textViewCheckTicket.setTextColor(Color.RED);
+                        Log.e("Check","false");
+                    }
 
 
                 } catch (JSONException e) {
@@ -196,10 +208,11 @@ Context context;
                 try {
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
-                 //   unregisterReceiver(broadcastReceiver);
+                    unregisterReceiver(broadcastReceiver);
                     progressDialog.dismiss();
                     buttonsInit(json.getBoolean("check"));
-
+                    if(!json.getBoolean("check"))
+                        checkTicket();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -208,7 +221,7 @@ Context context;
                 try {
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
-                  // unregisterReceiver(broadcastReceiver);
+                   unregisterReceiver(broadcastReceiver);
                     progressDialog.dismiss();
                     if(json.getBoolean("classesSubscription"))
                         classes.setAvailableEntries(String.valueOf(Integer.valueOf(classes.getAvailableEntries())-1));
@@ -220,10 +233,10 @@ Context context;
                 }
             }
             if(Objects.equals(intent.getAction(), UNSUBSCRIBE_CLASSES)){
-                try {
+                    try {
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
-                   // unregisterReceiver(broadcastReceiver);
+                    unregisterReceiver(broadcastReceiver);
                     progressDialog.dismiss();
                     boolean isUnsubscribed=json.getBoolean("classesUnsubscription");
                     if(isUnsubscribed)
@@ -238,14 +251,15 @@ Context context;
                     e.printStackTrace();
                 }
             }
-            unregisterReceiver(broadcastReceiver);
+           // unregisterReceiver(broadcastReceiver);
         }
     };
 
 
     private void buttonsInit(boolean isSubscribed){
         if(isSubscribed) {
-            buttonCheckTicket.setVisibility(View.GONE);
+       //     buttonCheckTicket.setVisibility(View.GONE);
+            textViewCheckTicket.setVisibility(View.GONE);
             buttonAddClassses.setText("Wypisz z zajęć");
             final int leftHours = countLeftHours();
             if (leftHours >= 48 ) {
@@ -264,7 +278,8 @@ Context context;
                 });
             }
         } else {
-            buttonCheckTicket.setVisibility(View.VISIBLE);
+//            buttonCheckTicket.setVisibility(View.VISIBLE);
+            textViewCheckTicket.setVisibility(View.VISIBLE);
             buttonAddClassses.setText("Zapisz na zajęcia");
             if(Integer.valueOf(classes.getAvailableEntries())>0)
                 buttonAddClassses.setOnClickListener(new View.OnClickListener() {
@@ -349,7 +364,9 @@ Context context;
         textViewClassesFreeSlotsValue=findViewById(R.id.textViewClassesFreeSlotsValue);
         textViewClassesDescriptionValue=findViewById(R.id.textViewClassesDescriptionValue);
         textViewRequiredGymTicketTypeValue=findViewById(R.id.textViewRequiredGymTicketTypeValue);
-        buttonCheckTicket=findViewById(R.id.buttonCheckTicket);
+        //buttonCheckTicket=findViewById(R.id.buttonCheckTicket);
+        textViewCheckTicket=findViewById(R.id.textViewCheckTicket);
+
         buttonAddClassses=findViewById(R.id.buttonAddClassses);
 
         textViewNoUnsubscribes=findViewById(R.id.textViewNoUnsubscribes);

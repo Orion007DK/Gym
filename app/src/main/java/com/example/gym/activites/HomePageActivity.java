@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.example.gym.QRActivity;
 import com.example.gym.SharedPreferencesOperations;
 import com.example.gym.activites.gymsList.GymsListActivity;
 import com.example.gym.activites.myClassesList.MyClassesListActivity;
@@ -26,6 +27,7 @@ public class HomePageActivity extends OptionsMenuActivity {
     private Button buttonDietician;
     private Button buttonMyProfile;
     private QButton buttonGym2;
+    private Button buttonQr;
 
     private int gymId;
 
@@ -56,6 +58,8 @@ public class HomePageActivity extends OptionsMenuActivity {
         buttonDiets=findViewById(R.id.buttonDiets);
         buttonDietician=findViewById(R.id.buttonDietician);
         buttonMyProfile=findViewById(R.id.buttonMyProfile);
+        buttonQr=findViewById(R.id.buttonQR);
+
 
     }
 
@@ -113,6 +117,14 @@ public class HomePageActivity extends OptionsMenuActivity {
             public void onClick(View v) {
                 Intent myProfileIntent = new Intent(getApplicationContext(), MyProfileActivity.class);
                 startActivity(myProfileIntent);
+            }
+        });
+
+        buttonQr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent QrIntent =  new Intent(getApplicationContext(), QRActivity.class);
+                startActivity(QrIntent);
             }
         });
     }

@@ -48,5 +48,7 @@ dependencies {
     implementation "org.mindrot:jbcrypt:0.4"
     implementation 'com.github.d-max:spots-dialog:0.4@aar'
     implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.github.kenglxn.QRGen:android:2.6.0' //QR
+    implementation 'com.params.progressview:step-progress:1.0.2'
 //https://android-arsenal.com/details/1/7999
 }

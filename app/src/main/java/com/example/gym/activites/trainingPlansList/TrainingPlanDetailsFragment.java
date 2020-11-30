@@ -1,11 +1,13 @@
 package com.example.gym.activites.trainingPlansList;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,12 +18,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.gym.Exercise;
+import com.example.gym.InteractiveTrainingActivity;
 import com.example.gym.R;
 import com.example.gym.TrainingPlan;
 import com.example.gym.UIUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class TrainingPlanDetailsFragment extends Fragment {
 
@@ -31,6 +35,9 @@ public class TrainingPlanDetailsFragment extends Fragment {
     TextView textViewCompletedTrainingsValue;
     TextView textViewTrainingPlanDescription;
     ListView listViewExercises;
+
+    Button buttonStartTraining;
+
     ArrayList<String> exercisesNames= new ArrayList<>();
     ArrayList<String> exercisesRepetitions= new ArrayList<>();
 
@@ -38,10 +45,22 @@ public class TrainingPlanDetailsFragment extends Fragment {
 
     private AppCompatActivity appContext;
 
+    TrainingPlan trainingPlan;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.training_plan_details, container, false);
         idInit(view);
+
+        buttonStartTraining.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentInteractiveTraining = new Intent(requireActivity(), InteractiveTrainingActivity.class);
+                intentInteractiveTraining.putExtra("trainingPlan", trainingPlan);
+                startActivity(intentInteractiveTraining);
+            }
+        });
+
         appContext=(AppCompatActivity)view.getContext();
            landscapeConfiguration(view); // działa, nie trzeba zmniejszać paddingów tylko rozmiar.
         listViewInit(view);
@@ -61,6 +80,7 @@ public class TrainingPlanDetailsFragment extends Fragment {
        exercisesArrayList=new ArrayList<>(Arrays.asList(trainingPlan.getExercises()));
         ExercisesListAdapter exercisesListAdapter = new ExercisesListAdapter(appContext, exercisesArrayList, this);
         listViewExercises.setAdapter(exercisesListAdapter);
+        this.trainingPlan=trainingPlan;
     }
 
     private void idInit(View view){
@@ -70,6 +90,7 @@ public class TrainingPlanDetailsFragment extends Fragment {
         listViewExercises=view.findViewById(R.id.listViewExercises);
         textViewTitle=view.findViewById(R.id.textViewTitle);
         textViewTrainingPlanDescription=view.findViewById(R.id.textViewTrainingPlanDescription);
+        buttonStartTraining=view.findViewById(R.id.buttonStartTraining);
     }
 
     private void landscapeConfiguration(View view){

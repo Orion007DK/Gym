@@ -103,6 +103,17 @@
                     android:layout_weight="0.5"
                     android:text="3 razy" />
             </TableRow>
+          <!--  <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <Button
+                    android:id="@+id/buttonStartTraining"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Button" />
+            </TableRow>
+            -->
         </TableLayout>
 
         <ListView
@@ -111,13 +122,16 @@
             android:layout_height="match_parent"
             android:paddingTop="10dp"
             android:paddingBottom="20dp"
+            android:layout_weight="20"
+            android:nestedScrollingEnabled="true"
             />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:layout_weight="1">
 
             <Button
                 android:id="@+id/buttonStartTraining"

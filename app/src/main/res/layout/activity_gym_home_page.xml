@@ -34,6 +34,15 @@
                 android:paddingRight="60dp">
 
 
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonShowGymProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Wyświetl profil siłowni"
+                    android:drawableLeft="@drawable/gym"
+                   style="@style/GradientButtonLeftToRightStyle"
+                    app:stroke="3dp" />
+                <!--
                 <Button
                     android:id="@+id/buttonShowGymProfile"
                     android:layout_width="match_parent"
@@ -41,7 +50,17 @@
                     android:text="Wyświetl profil siłowni"
                     android:textSize="@dimen/textSizeButton"
                     android:fontFamily="@string/MainPageButtonFontFamily"/>
-
+-->
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonFindGym"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Wyszukaj siłownię"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/find_gym_icon"
+                    style="@style/GradientButtonLeftToRightStyle"
+                    app:stroke="3dp" />
+             <!--
                 <Button
                     android:id="@+id/buttonFindGym"
                     android:layout_width="match_parent"
@@ -49,7 +68,17 @@
                     android:text="Wyszukaj siłownię"
                     android:fontFamily="@string/MainPageButtonFontFamily"
                     android:textSize="@dimen/textSizeButton"/>
-
+-->
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonShowTrainersList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Wyświetl listę trenerów"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/show_trainer_list"
+                    style="@style/GradientButtonLeftToRightStyle"
+                    app:stroke="3dp" />
+                <!--
                 <Button
                     android:id="@+id/buttonShowTrainersList"
                     android:layout_width="match_parent"
@@ -57,7 +86,17 @@
                     android:text="Wyświetl listę trenerów"
                     android:textSize="@dimen/textSizeButton"
                     android:fontFamily="@string/MainPageButtonFontFamily"/>
-
+-->
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonShowDieticiansList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Wyświetl listę dietetyków"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/show_trainer_list"
+                    style="@style/GradientButtonLeftToRightStyle"
+                    app:stroke="3dp" />
+<!--
                 <Button
                     android:id="@+id/buttonShowDieticiansList"
                     android:layout_width="match_parent"
@@ -65,6 +104,7 @@
                     android:text="Wyświetl listę dietetyków"
                     android:textSize="@dimen/textSizeButton"
                     android:fontFamily="@string/MainPageButtonFontFamily"/>
+                    -->
 <!--
                 <Button
                     android:id="@+id/buttonUnsubscribeFromGym"

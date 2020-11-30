@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.example.gym.R;
+import com.example.gym.TrainingPlan;
 
 public class AvailableTrainingPlansListActivity extends AppCompatActivity implements AvailableTrainingPlansListFragment.AvailableTrainingPlansListFragmentActivityListener {
 
@@ -27,12 +28,12 @@ public class AvailableTrainingPlansListActivity extends AppCompatActivity implem
     }
 
     @Override
-    public void onItemSelected(String name, String estimatedDuration, String burnedCalories, String trainingPlanDescription) {
+    public void onItemSelected(TrainingPlan trainingPlan) {
         AvailableTrainingPlanDetailsFragment fragment = (AvailableTrainingPlanDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.AvailableTrainingPlanDetailsFragment);
         // jeżeli fragment istnieje w tej aktywności,
         // znaczy, że jesteśmy w trybie landscape
         if (fragment != null && fragment.isInLayout()) {
-            fragment.setText(name,estimatedDuration, burnedCalories, trainingPlanDescription);
+            fragment.setText(trainingPlan);
         } else {
             // w trybie portrait podmieniamy fragmenty w kontenerze
             setDetailsFragment();
@@ -40,7 +41,7 @@ public class AvailableTrainingPlansListActivity extends AppCompatActivity implem
             // i możemy korzystać z fragmentu
             getSupportFragmentManager().executePendingTransactions();
             // ustawiamy tekst fragmentu
-            ((AvailableTrainingPlanDetailsFragment) this.currentFragment).setText(name,estimatedDuration, burnedCalories,  trainingPlanDescription);
+            ((AvailableTrainingPlanDetailsFragment) this.currentFragment).setText(trainingPlan);
 
         }
     }

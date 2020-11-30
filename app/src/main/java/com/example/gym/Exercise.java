@@ -5,9 +5,10 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.ParseException;
 
-public class Exercise {
+public class Exercise implements Serializable {
     int exerciseNumber;
     String exerciseName;
     String image;

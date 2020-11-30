@@ -71,6 +71,7 @@ public class GymTicketDetailFragment extends Fragment{
         TextView textViewTicketStartDate = getView().findViewById(R.id.textViewTicketStartDateValue);
         TextView textViewTicketEndDate = getView().findViewById(R.id.textViewTicketEndDateValue);
         TextView textViewTicketPossibilities = getView().findViewById(R.id.textViewTicketPossibilitiesValue);
+        TextView textViewLeftEntries = getView().findViewById(R.id.textViewLeftEntriesValue);
         if(textViewTicketName!=null && ticket.getName()!=null)
             textViewTicketName.setText(ticket.getName());
         if(textViewTicketStartDate!=null  && ticket.getStringStartDate()!=null)
@@ -79,6 +80,8 @@ public class GymTicketDetailFragment extends Fragment{
             textViewTicketEndDate.setText(ticket.getStringEndDate());
         if(textViewTicketPossibilities!=null && ticket.getStringPossibilities()!=null)
             textViewTicketPossibilities.setText(ticket.getStringPossibilities());//trainer.getDescription()aboutTrainer
+        if(textViewLeftEntries!=null)
+            textViewLeftEntries.setText(String.valueOf(ticket.getEntries()));
     }
 
 

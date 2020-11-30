@@ -8,10 +8,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-public class TrainingPlan {
+public class TrainingPlan implements Serializable {
     int trainingPlanId;
     String trainingPlanName;
     String trainingPlanDescription;
@@ -88,4 +91,11 @@ public class TrainingPlan {
     public Exercise[] getExercises() {
         return exercises;
     }
+
+    public ArrayList<Exercise> getArrayListExercises()
+    {
+        ArrayList<Exercise> exercisesArrayList = new ArrayList<>(Arrays.asList(exercises));
+        return exercisesArrayList;
+    }
+
 }

@@ -16,24 +16,28 @@ import androidx.fragment.app.Fragment;
 
 import com.example.gym.BlurAsyncTask;
 import com.example.gym.R;
+import com.example.gym.TrainingPlan;
 
 import java.util.List;
 
-public class AvailableTrainingPlansListAdapter extends ArrayAdapter<String> {
+public class AvailableTrainingPlansListAdapter extends ArrayAdapter<TrainingPlan> {
 
     private AppCompatActivity context;
-    private List<String> trainingPlansListNames;
-    private List<Integer> trainingPlansListDifficulty;
+    //private List<String> trainingPlansListNames;
+    //private List<Integer> trainingPlansListDifficulty;
+    private List<TrainingPlan> trainingPlansList;
+
     private Fragment fragmentParrent; //fragment nadrzędny, do którego należy adapter
     private TextView textViewName;
     private ImageView imageViewStars;
     private ImageView imageViewAddTrainingPlan;
 
-    public AvailableTrainingPlansListAdapter(@NonNull AppCompatActivity context, @NonNull List<String> names, @NonNull List<Integer> difficulty, Fragment fragment) {
-        super(context, R.layout.available_training_plans_list_one_line, names);
+    public AvailableTrainingPlansListAdapter(@NonNull AppCompatActivity context, @NonNull List<TrainingPlan> trainingPlansList, Fragment fragment) {
+        super(context, R.layout.available_training_plans_list_one_line, trainingPlansList);
         this.context=context;
-        this.trainingPlansListNames=names;
-        this.trainingPlansListDifficulty=difficulty;
+       // this.trainingPlansListNames=names;
+       // this.trainingPlansListDifficulty=difficulty;
+        this.trainingPlansList=trainingPlansList;
         this.fragmentParrent=fragment;
     }
 
@@ -57,7 +61,7 @@ public class AvailableTrainingPlansListAdapter extends ArrayAdapter<String> {
         textViewName = line.findViewById(R.id.textViewTrainingPlanName);
         imageViewStars= line.findViewById(R.id.imageViewTrainingPlanDifficultyStars);
         imageViewAddTrainingPlan=line.findViewById(R.id.imageViewAddTrainingPlan);
-        textViewName.setText(trainingPlansListNames.get(position));
+        textViewName.setText(trainingPlansList.get(position).getTrainingPlanName());
         int height = textViewName.getLayoutParams().height;
         setDifficultyStarImage(imageViewStars, position, height);
         imageViewAddTrainingPlan.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,height));
@@ -102,7 +106,7 @@ public class AvailableTrainingPlansListAdapter extends ArrayAdapter<String> {
         View.OnClickListener forUpdateDetailslistener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((AvailableTrainingPlansListFragment) fragmentParrent).updateDetail(trainingPlansListNames.get(position),"30 minut","150", "Bardzo prosty, a zarazem ciekawy i niezwykły plan treningowy, służący rozwojowi fizycznemu całego ciała.");
+                ((AvailableTrainingPlansListFragment) fragmentParrent).updateDetail(trainingPlansList.get(position));
             }
         };
 
@@ -124,7 +128,7 @@ public class AvailableTrainingPlansListAdapter extends ArrayAdapter<String> {
     }
 
     private void setDifficultyStarImage(ImageView imageViewStars, int position, int height){
-        switch(trainingPlansListDifficulty.get(position))
+        switch(trainingPlansList.get(position).getDifficultyLevel())
         {
             case 1:
             {

@@ -33,7 +33,17 @@
                 android:paddingLeft="60dp"
                 android:paddingRight="60dp">
 
-
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonDimensionsHistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Historia pomiarów"
+                    app:circular="false"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/dimension_history_icon"
+                    style="@style/GradientButtonLeftToRightStyle"
+                    app:stroke="3dp" />
+                <!--
                 <Button
                     android:id="@+id/buttonDimensionsHistory"
                     android:layout_width="match_parent"
@@ -41,7 +51,18 @@
                     android:text="Historia pomiarów"
                     android:textSize="@dimen/textSizeButton"
                     android:fontFamily="@string/MainPageButtonFontFamily"/>
-
+-->
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonTrainingHistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Historia treningów"
+                    app:circular="false"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/trainings_history_icon"
+                    style="@style/GradientButtonLeftToRightStyle"
+                    app:stroke="3dp" />
+                <!--
                 <Button
                     android:id="@+id/buttonTrainingHistory"
                     android:layout_width="match_parent"
@@ -49,7 +70,18 @@
                     android:text="Historia treningów"
                     android:fontFamily="@string/MainPageButtonFontFamily"
                     android:textSize="@dimen/textSizeButton"/>
-
+-->
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonStatisticsOnDiagrams"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Statystyki na wykresach"
+                    app:circular="false"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/charts_icon"
+                    style="@style/GradientButtonLeftToRightStyle"
+                    app:stroke="3dp" />
+                <!--
                 <Button
                     android:id="@+id/buttonStatisticsOnDiagrams"
                     android:layout_width="match_parent"
@@ -57,6 +89,7 @@
                     android:text="Statystyki na wykresach"
                     android:textSize="@dimen/textSizeButton"
                     android:fontFamily="@string/MainPageButtonFontFamily"/>
+                -->
             </LinearLayout>
         </LinearLayout>
 

@@ -84,6 +84,7 @@ public class Constants {
     public static final String URL_CHECK_IS_USER_SUBSCRIBING=CLASSES_ROOT_URL + "checkIsUserSubscribing";
 
     public static final String URL_GET_USER_TRAINING_PLANS=TRAINING_PLAN_ROOT_URL + "getUserTrainingPlans";
+    public static final String URL_GET_GYM_AVAILABLE_TRAINING_PLANS=TRAINING_PLAN_ROOT_URL + "getGymAvailableTrainingPlans";
 
 
 

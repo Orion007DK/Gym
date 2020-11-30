@@ -34,6 +34,16 @@
                 android:paddingRight="60dp">
 
 
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonMyPersonalData"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Moje dane osobowe"
+                    app:circular="false"
+                    android:drawableLeft="@drawable/my_profile_icon"
+                    style="@style/GradientButtonLeftToRightStyle"
+                    app:stroke="3dp" />
+                <!--
                 <Button
                     android:id="@+id/buttonMyPersonalData"
                     android:layout_width="match_parent"
@@ -42,6 +52,18 @@
                     android:textSize="@dimen/textSizeButton"
                     android:fontFamily="@string/MainPageButtonFontFamily"/>
 
+                 -->
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonAddDimensions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dodaj wymiary"
+                    app:circular="false"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/dimensions_icon"
+                    style="@style/GradientButtonLeftToRightStyle"
+                    app:stroke="3dp" />
+                <!--
                 <Button
                     android:id="@+id/buttonAddDimensions"
                     android:layout_width="match_parent"
@@ -49,7 +71,18 @@
                     android:text="Dodaj wymiary"
                     android:fontFamily="@string/MainPageButtonFontFamily"
                     android:textSize="@dimen/textSizeButton"/>
-
+-->
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonMyStatistics"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Moje statystyki"
+                    app:circular="false"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/statistics_icon"
+                    style="@style/GradientButtonLeftToRightStyle"
+                    app:stroke="3dp" />
+                <!--
                 <Button
                     android:id="@+id/buttonMyStatistics"
                     android:layout_width="match_parent"
@@ -57,7 +90,18 @@
                     android:text="Moje statystyki"
                     android:textSize="@dimen/textSizeButton"
                     android:fontFamily="@string/MainPageButtonFontFamily"/>
-
+-->
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonMyGymTickets"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Moje karnety"
+                    app:circular="false"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/tickets_icon"
+                    style="@style/GradientButtonLeftToRightStyle"
+                    app:stroke="3dp" />
+                <!--
                 <Button
                     android:id="@+id/buttonMyGymTickets"
                     android:layout_width="match_parent"
@@ -65,7 +109,18 @@
                     android:text="Moje karnety"
                     android:textSize="@dimen/textSizeButton"
                     android:fontFamily="@string/MainPageButtonFontFamily"/>
-
+-->
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonDeleteAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Usuń konto"
+                    app:circular="false"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/delete"
+                    style="@style/GradientButtonLeftToRightStyle"
+                    app:stroke="3dp" />
+                <!--
                 <Button
                     android:id="@+id/buttonDeleteAccount"
                     android:layout_width="match_parent"
@@ -73,6 +128,7 @@
                     android:text="Usuń konto"
                     android:textSize="@dimen/textSizeButton"
                     android:fontFamily="@string/MainPageButtonFontFamily"/>
+                    -->
             </LinearLayout>
         </LinearLayout>
 

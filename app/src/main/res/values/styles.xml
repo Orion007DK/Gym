@@ -20,6 +20,14 @@
         <item name="DialogSpotColor">#FFFFFF</item>
         <item name="DialogSpotCount">8</item>
     </style>
+    <style name="GradientButtonLeftToRightStyle">
+        <item name="start_color">@color/buttonStartColor</item>
+        <item name="end_color">@color/buttonEndColor</item>
+        <item name="android:textColor">@color/buttonStartColor</item>
+        <item name="orientation">left_right</item>
+        <item name="filled">false</item>
+        <item name="circular">false</item>
+    </style>
 
 <!--
     <style name="Custom" parent="android:Theme.DeviceDefault.Dialog">

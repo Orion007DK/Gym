@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.gym.R;
+import com.example.gym.TrainingPlan;
 import com.example.gym.UIUtils;
 import com.example.gym.activites.trainingPlansList.ExercisesListAdapter;
 
@@ -29,6 +30,7 @@ public class AvailableTrainingPlanDetailsFragment extends Fragment {
     ListView listViewExercises;
     ArrayList<String> exercisesNames= new ArrayList<>();
     ArrayList<String> exercisesRepetitions= new ArrayList<>();
+    AvailableTrainingPlansListAdapter availableTrainingPlansListAdapter;
 
 
 
@@ -43,11 +45,13 @@ public class AvailableTrainingPlanDetailsFragment extends Fragment {
 
     }
 
-    public void setText(String textName, String textEstimatedDuration, String textBurnedCalories, String trainingPlanDescription){
-        textViewTitle.setText(textName);
-        textViewEstimatedDurationValue.setText(textEstimatedDuration);
-        textViewBurnedCaloriesValue.setText(textBurnedCalories);
-        textViewTrainingPlanDescription.setText(trainingPlanDescription);
+    public void setText(TrainingPlan trainingPlan){
+        textViewTitle.setText(trainingPlan.getTrainingPlanName());
+        textViewEstimatedDurationValue.setText(trainingPlan.getEstimatedDuration());
+        textViewBurnedCaloriesValue.setText(trainingPlan.getBurnedCalories());
+        textViewTrainingPlanDescription.setText(trainingPlan.getTrainingPlanDescription());
+        ExercisesListAdapter exercisesListAdapter=new ExercisesListAdapter((AppCompatActivity)getContext(), trainingPlan.getArrayListExercises(), this);
+        listViewExercises.setAdapter(exercisesListAdapter);
     }
 
     private void idInit(View view){

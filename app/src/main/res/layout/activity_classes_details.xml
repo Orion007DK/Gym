@@ -135,7 +135,13 @@
                 </TableRow>
 
             </TableLayout>
-
+            <TextView
+                android:id="@+id/textViewCheckTicket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:textAlignment="center"
+                android:text="TextView" />
             <TextView
                 android:id="@+id/textViewClassesDescription"
                 android:layout_width="match_parent"
@@ -159,6 +165,7 @@
 
 
             </LinearLayout>
+            <!--
             <Button
                 android:id="@+id/buttonCheckTicket"
                 android:layout_width="wrap_content"
@@ -166,6 +173,8 @@
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:text="Sprawdź czy posiadasz dany karnet" />
+-->
+
 
         </LinearLayout>
 

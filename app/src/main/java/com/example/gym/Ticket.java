@@ -9,6 +9,8 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 public class Ticket {
@@ -57,6 +59,10 @@ public class Ticket {
 
     public String getPrice() {
         return price;
+    }
+
+    public int getEntries() {
+        return entries;
     }
 
     public String getStringStartDate(){

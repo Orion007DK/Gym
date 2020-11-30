@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:textAlignment="center"
+        android:text="Przerwa!" />
+
+    <ImageView
+        android:id="@+id/time_progress"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/textViewRestTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Odpoczywaj przez: "
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/buttonCancelDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pomiń"
+        android:layout_gravity="center"/>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="30dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/textViewTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="12:12"
+                android:textSize="20dp"/>
+
+            <com.bartbergmans.gradientbutton.views.GradientButton
+                android:id="@+id/buttonStopTraining"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Przerwij trening"
+                android:textAlignment="center"
+                app:start_color="#C53232"
+                app:end_color="#40040E"
+                app:filled="true"
+                android:gravity="end"
+                android:textColor="#ffffff"
+                android:layout_weight="2"
+                app:stroke="3dp" />
+
+            <!--
+
+            <Button
+                android:id="@+id/buttonStopTraining"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_weight="2"
+
+                android:text="Przerwij trening"
+                android:textAlignment="center" />
+
+                -->
+        </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@string/FontFamilyTitle"
+        android:paddingTop="20dp"
+        android:paddingBottom="30dp"
+        android:text="Nazwa ćwiczenia"
+        android:textAlignment="center"
+        android:textSize="@dimen/textSizeTitle" />
+
+        <TextView
+            android:id="@+id/textViewPerformedExerciseProgress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textAlignment="center"/>
+
+        <params.com.stepprogressview.StepProgressView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/stepProgressViewExercise"
+            app:markers="5,10,15"
+            app:totalProgress="20"
+            app:currentProgress="0"
+            app:markerWidth="2dp"
+            app:textMargin="5dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="50dp"
+            app:textSize="15sp"
+            app:markerColor="@android:color/white"
+            app:progressColor="@color/colorPrimary"
+             />
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/linearLayoutTrainingPlanDetails"
+        android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingTop="30dp"
+        android:paddingRight="30dp">
+
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                >
+
+                <TextView
+                    android:id="@+id/textViewRepetitions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="Powtórzenia:"/>
+
+                <TextView
+                    android:id="@+id/textViewRepetitionsValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:textSize="20dp"
+                    android:text="10 minut" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/textViewSets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Wykonane serie"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/textViewSetsValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:layout_weight="0.5"
+                    android:text="550" />
+            </TableRow>
+        </TableLayout>
+
+
+        <com.bartbergmans.gradientbutton.views.GradientButton
+            android:id="@+id/buttonFinishExercise"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Wykonana seria!"
+            android:drawableLeft="@drawable/done"
+            style="@style/GradientButtonLeftToRightStyle"
+            app:stroke="3dp" />
+
+
+
+            <!--  <TableRow
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent" >
+
+                  <Button
+                      android:id="@+id/buttonStartTraining"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Button" />
+              </TableRow>
+              -->
+
+
+        <TextView
+            android:id="@+id/textViewDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Opis wykonania ćwiczenia:"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/textViewDescriptionValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+    </LinearLayout>
+
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
