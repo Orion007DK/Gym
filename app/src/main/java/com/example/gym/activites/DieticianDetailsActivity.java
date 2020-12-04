@@ -1,4 +1,4 @@
-package com.example.gym.activites.dieticianList;
+package com.example.gym.activites;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +14,7 @@ import com.example.gym.Constants;
 import com.example.gym.GymWorker;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
+import com.example.gym.activites.dieticianList.DieticiansDetailFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;

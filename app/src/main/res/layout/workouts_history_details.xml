@@ -34,8 +34,9 @@
                     android:id="@+id/textViewTrainingPlanName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nazwa planu treningowego:"
-                    android:textSize="20dp" />
+                    android:text="Plan treningowy:"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/textViewTrainingPlanNameValue"
@@ -51,7 +52,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Data treningu:"
-                    android:textSize="20dp" />
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/textViewWorkoutDateValue"
@@ -67,7 +69,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Czas trwania treningu:"
-                    android:textSize="20dp" />
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/textViewWorkoutDurationValue"
@@ -82,7 +85,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Spalone kalorie:"
-                    android:textSize="20dp" />
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/textViewBurnedCaloriesValue"

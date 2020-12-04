@@ -54,9 +54,9 @@ public class DietMealsListAdapter extends ArrayAdapter<Meal> {
             line=convertView;
         }
         textViewMealName = line.findViewById(R.id.textViewMealName);
-        textViewMealCalories= line.findViewById(R.id.textViewMealCalories);
+      //  textViewMealCalories= line.findViewById(R.id.textViewMealCalories);
         textViewMealName.setText(mealsList.get(position).getName());
-        textViewMealCalories.setText(mealsList.get(position).getCalories());
+      //  textViewMealCalories.setText(mealsList.get(position).getCalories());
 
         line.setOnClickListener(new View.OnClickListener() {
             @Override

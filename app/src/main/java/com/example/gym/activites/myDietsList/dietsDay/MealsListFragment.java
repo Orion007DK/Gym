@@ -80,8 +80,6 @@ public class MealsListFragment extends Fragment {
     int dayOfWeekId=1;
     TextView textViewTitle;
     View view;
-
-
   /*  MealsListFragment(int dietId, String dayofWeekName, int dayOfWeekId){
         this.dietId=dietId;
         this.dayofWeekName=dayofWeekName;

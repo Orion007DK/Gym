@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.gym.FinishedTrainingPlan;
 import com.example.gym.R;
 
 public class WorkoutsHistoryDetailFragment extends Fragment {
@@ -24,15 +25,15 @@ public class WorkoutsHistoryDetailFragment extends Fragment {
     }
 
 
-    public void setText(String trainingPlanName, String date, String duration, String burnedCalories){
+    public void setText(FinishedTrainingPlan finishedTrainingPlan){
         TextView textViewTrainingPlanNameValue= getView().findViewById(R.id.textViewTrainingPlanNameValue);
         TextView textViewWorkoutDateValue= getView().findViewById(R.id.textViewWorkoutDateValue);
         TextView textViewWorkoutDurationValue= getView().findViewById(R.id.textViewWorkoutDurationValue);
         TextView textViewBurnedCaloriesValue= getView().findViewById(R.id.textViewBurnedCaloriesValue);
-        textViewTrainingPlanNameValue.setText(trainingPlanName);
-        textViewWorkoutDateValue.setText(date);
-        textViewWorkoutDurationValue.setText(duration);
-        textViewBurnedCaloriesValue.setText(burnedCalories);
+        textViewTrainingPlanNameValue.setText(finishedTrainingPlan.getTrainingPlanName());
+        textViewWorkoutDateValue.setText(finishedTrainingPlan.getStringDate());
+        textViewWorkoutDurationValue.setText(finishedTrainingPlan.getDuration());
+        //textViewBurnedCaloriesValue.setText(burnedCalories);
     }
 
     private void landscapeConfiguration(View view){

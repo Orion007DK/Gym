@@ -1,6 +1,14 @@
 package com.example.gym.activites.availableTreningPlansList;
 
+import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +19,23 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.gym.BlurAsyncTask;
+import com.example.gym.Constants;
+import com.example.gym.Dialogs;
+import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
+import com.example.gym.SharedPreferencesOperations;
 import com.example.gym.TrainingPlan;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class AvailableTrainingPlansListAdapter extends ArrayAdapter<TrainingPlan> {
 
@@ -31,6 +48,8 @@ public class AvailableTrainingPlansListAdapter extends ArrayAdapter<TrainingPlan
     private TextView textViewName;
     private ImageView imageViewStars;
     private ImageView imageViewAddTrainingPlan;
+    private final static String SUBSCRIBE_TRAINING_PLAN ="subscribeTrainingPlan";
+    IntentFilter filter;
 
     public AvailableTrainingPlansListAdapter(@NonNull AppCompatActivity context, @NonNull List<TrainingPlan> trainingPlansList, Fragment fragment) {
         super(context, R.layout.available_training_plans_list_one_line, trainingPlansList);
@@ -39,6 +58,9 @@ public class AvailableTrainingPlansListAdapter extends ArrayAdapter<TrainingPlan
        // this.trainingPlansListDifficulty=difficulty;
         this.trainingPlansList=trainingPlansList;
         this.fragmentParrent=fragment;
+
+        filter = new IntentFilter(); //utworzenie filtru zamiaru
+        filter.addAction(SUBSCRIBE_TRAINING_PLAN); //dodanie akcji od zapisania do trenera
     }
 
     @NonNull
@@ -103,7 +125,7 @@ public class AvailableTrainingPlansListAdapter extends ArrayAdapter<TrainingPlan
 
     private void setOnClickListeners(View line, final int position, final AppCompatActivity activity, final Context context){
 
-        View.OnClickListener forUpdateDetailslistener = new View.OnClickListener() {
+        View.OnClickListener forUpdateDetailsListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((AvailableTrainingPlansListFragment) fragmentParrent).updateDetail(trainingPlansList.get(position));
@@ -111,15 +133,16 @@ public class AvailableTrainingPlansListAdapter extends ArrayAdapter<TrainingPlan
         };
 
 
-        textViewName.setOnClickListener(forUpdateDetailslistener);
-        imageViewStars.setOnClickListener(forUpdateDetailslistener);
-        line.setOnClickListener(forUpdateDetailslistener);
+        textViewName.setOnClickListener(forUpdateDetailsListener);
+        imageViewStars.setOnClickListener(forUpdateDetailsListener);
+        line.setOnClickListener(forUpdateDetailsListener);
 
         imageViewAddTrainingPlan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //komunikat o dodaniu planu
-                addTrainingPlanAlertDialog(activity, context);
+                //addTrainingPlanAlertDialog(activity, context);
+                addTrainingPlanDialog(trainingPlansList.get(position).getTrainingPlanId());
             }
         });
 
@@ -155,7 +178,77 @@ public class AvailableTrainingPlansListAdapter extends ArrayAdapter<TrainingPlan
         imageViewStars.requestLayout();
     }
 
-    private void addTrainingPlanAlertDialog(AppCompatActivity activity, Context context) {
+    private void subscribeTrainingPlan(int trainingPlanId){
+        //progressDialog = new SpotsDialog(this, R.style.Custom);
+        //progressDialog.show();
+
+        context.registerReceiver(broadcastReceiver, filter);
+
+            HashMap<String, String> params = new HashMap<>();
+            params.put("trainingPlanId", String.valueOf(trainingPlanId));
+            params.put("userId", String.valueOf(SharedPreferencesOperations.getUserId(getContext())));
+            Log.e("Params: ",params.toString());
+            PerformNetworkRequest request = new PerformNetworkRequest(Constants.URL_SUBSCRIBE_TRAINING_PLAN, params, Constants.CODE_POST_REQUEST, context, SUBSCRIBE_TRAINING_PLAN);
+            request.execute();
+    }
+
+        private void addTrainingPlanDialog(final int trainingPlanId) {
+            String message  ="Czy chcesz dodać ten plan treningowy?";
+            final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage(message)
+                    .setCancelable(true)
+                    .setTitle("Potwierdzenie chęci zapisania")
+                    .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            subscribeTrainingPlan(trainingPlanId);
+
+                        }
+                    })
+                    .setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+            builder.show();
+            //AlertDialog dialog = builder.show();
+            //   dialog.setCanceledOnTouchOutside(false);
+        }
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Bundle bundle = intent.getExtras(); //pobranie pakunku danych z zamiaru
+            if (Objects.equals(intent.getAction(), SUBSCRIBE_TRAINING_PLAN)) {
+                //  Log.e("Main", bundle.getString("JSON"));
+                try {
+                    String jsonstr =bundle.getString("JSON");
+                    JSONObject json = new JSONObject(jsonstr);
+                    Boolean isSubscribed = json.getBoolean("subscribed");
+                    if(isSubscribed){
+                        Log.e("isSubscribed: ", json.getString("subscribed"));
+                        //  Log.e("Context:","on: "+context.toString());
+                        Dialogs.informationConfirmDialog("Dodano", "Dodano plan treningowy, do Twoich planów", getContext());
+                    }
+                    else {
+                        Dialogs.informationConfirmDialog("Błąd", "Wystąpił błąd i nie udało się dodać planu treningowego, spróbuj ponownie później", getContext());
+                    }
+                    //editor.putString(Constants.SP_USER_SURNAME, userJson.getString("surname"));
+                    //Log.e("gymId", String.valueOf(userJson.getInt("gymId")));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                context.unregisterReceiver(broadcastReceiver);
+            }
+        }
+    };
+
+
+
+        private void addTrainingPlanAlertDialog(AppCompatActivity activity, Context context) {
+
+
+    }
         /*AlertDialog dialog;
         dialog = new AlertDialog.Builder(getContext())
                 .setTitle("tytul")
@@ -185,8 +278,8 @@ public class AvailableTrainingPlansListAdapter extends ArrayAdapter<TrainingPlan
         wmlp.gravity = Gravity.CENTER;
         dialog.show();
 */
-       new BlurAsyncTask(activity, context).execute();
+       //new BlurAsyncTask(activity, context).execute();
 
-    }
+
 }
 

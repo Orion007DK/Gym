@@ -44,6 +44,7 @@ android:clipToPadding="true"
                     android:id="@+id/textViewBreakfast"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/breakfast_icon"
                     android:text="Śniadanie:"
                     android:textSize="20dp"/>
 
@@ -65,6 +66,7 @@ android:clipToPadding="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Drugie śniadanie:"
+                        android:drawableRight="@drawable/brunch_icon"
                         android:textSize="20dp"/>
 
                     <ListView
@@ -83,6 +85,7 @@ android:clipToPadding="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Obiad:"
+                        android:drawableRight="@drawable/lunch_icon"
                         android:textSize="20dp"/>
 
                     <ListView

@@ -23,7 +23,6 @@ import com.example.gym.Constants;
 import com.example.gym.GymWorker;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
-import com.example.gym.activites.DieticiansListAdapter;
 import com.example.gym.SharedPreferencesOperations;
 
 import org.json.JSONArray;

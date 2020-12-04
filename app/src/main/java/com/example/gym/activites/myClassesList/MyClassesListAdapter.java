@@ -1,7 +1,6 @@
 package com.example.gym.activites.myClassesList;
 
 import android.content.Intent;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import com.example.gym.Classes;
-import com.example.gym.ClassesDetailsActivity;
-import com.example.gym.Constants;
+import com.example.gym.activites.classesPlan.ClassesDetailsActivity;
 import com.example.gym.R;
-import com.example.gym.activites.workoutsHistory.WorkoutsHistoryListFragment;
 
 import java.sql.Time;
 import java.util.Date;

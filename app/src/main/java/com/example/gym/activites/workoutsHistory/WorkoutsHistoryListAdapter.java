@@ -12,23 +12,26 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.gym.FinishedTrainingPlan;
 import com.example.gym.R;
 
 import java.util.Date;
 import java.util.List;
 
-public class WorkoutsHistoryListAdapter extends ArrayAdapter<String> {
+public class WorkoutsHistoryListAdapter extends ArrayAdapter<FinishedTrainingPlan> {
 
     private AppCompatActivity context;
     private List<Date> workoutsHistoryListDates;
     private List<String> workoutsHistoryListNames;
+    private List<FinishedTrainingPlan> finishedTrainingPlanList;
     private Fragment fragmentParrent; //fragment nadrzędny, do którego należy adapter
 
-    public WorkoutsHistoryListAdapter(@NonNull AppCompatActivity context, List<Date> workoutDates, List<String> workoutNames, Fragment fragment) {
-        super(context, R.layout.workouts_history_one_line,workoutNames);
+    public WorkoutsHistoryListAdapter(@NonNull AppCompatActivity context, List<FinishedTrainingPlan> finishedTrainingPlans, Fragment fragment) {
+        super(context, R.layout.workouts_history_one_line, finishedTrainingPlans);
         this.context=context;
-        this.workoutsHistoryListDates =workoutDates;
-        this.workoutsHistoryListNames=workoutNames;
+        //this.workoutsHistoryListDates =workoutDates;
+        //this.workoutsHistoryListNames=workoutNames;
+        this.finishedTrainingPlanList=finishedTrainingPlans;
         this.fragmentParrent=fragment;
     }
 
@@ -51,14 +54,14 @@ public class WorkoutsHistoryListAdapter extends ArrayAdapter<String> {
         }
         textViewWorkoutDate = line.findViewById(R.id.textViewWorkoutDate);
         textViewWorkoutName = line.findViewById(R.id.textViewWorkoutName);
-        String stringWorkoutDate= DateFormat.format("dd.MM.yyyy", workoutsHistoryListDates.get(position)).toString();
-        textViewWorkoutDate.setText(stringWorkoutDate);
-        textViewWorkoutName.setText(workoutsHistoryListNames.get(position));
+       // String stringWorkoutDate= DateFormat.format("dd.MM.yyyy", workoutsHistoryListDates.get(position)).toString();
+        textViewWorkoutDate.setText(finishedTrainingPlanList.get(position).getStringDate());
+        textViewWorkoutName.setText(finishedTrainingPlanList.get(position).getTrainingPlanName());
         line.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
               //  Toast.makeText(context, dimensionsHistoryListDates.get(position).toString(),Toast.LENGTH_SHORT).show();
-                ((WorkoutsHistoryListFragment) fragmentParrent).updateDetail(workoutsHistoryListDates.get(position), workoutsHistoryListNames.get(position));
+                ((WorkoutsHistoryListFragment) fragmentParrent).updateDetail(finishedTrainingPlanList.get(position));
             }
         });
         return line;

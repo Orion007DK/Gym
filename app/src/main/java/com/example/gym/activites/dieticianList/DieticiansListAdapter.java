@@ -1,4 +1,4 @@
-package com.example.gym.activites;
+package com.example.gym.activites.dieticianList;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +19,8 @@ import com.example.gym.R;
 import com.example.gym.activites.dieticianList.DieticiansListFragment;
 
 import java.util.List;
+
+import ss.anoop.avtarview.AvtarView;
 
 public class DieticiansListAdapter extends ArrayAdapter<GymWorker> {
 
@@ -41,7 +43,8 @@ public class DieticiansListAdapter extends ArrayAdapter<GymWorker> {
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View line;
         TextView textViewName;
-        TextView textViewSurname;
+       // TextView textViewSurname;
+        AvtarView avtarView;
         //jeśli nie ma linii do przetworzenia(ponownego uzycia)
         if(convertView==null) {
             //tworzenie tzw. "pompki" do tworzenia listy ocen
@@ -55,9 +58,12 @@ public class DieticiansListAdapter extends ArrayAdapter<GymWorker> {
             line=convertView;
         }
         textViewName = line.findViewById(R.id.textViewName);
-        textViewSurname= line.findViewById(R.id.textViewSurname);
-        textViewName.setText(dieticiansList.get(position).getName());
-        textViewSurname.setText(dieticiansList.get(position).getSurname());
+        avtarView=line.findViewById(R.id.avtarViewTrainer);
+        textViewName.setText(dieticiansList.get(position).getName()+" "+dieticiansList.get(position).getSurname());
+        //textViewSurname= line.findViewById(R.id.textViewSurname);
+        avtarView.setText(dieticiansList.get(position).getName()+" "+dieticiansList.get(position).getSurname());
+        //textViewName.setText(dieticiansList.get(position).getName());
+       // textViewSurname.setText(dieticiansList.get(position).getSurname());
 
         line.setOnClickListener(new View.OnClickListener() {
             @Override

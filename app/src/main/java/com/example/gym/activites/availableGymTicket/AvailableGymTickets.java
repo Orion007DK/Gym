@@ -1,4 +1,4 @@
-package com.example.gym;
+package com.example.gym.activites.availableGymTicket;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -6,8 +6,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
-import com.example.gym.activites.MyGymTickets.GymTicketDetailFragment;
-import com.example.gym.activites.MyGymTickets.GymTicketListFragment;
+import com.example.gym.R;
+import com.example.gym.Ticket;
 
 public class AvailableGymTickets extends AppCompatActivity implements AvailableGymTicketListFragment.AvailableGymTicketsListFragmentActivityListener {
 

@@ -1,4 +1,4 @@
-package com.example.gym;
+package com.example.gym.activites.availableGymTicket;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -20,7 +20,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.gym.activites.MyGymTickets.GymTicketsListAdapter;
+import com.example.gym.Constants;
+import com.example.gym.PerformNetworkRequest;
+import com.example.gym.R;
+import com.example.gym.SharedPreferencesOperations;
+import com.example.gym.Ticket;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;

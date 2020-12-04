@@ -1,12 +1,19 @@
 package com.example.gym.activites;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
+import com.example.gym.SharedPreferencesOperations;
 import com.example.gym.activites.MyGymTickets.MyGymTickets;
 import com.example.gym.R;
+
+import net.glxn.qrgen.android.QRCode;
 
 public class MyProfileActivity extends OptionsMenuActivity {
 
@@ -15,11 +22,14 @@ public class MyProfileActivity extends OptionsMenuActivity {
     Button buttonMyStatistics;
     Button buttonMyGymTickets;
     Button buttonDeleteAccount;
+    private Button buttonQr;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
+        context=this;
         idInit();
         onClickListenersInit();
     }
@@ -64,6 +74,33 @@ public class MyProfileActivity extends OptionsMenuActivity {
             }
         });
 
+        buttonQr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bitmap myBitmap = QRCode.from("{\"userId\":" + String.valueOf(SharedPreferencesOperations.getUserId(context))+"}").withSize(350, 350).bitmap();
+                //ImageView myImage = (ImageView) findViewById(R.id.imageView);
+                //myImage.setImageBitmap(myBitmap);
+
+
+                final Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.qr_dialog);
+
+                ImageView imageViewQR = dialog.findViewById(R.id.imageViewQR);
+                imageViewQR.setImageBitmap(myBitmap);
+
+                final Button buttonCancel = dialog.findViewById(R.id.buttonCancelDialog);
+                buttonCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+            }
+
+        });
+
     }
 
     @Override
@@ -79,6 +116,7 @@ public class MyProfileActivity extends OptionsMenuActivity {
     buttonMyStatistics=findViewById(R.id.buttonMyStatistics);
     buttonMyGymTickets=findViewById(R.id.buttonMyGymTickets);
     buttonDeleteAccount=findViewById(R.id.buttonDeleteAccount);
+    buttonQr=findViewById(R.id.buttonQR);
     }
 
     @Override

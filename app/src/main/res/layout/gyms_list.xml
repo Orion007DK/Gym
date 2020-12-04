@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -21,13 +23,29 @@
         android:padding="20dp"
         android:layout_weight="1"
         />
-    <Button
-        android:id="@+id/buttonFindGymUsingLocalisation"
+
+    <com.bartbergmans.gradientbutton.views.GradientButton
+        android:id="@+id/buttonFindGymByLocalisation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Wyszukaj siłownię używając swojej lokalizacji"
+        android:text="Posortuj używając mojej lokalizacji"
+        app:circular="false"
+        app:end_color="@color/buttonEndColor"
+        android:textColor="@color/buttonTextColor"
+        app:filled="true"
+        android:layout_weight="3"
+        app:orientation="top_bottom"
+        app:start_color="@color/buttonStartColor"
+        app:stroke="3dp" />
+    <!--
+    <Button
+        android:id="@+id/buttonFindGymByLocalisation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Posortuj używając mojej lokalizacji"
         android:layout_weight="3"
         android:padding="5dp"
         android:layout_margin="5dp"
         />
+        -->
 </LinearLayout>

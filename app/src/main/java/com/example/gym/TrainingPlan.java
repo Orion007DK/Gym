@@ -56,6 +56,7 @@ public class TrainingPlan implements Serializable {
         this.difficultyLevel = difficultyLevel;
     }
 
+
     public int getDifficultyLevel() {
         return difficultyLevel;
     }

@@ -1,8 +1,6 @@
 package com.example.gym.activites.classesPlan;
 
 import android.content.Intent;
-import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.gym.Classes;
-import com.example.gym.ClassesDetailsActivity;
 import com.example.gym.R;
 
 import java.sql.Time;

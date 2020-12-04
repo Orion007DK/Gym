@@ -1,5 +1,6 @@
 package com.example.gym.activites.trainersList;
 
+import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -7,7 +8,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,13 +29,27 @@ import com.example.gym.Constants;
 import com.example.gym.GymWorker;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
+import com.example.gym.RequestHandler;
 import com.example.gym.SharedPreferencesOperations;
+import com.rishabhharit.roundedimageview.RoundedImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class TrainerDetailFragment extends Fragment{
 
@@ -39,6 +58,7 @@ public class TrainerDetailFragment extends Fragment{
     Button buttonSign;
     private final static String SUBSCRIBE_TRAINER="subscribeTrainer";
     private final static String UNSUBSCRIBE_TRAINER="unsubscribeTrainer";
+    RoundedImageView roundedImageView;
     Context context;
 
     @Nullable
@@ -49,13 +69,13 @@ public class TrainerDetailFragment extends Fragment{
         filter = new IntentFilter(); //utworzenie filtru zamiaru
         filter.addAction(SUBSCRIBE_TRAINER); //dodanie akcji od zapisania do trenera
         filter.addAction(UNSUBSCRIBE_TRAINER);
+        roundedImageView=view.findViewById(R.id.roundedViewTrainer);
 
 
      //   landscapeConfiguration(view); nie działa, nie trzeba zmniejszać paddingów tylko rozmiar.
 
          buttonSign = view.findViewById(R.id.buttonSign);
         //if(getActivity().getClass().getSimpleName().equals(TrainerDetailActivity.class.getSimpleName())) {
-
 
         return  view;
 
@@ -95,39 +115,18 @@ public class TrainerDetailFragment extends Fragment{
             Log.e("try subcsibe","subcribeToTrainer()");
         }
     }
-/*
-    private void clearTrainerData(){
-        SharedPreferences data = context.getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = data.edit();
-        editor.remove(Constants.SP_TRAINER_ID);
-        editor.apply();
 
+    private void getImage(){
+        //progressDialog = new SpotsDialog(this, R.style.Custom);
+        //progressDialog.show();
 
-        SharedPreferences dataTrainer = context.getSharedPreferences(Constants.SP_TRAINER_DATA, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editorTrainer = dataTrainer.edit();
-        editorTrainer.clear();
-        editorTrainer.apply();
-    }*/
-
-/*
-    @Override
-    public void onResume() {
-        RoundedImageView roundedImageView = getView().findViewById(R.id.roundedViewTrainer);
-       // roundedImageView.measure(null, null);
-        ViewGroup.LayoutParams layoutParams = roundedImageView.getLayoutParams();
-        Log.e("tal","sda");
-        int height=layoutParams.height;
-        // layoutParams.width=height;
-        roundedImageView.getViewTreeObserver().removeOnPreDrawListener(null);
-        Log.e("aa",String.valueOf(roundedImageView.getMeasuredHeight()));
-        Log.e("sv",String.valueOf(roundedImageView.getMeasuredWidth()));
-       // roundedImageView.setLayoutParams(new LinearLayout.LayoutParams(height, height));
-        roundedImageView.setCornerRadius(height);
-        Log.e("koi","koniec");
-        super.onResume();
+        context.registerReceiver(broadcastReceiver, filter);
+            HashMap<String, String> params = new HashMap<>();
+            params.put("trainerId", String.valueOf(trainer.getWorkerId()));
+            PerformNetworkRequestForImage request = new PerformNetworkRequestForImage(Constants.URL_GET_TRAINER_IMAGE, params, Constants.CODE_POST_REQUEST, context);
+            request.execute();
     }
 
-*/
     public void setData(GymWorker trainer){
         TextView textViewNameSurname = getView().findViewById(R.id.textViewNameSurnameValue);
         TextView textViewEmail = getView().findViewById(R.id.textViewEmailValue);
@@ -144,6 +143,7 @@ public class TrainerDetailFragment extends Fragment{
         textViewAboutTrainer.setText(aboutTrainer);//trainer.getDescription()aboutTrainer
         this.trainer=trainer;
         buttonSignInit();
+        getImage();
     }
 
     private void buttonSignInit() {
@@ -202,18 +202,12 @@ public class TrainerDetailFragment extends Fragment{
                     SharedPreferences.Editor editor = data.edit();
                     editor.putInt(Constants.SP_TRAINER_ID,trainer.getWorkerId());
                     editor.apply();
-                    /*SharedPreferences dataTrainer = context.getSharedPreferences(Constants.SP_TRAINER_DATA, Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editorTrainer = dataTrainer.edit();
-                    editorTrainer.clear();
-                    editorTrainer.apply();*/
                     SharedPreferencesOperations.clearTrainerData(context);
                     informationConfirmDialog("Zapisano!","Pomyślnie zapisałeś się do danego trenera");
                     }
                     else {
                     informationConfirmDialog("Nieudane zapisanie", "Niesety wystąpiły pewne problemy przy zapisywaniu Cie do trenera, spróbuj ponownie poźniej");
                     }
-                    //editor.putString(Constants.SP_USER_SURNAME, userJson.getString("surname"));
-                    //Log.e("gymId", String.valueOf(userJson.getInt("gymId")));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -264,8 +258,6 @@ public class TrainerDetailFragment extends Fragment{
                     }
                 });
         builder.show();
-        //AlertDialog dialog = builder.show();
-        //   dialog.setCanceledOnTouchOutside(false);
     }
 
     private void unsubscribeDialog() {
@@ -306,11 +298,89 @@ public class TrainerDetailFragment extends Fragment{
             AlertDialog dialog = builder.show();}
     }
 
-
-
-
-
-
     private static String aboutTrainer="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fringilla rutrum neque sit amet viverra. Integer neque purus, tristique eget ante ac, pharetra rhoncus felis. Vestibulum lacinia tellus condimentum lobortis congue. In hac habitasse platea dictumst. Nullam est nulla, cursus eget pretium sed, congue non ante. Vivamus ac ligula et nisl varius vestibulum. Vestibulum vitae tellus vitae ligula ultricies blandit vitae at ligula. Integer faucibus fringilla eleifend. Morbi vehicula aliquet consectetur. ";
+
+    public class PerformNetworkRequestForImage extends AsyncTask<Void, Void, String> {
+
+        //the url where we need to send the request
+        private String url;
+
+        //the parameters
+        private HashMap<String, String> params;
+
+        //the request code to define whether it is a GET or POST
+        private int requestCode;
+
+        //context for sendBroadcast;\
+
+        private Context context;
+
+
+        //constructor to initialize values
+        public PerformNetworkRequestForImage(String url, HashMap<String, String> params, int requestCode, Context context) {
+            this.url = url;
+            this.params = params;
+            this.requestCode = requestCode;
+            this.context=context;
+        }
+
+        //when the task started displaying a progressbar
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //progressBar.setVisibility(View.VISIBLE);
+        }
+
+
+        //this method will give the response from the request
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.e("exec","Eex");
+            // progressBar.setVisibility(GONE);
+            try {
+                JSONObject object = new JSONObject(s);
+
+                if (!object.getBoolean("error")) {
+                    //   Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
+                    //refreshing the herolist after every operation
+                    //so we get an updated list
+                    //we will create this method right now it is commented
+                    JSONObject trainerData = object.getJSONObject("trainerData");
+                    String image = trainerData.getString("image");
+                    if(!image.equals("null")) {
+                        byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
+                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                        if (roundedImageView != null)
+                            roundedImageView.setImageBitmap(decodedByte);
+                    }
+                   // sendBroadcastJSON(object, action);
+                    //because we haven't created it yet
+
+                } else {
+                    Log.e("error: ",object.getString("message"));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //the network operation will be performed in background
+        @Override
+        protected String doInBackground(Void... voids) {
+            RequestHandler requestHandler = new RequestHandler();
+            if (requestCode == Constants.CODE_POST_REQUEST)
+                return requestHandler.sendPostRequest(url, params);
+
+
+            if (requestCode == Constants.CODE_GET_REQUEST)
+                return requestHandler.sendGetRequest(url);
+
+            return null;
+        }
+
+    }
+
+
 
 }

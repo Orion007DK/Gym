@@ -90,6 +90,7 @@
                 android:layout_height="match_parent"
                 android:paddingTop="10dp"
                 android:paddingBottom="20dp"
+                android:nestedScrollingEnabled="true"
                 />
 
             <LinearLayout

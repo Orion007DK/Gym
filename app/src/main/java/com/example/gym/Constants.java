@@ -2,12 +2,12 @@ package com.example.gym;
 
 public class Constants {
 
-    private static final String ROOT_URL = "http://192.168.0.103/GymApi/v1/Api.php?apicall=";
+    private static final String ROOT_URL = "http://192.168.0.102/GymApi/v1/Api.php?apicall=";
 
-    private static final String DIET_ROOT_URL = "http://192.168.0.103/GymApi/v1/DietApi.php?apicall=";
-    private static final String TICKET_ROOT_URL = "http://192.168.0.103/GymApi/v1/TicketApi.php?apicall=";
-    private static final String CLASSES_ROOT_URL = "http://192.168.0.103/GymApi/v1/ClassesApi.php?apicall=";
-    private static final String TRAINING_PLAN_ROOT_URL = "http://192.168.0.103/GymApi/v1/TrainingPlansApi.php?apicall=";
+    private static final String DIET_ROOT_URL = "http://192.168.0.102/GymApi/v1/DietApi.php?apicall=";
+    private static final String TICKET_ROOT_URL = "http://192.168.0.102/GymApi/v1/TicketApi.php?apicall=";
+    private static final String CLASSES_ROOT_URL = "http://192.168.0.102/GymApi/v1/ClassesApi.php?apicall=";
+    private static final String TRAINING_PLAN_ROOT_URL = "http://192.168.0.102/GymApi/v1/TrainingPlansApi.php?apicall=";
 
    //private static final String ROOT_URL = "http://192.168.43.231/GymApi/v1/Api.php?apicall=";
 
@@ -51,17 +51,21 @@ public class Constants {
     public static final String URL_GET_DIMENSIONS=ROOT_URL + "getDimensions";
 
     public static final String URL_GET_GYMS=ROOT_URL + "getGyms";
+    public static final String URL_GET_GYMS_BY_LOCALISATION=ROOT_URL + "getGymsByLocalisation";
     public static final String URL_GET_GYM_DATA=ROOT_URL + "getGymData";
+    public static final String URL_GET_GYM_IMAGES=ROOT_URL + "getGymImages";
     public static final String URL_SUBSCRIBE_GYM=ROOT_URL + "subscribeGym";
     public static final String URL_UNSUBSCRIBE_GYM=ROOT_URL + "unsubscribeGym";
 
     public static final String URL_GET_TRAINERS=ROOT_URL + "getTrainers";
     public static final String URL_GET_TRAINER_DATA=ROOT_URL + "getTrainerData";
+    public static final String URL_GET_TRAINER_IMAGE=ROOT_URL + "getTrainerImage";
     public static final String URL_SUBSCRIBE_TRAINER=ROOT_URL + "subscribeTrainer";
     public static final String URL_UNSUBSCRIBE_TRAINER=ROOT_URL + "unsubscribeTrainer";
 
     public static final String URL_GET_DIETICIANS=ROOT_URL + "getDieticians";
     public static final String URL_GET_DIETICIAN_DATA=ROOT_URL + "getDieticianData";
+    public static final String URL_GET_DIETICIAN_IMAGE=ROOT_URL + "getDieticianImage";
     public static final String URL_SUBSCRIBE_DIETICIAN=ROOT_URL + "subscribeDietician";
     public static final String URL_UNSUBSCRIBE_DIETICIAN=ROOT_URL + "unsubscribeDietician";
 
@@ -85,6 +89,13 @@ public class Constants {
 
     public static final String URL_GET_USER_TRAINING_PLANS=TRAINING_PLAN_ROOT_URL + "getUserTrainingPlans";
     public static final String URL_GET_GYM_AVAILABLE_TRAINING_PLANS=TRAINING_PLAN_ROOT_URL + "getGymAvailableTrainingPlans";
+    public static final String URL_GET_USER_FINISHED_TRAINING_PLANS=TRAINING_PLAN_ROOT_URL + "getUserFinishedTrainingPlans";
+    public static final String URL_INSERT_INTO_USER_FINISHED_TRAINING_PLANS=TRAINING_PLAN_ROOT_URL + "insertIntoUserFinishedTrainingPlans";
+
+    public static final String URL_SUBSCRIBE_TRAINING_PLAN=TRAINING_PLAN_ROOT_URL + "subscribeTrainingPlan"; //insert into planyTreningoweUzytkownikow
+    public static final String URL_UNSUBSCRIBE_TRAINING_PLAN=TRAINING_PLAN_ROOT_URL + "unsubscribeTrainingPlan"; //insert into planyTreningoweUzytkownikow
+
+
 
 
 
@@ -101,6 +112,8 @@ public class Constants {
     public final static String BUNDLE_DIET_DAY_OF_WEEK_NAME="dayOfWeekName";
     public final static String BUNDLE_DIET_SUB_STATUS="dietSubOrUnsub";
     public final static String BUNDLE_CLASSES_IS_SUBSCRIBED="isSubscribed";
+    public final static String BUNDLE_MAPS_LONGITUDE="longitude";
+    public final static String BUNDLE_MAPS_LATITUDE="latitude";
 
 
 

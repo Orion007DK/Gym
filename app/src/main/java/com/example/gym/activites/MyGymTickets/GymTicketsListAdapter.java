@@ -1,5 +1,6 @@
 package com.example.gym.activites.MyGymTickets;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.example.gym.R;
 import com.example.gym.Ticket;
 
+import java.util.Date;
 import java.util.List;
 
 public class GymTicketsListAdapter extends ArrayAdapter<Ticket> {
@@ -58,9 +60,16 @@ public class GymTicketsListAdapter extends ArrayAdapter<Ticket> {
                         TextView textViewTicketNameHeader=line.findViewById(R.id.textViewTicketNameHeader);
                         textViewTicketNameHeader.setText("Nazwa");
                 }
-                if(textViewTicketDates!=null)
+                Date today = new Date();
+                if(textViewTicketDates!=null) {
+
+                        if (ticketsList.get(position).getEndDate().before(today))
+                                line.setBackgroundColor(Color.parseColor("#55786668"));
+                        else
+                                line.setBackgroundColor(Color.parseColor("#7755a807"));
+
                         textViewTicketDates.setText(ticketsList.get(position).getStringStartDate() + " - " + ticketsList.get(position).getStringEndDate());
-                else {
+                } else {
                         TextView textViewTicketDatesHeader=line.findViewById(R.id.textViewTicketDatesHeader);
                         textViewTicketDatesHeader.setText("Czas obowiązywania");
                 }

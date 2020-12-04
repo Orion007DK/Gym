@@ -3,15 +3,18 @@ package com.example.gym;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -20,16 +23,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.gym.activites.GymHomePageActivity;
-import com.example.gym.activites.gymsList.GymsListActivity;
+import com.example.gym.activites.availableDietsList.AvailableDietsList;
 import com.example.gym.activites.trainingPlansList.MyTrainingPlansListActivity;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
+import dmax.dialog.SpotsDialog;
 import params.com.stepprogressview.StepProgressView;
 
 public class InteractiveTrainingActivity extends AppCompatActivity {
@@ -52,6 +57,9 @@ public class InteractiveTrainingActivity extends AppCompatActivity {
     int minutes;
     int hours;
 
+    IntentFilter filter;
+    private final String INSERT_INTO_USER_FINISHED_TRAINING_PLANS ="insertIntoUserFinishedTrainingPlans";
+
     TextView textViewPerformedExerciseProgress;
     TextView textViewRepetitions;
     TextView textViewSets;
@@ -61,13 +69,20 @@ public class InteractiveTrainingActivity extends AppCompatActivity {
     private int currentExerciseNumber=0;
     private int currentSet=0;
 
+    TrainingPlan trainingPlan;
+    private SpotsDialog progressDialog;
+
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interactive_training);
         Bundle bundle = getIntent().getExtras();
-        TrainingPlan trainingPlan = (TrainingPlan)bundle.getSerializable("trainingPlan");
+        trainingPlan = (TrainingPlan)bundle.getSerializable("trainingPlan");
+
+        filter = new IntentFilter(); //utworzenie filtru zamiaru
+        filter.addAction(INSERT_INTO_USER_FINISHED_TRAINING_PLANS); //dodanie akcji tworzenia konta dla użytkownika
+
         exerciseList = trainingPlan.getArrayListExercises();
         idInit();
         stepProgressViewInit();
@@ -81,7 +96,7 @@ public class InteractiveTrainingActivity extends AppCompatActivity {
                 //performedExercises++;
                 //textViewPerformedExerciseProgress.setText("Wykonane ćwiczenia: "+String.valueOf(performedExercises)+"/"+String.valueOf(exerciseList.size()));
                 //stepProgressView.setCurrentProgress(performedExercises);
-                dialogInit(15000);
+                finish();
 
             }
         });
@@ -95,7 +110,7 @@ public class InteractiveTrainingActivity extends AppCompatActivity {
                 {
                     if(currentExerciseNumber+1==exerciseList.size()) {
                         timer.cancel();
-                       finishedTrainingDialog();
+                        insertIntoUserFinishedTrainingPlans();
                     } else {
                         dialogInit(15000);
                     }
@@ -106,6 +121,39 @@ public class InteractiveTrainingActivity extends AppCompatActivity {
         });
 
     }
+
+    private void insertIntoUserFinishedTrainingPlans() {
+        progressDialog = new SpotsDialog(this, R.style.Custom);
+        progressDialog.show();
+        registerReceiver(broadcastReceiver, filter); //zarejestrowanie odbiorcy ze stworzonym filtrem
+        HashMap<String, String> params = new HashMap<>();
+        params.put("userId", String.valueOf(SharedPreferencesOperations.getUserId(getApplicationContext())));
+        params.put("trainingPlanId", String.valueOf(trainingPlan.getTrainingPlanId()));
+        Date date = new Date(System.currentTimeMillis());
+        String dateString = DateFormat.format(Constants.DATABASE_DATA_FORMAT, date).toString();
+        Log.e("date", dateString);
+        params.put("date", dateString);
+        params.put("duration", String.format("%02d:%02d:%02d", hours, minutes, seconds));
+        Log.e("Duration",String.format("%02d:%02d:%02d", hours, minutes, seconds));
+
+        PerformNetworkRequest request = new PerformNetworkRequest(Constants.URL_INSERT_INTO_USER_FINISHED_TRAINING_PLANS, params, Constants.CODE_POST_REQUEST, getApplicationContext(), INSERT_INTO_USER_FINISHED_TRAINING_PLANS);
+        request.execute();
+    }
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Bundle bundle = intent.getExtras(); //pobranie pakunku danych z zamiaru
+            if (intent.getAction().equals(INSERT_INTO_USER_FINISHED_TRAINING_PLANS)) {
+                Log.e("InsertFinishedTraining:", bundle.getString("JSON"));
+
+                unregisterReceiver(broadcastReceiver); //odrejestrowanie odbiorcy
+                progressDialog.dismiss();
+                finishedTrainingDialog();
+
+            }
+        }
+    };
 
     private void nextExercise(){
             currentExerciseNumber++;
@@ -125,6 +173,8 @@ public class InteractiveTrainingActivity extends AppCompatActivity {
     private void dialogInit(final int milisec){
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.break_dialog);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
         final Button buttonCancel = dialog.findViewById(R.id.buttonCancelDialog);
 
         pieProgressDrawable = new PieProgressDrawable();
@@ -226,7 +276,7 @@ public class InteractiveTrainingActivity extends AppCompatActivity {
 
     private void stepProgressViewInit(){
         stepProgressView = findViewById(R.id.stepProgressViewExercise);
-        if(exerciseList.size()>3) {
+        if(exerciseList.size()>=3) {
             arrayListMarkers.add((int) exerciseList.size()/3);
             arrayListMarkers.add((int)2*exerciseList.size()/3);
         } else {

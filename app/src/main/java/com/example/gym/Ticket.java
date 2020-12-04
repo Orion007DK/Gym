@@ -72,6 +72,8 @@ public class Ticket {
 
     public Ticket (JSONObject jsonObjectTicket) throws JSONException, ParseException {
         Log.e("jsTICKET:", jsonObjectTicket.toString());
+        if(!jsonObjectTicket.isNull("ticketId"))
+            this.id=jsonObjectTicket.getInt("ticketId");
         this.name=jsonObjectTicket.getString("ticketName");
         if(!jsonObjectTicket.isNull("dateStart"))
              this.startDate= new SimpleDateFormat("yyyy-MM-dd").parse(jsonObjectTicket.getString("dateStart"));

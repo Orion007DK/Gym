@@ -1,36 +1,35 @@
 package com.example.gym.activites.myDietsList.dietsDay;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.gym.Component;
 import com.example.gym.R;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
-public class ComponentsListAdapter extends ArrayAdapter<String> {
+public class ComponentsListAdapter extends ArrayAdapter<Component> {
 
     private AppCompatActivity context;
     private List<String> componentsListNames;
     private List<String> componentsListQuantity;
     private Fragment fragmentParrent; //fragment nadrzędny, do którego należy adapter
+    private List<Component> componentsList;
 
-    public ComponentsListAdapter(@NonNull AppCompatActivity context, List<String> componentsListNames, List<String> componentsListQuantity, Fragment fragment) {
-        super(context, R.layout.component_list_one_line,componentsListNames);
+    public ComponentsListAdapter(@NonNull AppCompatActivity context, List<Component> components, Fragment fragment) {
+        super(context, R.layout.component_list_one_line,components);
         this.context=context;
-        this.componentsListNames=componentsListNames;
-        this.componentsListQuantity=componentsListQuantity;
+        //this.componentsListNames=componentsListNames;
+        //this.componentsListQuantity=componentsListQuantity;
+        this.componentsList =components;
         this.fragmentParrent=fragment;
     }
 
@@ -53,14 +52,14 @@ public class ComponentsListAdapter extends ArrayAdapter<String> {
         textViewComponentName = line.findViewById(R.id.textViewComponentName);
         textViewComponentQuantity= line.findViewById(R.id.textViewComponentQuantity);
         if(textViewComponentName!=null)
-        textViewComponentName.setText(componentsListNames.get(position));
+        textViewComponentName.setText(componentsList.get(position).getName()); //textViewComponentName.setText(componentsListNames.get(position));
         else{
             TextView textViewHeader=line.findViewById(R.id.textViewComponentNameHeader);
             textViewHeader.setText("Składnik");
         }
-        if(textViewComponentName!=null)
-        textViewComponentQuantity.setText(componentsListQuantity.get(position));
-        else{
+        if(textViewComponentName!=null) {
+            textViewComponentQuantity.setText(componentsList.get(position).getQuantityWithAmount());//textViewComponentQuantity.setText(componentsListQuantity.get(position));
+        }else{
             TextView textViewHeader=line.findViewById(R.id.textViewComponentQuantityHeader);
             textViewHeader.setText("Ilość");
         }

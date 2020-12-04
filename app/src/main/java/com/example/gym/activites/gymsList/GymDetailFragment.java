@@ -7,7 +7,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,10 +30,14 @@ import com.example.gym.Constants;
 import com.example.gym.Gym;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
+import com.example.gym.RequestHandler;
 import com.example.gym.SharedPreferencesOperations;
+import com.example.gym.activites.MapsActivity;
+import com.example.gym.activites.trainersList.TrainerDetailFragment;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -44,9 +52,14 @@ public class GymDetailFragment extends Fragment {
     Gym gym=null;
     IntentFilter filter;
     Button buttonSign;
+    ImageView imageViewMap;
+
     private final static String SUBSCRIBE_GYM ="subscribeGym";
     private final static String UNSUBSCRIBE_GYM ="unsubscribeGym";
     Context context;
+
+   // String bitmapImages[];
+    Bitmap bitmapImages[];
 
 /*
     @SuppressLint("StaticFieldLeak")
@@ -75,6 +88,7 @@ public class GymDetailFragment extends Fragment {
         }
     };*/
 
+ImageListener imageListener;
     final int[] sampleImages = {
             R.drawable.gym1,
             R.drawable.gym2,
@@ -90,15 +104,16 @@ public class GymDetailFragment extends Fragment {
 
        carouselView = (CarouselView) view.findViewById(R.id.carouselView);
        //loadImages.execute((Object) null);
+        /*
         carouselView.setPageCount(sampleImages.length);
-        ImageListener imageListener = new ImageListener() {
+        imageListener = new ImageListener() {
             @Override
             public void setImageForPosition(int position, ImageView imageView) {
                 imageView.setImageResource(sampleImages[position]);
 
             }
         };
-        carouselView.setImageListener(imageListener);
+        carouselView.setImageListener(imageListener);*/
       //  carouselView.setPageCount(sampleImages.length);
 
        // carouselView.setImageListener(imageListener);
@@ -108,6 +123,18 @@ public class GymDetailFragment extends Fragment {
         filter.addAction(UNSUBSCRIBE_GYM);
 
         buttonSign = view.findViewById(R.id.buttonSign);
+        imageViewMap = view.findViewById(R.id.imageViewMap);
+        imageViewMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mapsIntent = new Intent(context, MapsActivity.class);
+                Log.e(Constants.BUNDLE_MAPS_LONGITUDE, String.valueOf(gym.getLongitude()));
+                Log.e(Constants.BUNDLE_MAPS_LATITUDE, String.valueOf(gym.getLatitude()));
+                mapsIntent.putExtra(Constants.BUNDLE_MAPS_LONGITUDE, gym.getLongitude());
+                mapsIntent.putExtra(Constants.BUNDLE_MAPS_LATITUDE, gym.getLatitude());
+                startActivity(mapsIntent);
+            }
+        });
 
 
         landscapeConfiguration(view);
@@ -159,7 +186,16 @@ public class GymDetailFragment extends Fragment {
         }
     }
 
+    private void getImage(){
+        //progressDialog = new SpotsDialog(this, R.style.Custom);
+        //progressDialog.show();
 
+        context.registerReceiver(broadcastReceiver, filter);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("gymId", String.valueOf(gym.getGymId()));
+        GymDetailFragment.PerformNetworkRequestForImage request = new GymDetailFragment.PerformNetworkRequestForImage(Constants.URL_GET_GYM_IMAGES, params, Constants.CODE_POST_REQUEST, context);
+        request.execute();
+    }
 
     private static String loremIpsum="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fringilla rutrum neque sit amet viverra. Integer neque purus, tristique eget ante ac, pharetra rhoncus felis. Vestibulum lacinia tellus condimentum lobortis congue. In hac habitasse platea dictumst. Nullam est nulla, cursus eget pretium sed, congue non ante. Vivamus ac ligula et nisl varius vestibulum. Vestibulum vitae tellus vitae ligula ultricies blandit vitae at ligula. Integer faucibus fringilla eleifend. Morbi vehicula aliquet consectetur. ";
 
@@ -175,8 +211,10 @@ public class GymDetailFragment extends Fragment {
         textViewAboutGym.setText(gym.getDescription());
         textViewEmail.setText(gym.getEmail());
         textViewPhoneNumber.setText(gym.getPhoneNumber());
+        Log.e("gym", String.valueOf(gym.getLatitude()));
         this.gym=gym;
         buttonSignInit();
+        getImage();
     }
 
     private void landscapeConfiguration(View view) {
@@ -362,6 +400,99 @@ public class GymDetailFragment extends Fragment {
                     .create();
 
             AlertDialog dialog = builder.show();}
+    }
+
+    public class PerformNetworkRequestForImage extends AsyncTask<Void, Void, String> {
+
+        //the url where we need to send the request
+        private String url;
+
+        //the parameters
+        private HashMap<String, String> params;
+
+        //the request code to define whether it is a GET or POST
+        private int requestCode;
+
+        //context for sendBroadcast;\
+
+        private Context context;
+
+
+        //constructor to initialize values
+        public PerformNetworkRequestForImage(String url, HashMap<String, String> params, int requestCode, Context context) {
+            this.url = url;
+            this.params = params;
+            this.requestCode = requestCode;
+            this.context=context;
+        }
+
+        //when the task started displaying a progressbar
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //progressBar.setVisibility(View.VISIBLE);
+        }
+
+
+        //this method will give the response from the request
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.e("exec","Eex");
+            // progressBar.setVisibility(GONE);
+            try {
+                JSONObject object = new JSONObject(s);
+
+                if (!object.getBoolean("error")) {
+                    //   Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
+                    //refreshing the herolist after every operation
+                    //so we get an updated list
+                    //we will create this method right now it is commented
+                    JSONArray jsonArrayGymImages = object.getJSONArray("gymImages");
+                    bitmapImages = new Bitmap[jsonArrayGymImages.length()];
+                    for(int i=0;i<jsonArrayGymImages.length();i++){
+                        JSONObject jsonObjectImage = jsonArrayGymImages.getJSONObject(i);
+                        byte[] decodedString = Base64.decode(jsonObjectImage.getString("image"), Base64.DEFAULT);
+                        bitmapImages[i]=BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    }
+
+                    if(jsonArrayGymImages.length()!=0){
+
+                        imageListener = new ImageListener() {
+                            @Override
+                            public void setImageForPosition(int position, ImageView imageView) {
+                                imageView.setImageBitmap(bitmapImages[position]);
+                            }
+                        };
+                        carouselView.setImageListener(imageListener);
+                        carouselView.setPageCount(bitmapImages.length);
+                    }
+
+                    // sendBroadcastJSON(object, action);
+                    //because we haven't created it yet
+
+                } else {
+                    Log.e("error: ",object.getString("message"));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //the network operation will be performed in background
+        @Override
+        protected String doInBackground(Void... voids) {
+            RequestHandler requestHandler = new RequestHandler();
+            if (requestCode == Constants.CODE_POST_REQUEST)
+                return requestHandler.sendPostRequest(url, params);
+
+
+            if (requestCode == Constants.CODE_GET_REQUEST)
+                return requestHandler.sendGetRequest(url);
+
+            return null;
+        }
+
     }
 
 

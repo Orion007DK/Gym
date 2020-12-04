@@ -13,6 +13,9 @@ public class Gym {
     String description;
     String voivodeship;
     String postalCode;
+    String distance;
+    double longitude;
+    double latitude;
 
     public Gym(String name, Address address) {
         this.name = name;
@@ -66,9 +69,22 @@ public class Gym {
         this.postalCode=jsonObject.getString("postalCode");
         this.phoneNumber=jsonObject.getString("phoneNumber");
         this.description=jsonObject.getString("description");
+        if(!jsonObject.isNull("distance"))
+            this.distance=jsonObject.getString("distance");
+        if(!jsonObject.isNull("longitude"))
+            this.longitude=jsonObject.getDouble("longitude");
+        if(!jsonObject.isNull("latitude"))
+            this.latitude=jsonObject.getDouble("latitude");
+
     }
 
+    public double getLongitude() {
+        return longitude;
+    }
 
+    public double getLatitude() {
+        return latitude;
+    }
 
     public int getGymId() {
         return gymId;

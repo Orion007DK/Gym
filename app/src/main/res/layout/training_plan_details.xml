@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingBottom="30dp">
+        android:orientation="vertical">
 
     <TextView
         android:id="@+id/textViewTitle"
@@ -26,14 +28,8 @@
         android:layout_height="match_parent"
         android:id="@+id/linearLayoutTrainingPlanDetails"
         android:orientation="vertical"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp">
-
-        <TextView
-            android:id="@+id/textViewTrainingPlanDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
 
         <TableLayout
             android:layout_width="match_parent"
@@ -50,60 +46,63 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:text="Szacowany czas: "
                     android:textSize="20dp"
-                    android:text="Szacowany czas trwania: "/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewEstimatedDurationValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:textSize="20dp"
-                    android:text="10 minut" />
+                    android:text="10 minut"
+                    android:textSize="20dp" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textViewBurnedCalories"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="Spalone kalorie:"
                     android:textSize="20dp"
-                    android:layout_weight="1"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewBurnedCaloriesValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
                     android:layout_weight="0.5"
-                    android:text="550" />
+                    android:text="550"
+                    android:textSize="20dp" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textViewCompletedTrainings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
                     android:layout_weight="1"
-                    android:text="Ukończone treningi:" />
+                    android:text="Ukończone treningi:"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewCompletedTrainingsValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
                     android:layout_weight="0.5"
-                    android:text="3 razy" />
+                    android:text="3 razy"
+                    android:textSize="20dp" />
             </TableRow>
-          <!--  <TableRow
+            <!--  <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
 
@@ -116,37 +115,104 @@
             -->
         </TableLayout>
 
-        <ListView
-            android:id="@+id/listViewExercises"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="10dp"
-            android:paddingBottom="20dp"
-            android:layout_weight="20"
-            android:nestedScrollingEnabled="true"
-            />
+            android:layout_height="100sp"
+            android:nestedScrollingEnabled="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100sp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewTrainingPlanDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="true"
+                    android:text="TextView"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </ScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1">
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
+            <com.bartbergmans.gradientbutton.views.GradientButton
+                android:id="@+id/buttonStartTraining"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Rozpocznij trening"
+                app:circular="false"
+                app:end_color="@color/buttonEndColor"
+                android:textColor="@color/buttonStartColor"
+                app:filled="false"
+                app:orientation="right_left"
+                app:start_color="@color/buttonStartColor"
+                android:layout_marginRight="5dp"
+                app:stroke="3dp" />
+            <!--
             <Button
                 android:id="@+id/buttonStartTraining"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Rozpocznij trening" />
+                -->
+            <!--
+            <com.bartbergmans.gradientbutton.views.GradientButton
+                android:id="@+id/buttonDeleteTrainingPlan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Usuń plan"
+                app:circular="false"
+                app:end_color="@color/buttonEndColor"
+                android:textColor="#7E0505"
+                app:filled="true"
+                app:orientation="top_bottom"
+                app:start_color="@color/buttonStartColor"
+                app:stroke="3dp" />
+                -->
+            <com.bartbergmans.gradientbutton.views.GradientButton
+                android:id="@+id/buttonDeleteTrainingPlan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Usuń plan"
+                app:circular="false"
+                android:layout_weight="1"
+                app:end_color="@color/buttonEndColor"
+                android:textColor="#E81660"
+                app:filled="false"
+                app:orientation="bl_tr"
 
+
+                android:drawableLeft="@drawable/delete_icon"
+                app:start_color="@color/buttonStartColor"
+                app:stroke="3dp" />
+            <!--
             <Button
                 android:id="@+id/buttonDeleteTrainingPlan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Usuń plan" />
+                -->
+
+
         </LinearLayout>
+
+        <ListView
+            android:id="@+id/listViewExercises"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:nestedScrollingEnabled="true" />
 
 
     </LinearLayout>

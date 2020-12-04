@@ -33,7 +33,15 @@
                 android:paddingLeft="60dp"
                 android:paddingRight="60dp">
 
-
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonShowTrainersProfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pokaż profil trenera"
+                    android:drawableLeft="@drawable/coach"
+                    style="@style/GradientButtonLeftToRightStyle"
+                    app:stroke="3dp" />
+                <!--
                 <Button
                     android:id="@+id/buttonShowTrainersProfil"
                     android:layout_width="match_parent"
@@ -41,7 +49,17 @@
                     android:text="Pokaż profil trenera"
                     android:textSize="@dimen/textSizeButton"
                     android:fontFamily="@string/MainPageButtonFontFamily"/>
-
+                    -->
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonFindTrainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Znajdź trenera"
+                    android:drawableLeft="@drawable/show_trainer_list"
+                    style="@style/GradientButtonLeftToRightStyle"
+                    app:stroke="3dp" />
+                <!--
                 <Button
                     android:id="@+id/buttonFindTrainer"
                     android:layout_width="match_parent"
@@ -49,6 +67,8 @@
                     android:text="Znajdź trenera"
                     android:fontFamily="@string/MainPageButtonFontFamily"
                     android:textSize="@dimen/textSizeButton"/>
+
+                    -->
 
                 <!--
                 <Button

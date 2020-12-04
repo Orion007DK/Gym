@@ -20,7 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.gym.AvailableGymTickets;
+import com.example.gym.activites.availableGymTicket.AvailableGymTickets;
 import com.example.gym.Constants;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;

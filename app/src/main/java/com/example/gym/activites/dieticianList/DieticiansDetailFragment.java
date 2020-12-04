@@ -7,7 +7,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +28,10 @@ import com.example.gym.Constants;
 import com.example.gym.GymWorker;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
+import com.example.gym.RequestHandler;
+import com.example.gym.SharedPreferencesOperations;
+import com.example.gym.activites.trainersList.TrainerDetailFragment;
+import com.rishabhharit.roundedimageview.RoundedImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,7 +47,7 @@ public class DieticiansDetailFragment extends Fragment {
     private final static String SUBSCRIBE_DIETICIAN ="subscribeDietician";
     private final static String UNSUBSCRIBE_DIETICIAN ="unsubscribeDietician";
     Context context;
-
+    RoundedImageView roundedImageView;
 
     @Nullable
     @Override
@@ -49,7 +57,7 @@ public class DieticiansDetailFragment extends Fragment {
         filter = new IntentFilter(); //utworzenie filtru zamiaru
         filter.addAction(SUBSCRIBE_DIETICIAN); //dodanie akcji od zapisania do trenera
         filter.addAction(UNSUBSCRIBE_DIETICIAN);
-
+        roundedImageView=view.findViewById(R.id.roundedViewDietician);
         buttonSign = view.findViewById(R.id.buttonSign);
 
         return view;
@@ -100,6 +108,17 @@ public class DieticiansDetailFragment extends Fragment {
         editorDietician.apply();
     }
 
+    private void getImage(){
+        //progressDialog = new SpotsDialog(this, R.style.Custom);
+        //progressDialog.show();
+
+        context.registerReceiver(broadcastReceiver, filter);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("dieticianId", String.valueOf(dietician.getWorkerId()));
+        DieticiansDetailFragment.PerformNetworkRequestForImage request = new DieticiansDetailFragment.PerformNetworkRequestForImage(Constants.URL_GET_DIETICIAN_IMAGE, params, Constants.CODE_POST_REQUEST, context);
+        request.execute();
+    }
+
 
 
     public void setText(GymWorker dietician){
@@ -118,6 +137,7 @@ public class DieticiansDetailFragment extends Fragment {
             textViewAboutDietician.setText(dietician.getDescription());//trainer.getDescription()aboutTrainer
         this.dietician=dietician;
         buttonSignInit();
+        getImage();
     }
 
     private void buttonSignInit() {
@@ -199,7 +219,7 @@ public class DieticiansDetailFragment extends Fragment {
                     Boolean isSubscribed = json.getBoolean("unsubscribed");
                     if(isSubscribed) {
                         informationConfirmDialog("Wypisany", "Zostałeś wypisany od swojego dietetyka");
-                        clearDieticianData();
+                        SharedPreferencesOperations.clearDieticianData(context);
                     } else {
                         informationConfirmDialog("Błąd", "Wystąpił błąd, nie udało się wypisać Cię od Twojego dietetyka, spróbuj później");
                     }
@@ -277,6 +297,85 @@ public class DieticiansDetailFragment extends Fragment {
             AlertDialog dialog = builder.show();}
     }
 
+    public class PerformNetworkRequestForImage extends AsyncTask<Void, Void, String> {
 
+        //the url where we need to send the request
+        private String url;
+
+        //the parameters
+        private HashMap<String, String> params;
+
+        //the request code to define whether it is a GET or POST
+        private int requestCode;
+
+        //context for sendBroadcast;\
+
+        private Context context;
+
+
+        //constructor to initialize values
+        public PerformNetworkRequestForImage(String url, HashMap<String, String> params, int requestCode, Context context) {
+            this.url = url;
+            this.params = params;
+            this.requestCode = requestCode;
+            this.context=context;
+        }
+
+        //when the task started displaying a progressbar
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //progressBar.setVisibility(View.VISIBLE);
+        }
+
+
+        //this method will give the response from the request
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.e("exec","Eex");
+            // progressBar.setVisibility(GONE);
+            try {
+                JSONObject object = new JSONObject(s);
+
+                if (!object.getBoolean("error")) {
+                    //   Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
+                    //refreshing the herolist after every operation
+                    //so we get an updated list
+                    //we will create this method right now it is commented
+                    JSONObject trainerData = object.getJSONObject("dieticianData");
+                    String image = trainerData.getString("image");
+                    if(!image.equals("null")) {
+                        byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
+                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                        if (roundedImageView != null)
+                            roundedImageView.setImageBitmap(decodedByte);
+                    }
+                    // sendBroadcastJSON(object, action);
+                    //because we haven't created it yet
+
+                } else {
+                    Log.e("error: ",object.getString("message"));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //the network operation will be performed in background
+        @Override
+        protected String doInBackground(Void... voids) {
+            RequestHandler requestHandler = new RequestHandler();
+            if (requestCode == Constants.CODE_POST_REQUEST)
+                return requestHandler.sendPostRequest(url, params);
+
+
+            if (requestCode == Constants.CODE_GET_REQUEST)
+                return requestHandler.sendGetRequest(url);
+
+            return null;
+        }
+
+    }
 
 }

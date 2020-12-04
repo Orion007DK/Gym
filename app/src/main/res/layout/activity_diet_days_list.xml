@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+
     android:layout_height="match_parent">
 
     <ScrollView
@@ -32,7 +35,22 @@
                 android:paddingLeft="60dp"
                 android:paddingRight="60dp">
 
-
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonMonday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Poniedziałek"
+                    app:circular="false"
+                    app:end_color="@color/buttonEndColor"
+                    android:textColor="@color/buttonStartColor"
+                    app:filled="false"
+                    app:orientation="bl_tr"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:drawableLeft="@drawable/monday_calendar_page"
+                    app:start_color="@color/buttonStartColor"
+                    app:stroke="3dp" />
+                <!--
                 <Button
                     android:id="@+id/buttonMonday"
                     android:layout_width="match_parent"
@@ -40,7 +58,24 @@
                     android:fontFamily="@string/MainPageButtonFontFamily"
                     android:text="Poniedziałek"
                     android:textSize="@dimen/textSizeButton" />
-
+                    -->
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonTuesday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Wtorek"
+                    app:circular="false"
+                    app:end_color="@color/buttonEndColor"
+                    android:textColor="@color/buttonStartColor"
+                    app:filled="false"
+                    app:orientation="bl_tr"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/tuesday_daily_calendar_page"
+                    app:start_color="@color/buttonStartColor"
+                    app:stroke="3dp" />
+            <!--
                 <Button
                     android:id="@+id/buttonTuesday"
                     android:layout_width="match_parent"
@@ -48,7 +83,24 @@
                     android:fontFamily="@string/MainPageButtonFontFamily"
                     android:text="Wtorek"
                     android:textSize="@dimen/textSizeButton" />
-
+                    -->
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonWednsday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Środa"
+                    app:circular="false"
+                    app:end_color="@color/buttonEndColor"
+                    android:textColor="@color/buttonStartColor"
+                    app:filled="false"
+                    app:orientation="bl_tr"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:drawableLeft="@drawable/wednesday_calendar_daily_page"
+                    app:start_color="@color/buttonStartColor"
+                    app:stroke="3dp" />
+                <!--
                 <Button
                     android:id="@+id/buttonWednsday"
                     android:layout_width="match_parent"
@@ -56,7 +108,24 @@
                     android:fontFamily="@string/MainPageButtonFontFamily"
                     android:text="Środa"
                     android:textSize="@dimen/textSizeButton" />
-
+                    -->
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonThursday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Czwartek"
+                    app:circular="false"
+                    app:end_color="@color/buttonEndColor"
+                    android:textColor="@color/buttonStartColor"
+                    app:filled="false"
+                    app:orientation="bl_tr"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:drawableLeft="@drawable/thursday_calendar_daily_page_interface_symbol"
+                    app:start_color="@color/buttonStartColor"
+                    app:stroke="3dp" />
+                <!--
                 <Button
                     android:id="@+id/buttonThursday"
                     android:layout_width="match_parent"
@@ -64,7 +133,24 @@
                     android:fontFamily="@string/MainPageButtonFontFamily"
                     android:text="Czwartek"
                     android:textSize="@dimen/textSizeButton" />
-
+-->
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonFriday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Piątek"
+                    app:circular="false"
+                    app:end_color="@color/buttonEndColor"
+                    android:textColor="@color/buttonStartColor"
+                    app:filled="false"
+                    app:orientation="bl_tr"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:drawableLeft="@drawable/thursday_calendar_daily_page_interface_symbol"
+                    app:start_color="@color/buttonStartColor"
+                    app:stroke="3dp" />
+                <!--
                 <Button
                     android:id="@+id/buttonFriday"
                     android:layout_width="match_parent"
@@ -72,7 +158,25 @@
                     android:fontFamily="@string/MainPageButtonFontFamily"
                     android:text="Piątek"
                     android:textSize="@dimen/textSizeButton" />
+-->
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonSaturday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sobota"
+                    app:circular="false"
+                    app:end_color="@color/buttonEndColor"
+                    android:textColor="@color/buttonStartColor"
+                    app:filled="false"
+                    app:orientation="bl_tr"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:drawableLeft="@drawable/friday_daily_calendar_page"
+                    app:start_color="@color/buttonStartColor"
+                    app:stroke="3dp" />
 
+                <!--
                 <Button
                     android:id="@+id/buttonSaturday"
                     android:layout_width="match_parent"
@@ -80,7 +184,24 @@
                     android:fontFamily="@string/MainPageButtonFontFamily"
                     android:text="Sobota"
                     android:textSize="@dimen/textSizeButton" />
-
+                    -->
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonSunday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Niedziela"
+                    app:circular="false"
+                    app:end_color="@color/buttonEndColor"
+                    android:textColor="@color/buttonStartColor"
+                    app:filled="false"
+                    app:orientation="bl_tr"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:drawableLeft="@drawable/sunday_daily_calendar_page"
+                    app:start_color="@color/buttonStartColor"
+                    app:stroke="3dp" />
+                <!--
                 <Button
                     android:id="@+id/buttonSunday"
                     android:layout_width="match_parent"
@@ -88,7 +209,28 @@
                     android:fontFamily="@string/MainPageButtonFontFamily"
                     android:text="Niedziela"
                     android:textSize="@dimen/textSizeButton" />
+                    -->
             </LinearLayout>
+            <com.bartbergmans.gradientbutton.views.GradientButton
+                android:id="@+id/buttonSubUnsubDiet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Usuń dietę"
+                app:circular="false"
+                app:end_color="#910303"
+                android:textColor="@color/buttonStartColor"
+                app:filled="false"
+                app:orientation="bl_tr"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:drawableLeft="@drawable/delete_icon"
+                app:start_color="@color/buttonStartColor"
+                app:stroke="3dp" />
+            <!--
             <Button
             android:id="@+id/buttonSubUnsubDiet"
             android:layout_width="match_parent"
@@ -98,6 +240,7 @@
             android:layout_marginEnd="60dp"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="20dp"/>
+            -->
         </LinearLayout>
     </ScrollView>
 

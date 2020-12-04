@@ -1,12 +1,23 @@
 package com.example.gym;
 
+import android.util.Log;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class Meal {
-    String name;
-    String calories;
-    int id;
+    private String name;
+    private String calories;
+    private String protein;
+    private String carbohydrates;
+    private int id;
+    private String preparation;
+    private ArrayList<Component> components;
+
+
 
     public Meal(String name, String calories, int id) {
         this.name = name;
@@ -15,9 +26,45 @@ public class Meal {
     }
 
     public Meal(JSONObject jsonObject) throws JSONException {
-        this.name=jsonObject.getString("name");
-        this.calories=jsonObject.getString("calories");
-        this.id=jsonObject.getInt("mealId");
+        Log.e("MealJSON", jsonObject.toString());
+        if(!jsonObject.isNull("name"))
+             this.name=jsonObject.getString("name");
+        if(!jsonObject.isNull("calories"))
+             this.calories=jsonObject.getString("calories");
+        if(!jsonObject.isNull("protein"))
+            this.protein=jsonObject.getString("protein");
+        if(!jsonObject.isNull("carbohydrates"))
+            this.carbohydrates=jsonObject.getString("carbohydrates");
+        if(!jsonObject.isNull("mealId"))
+             this.id=jsonObject.getInt("mealId");
+        if(!jsonObject.isNull("preparation")){
+            this.preparation=jsonObject.getString("preparation");
+        }
+
+        if(!jsonObject.isNull("components")) {
+            components=new ArrayList<>();
+            JSONArray jsonArray = jsonObject.getJSONArray("components");
+            for(int i=0;i<jsonArray.length();i++)
+                components.add(new Component(jsonArray.getJSONObject(i)));
+        }
+
+
+        }
+
+    public String getProtein() {
+        return protein;
+    }
+
+    public String getCarbohydrates() {
+        return carbohydrates;
+    }
+
+    public String getPreparation() {
+        return preparation;
+    }
+
+    public ArrayList<Component> getComponents() {
+        return components;
     }
 
     public String getName() {

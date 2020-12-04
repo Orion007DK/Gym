@@ -33,7 +33,21 @@
                 android:paddingLeft="60dp"
                 android:paddingRight="60dp">
 
-
+                <com.bartbergmans.gradientbutton.views.GradientButton
+                    android:id="@+id/buttonShowDieticianProfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pokaż profil dietetyka"
+                    app:circular="false"
+                    app:end_color="@color/buttonStartColor"
+                    android:textColor="@color/buttonStartColor"
+                    app:filled="false"
+                    app:orientation="top_bottom"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/dietician_icon"
+                    app:start_color="@color/buttonEndColor"
+                    app:stroke="3dp" />
+                <!--
                 <Button
                     android:id="@+id/buttonShowDieticianProfil"
                     android:layout_width="match_parent"
@@ -41,7 +55,16 @@
                     android:text="Pokaż profil dietetyka"
                     android:textSize="@dimen/textSizeButton"
                     android:fontFamily="@string/MainPageButtonFontFamily"/>
-
+-->             <com.bartbergmans.gradientbutton.views.GradientButton
+                android:id="@+id/buttonFindDietician"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Znajdź dietetyka"
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/show_trainer_list"
+                style="@style/GradientButtonLeftToRightStyle"
+                app:stroke="3dp" />
+                <!--
                 <Button
                     android:id="@+id/buttonFindDietician"
                     android:layout_width="match_parent"
@@ -49,6 +72,7 @@
                     android:text="Znajdź dietetyka"
                     android:fontFamily="@string/MainPageButtonFontFamily"
                     android:textSize="@dimen/textSizeButton"/>
+                    -->
 <!--
                 <Button
                     android:id="@+id/buttonUnsubscribeFromDietician"

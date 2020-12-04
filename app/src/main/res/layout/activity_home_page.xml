@@ -71,6 +71,21 @@
 
 -->
                 <com.bartbergmans.gradientbutton.views.GradientButton
+                android:id="@+id/buttonClasses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Zajęcia"
+                app:circular="false"
+                app:end_color="@color/buttonEndColor"
+                android:textColor="@color/buttonStartColor"
+                app:filled="false"
+                app:orientation="top_bottom"
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/classes_icon"
+                app:start_color="@color/buttonStartColor"
+                app:stroke="3dp" />
+
+                <com.bartbergmans.gradientbutton.views.GradientButton
                     android:id="@+id/buttonTrainingPlans"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -104,20 +119,7 @@
                         android:textSize="@dimen/textSizeButton"
                         android:fontFamily="@string/MainPageButtonFontFamily"/>
                         -->
-                <com.bartbergmans.gradientbutton.views.GradientButton
-                    android:id="@+id/buttonClasses"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Zajęcia"
-                    app:circular="false"
-                    app:end_color="@color/buttonEndColor"
-                    android:textColor="@color/buttonStartColor"
-                    app:filled="false"
-                    app:orientation="top_bottom"
-                    android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/classes_icon"
-                    app:start_color="@color/buttonStartColor"
-                    app:stroke="3dp" />
+
                 <!--
                     <Button
                         android:id="@+id/buttonClasses"
@@ -216,20 +218,6 @@
 
 -->
 
-                <com.bartbergmans.gradientbutton.views.GradientButton
-                    android:id="@+id/buttonQR"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="QR"
-                    app:circular="false"
-                    app:end_color="@color/buttonStartColor"
-                    android:textColor="@color/buttonStartColor"
-                    app:filled="false"
-                    app:orientation="top_bottom"
-                    android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/dietician_icon"
-                    app:start_color="@color/buttonEndColor"
-                    app:stroke="3dp" />
 
 
             </LinearLayout>

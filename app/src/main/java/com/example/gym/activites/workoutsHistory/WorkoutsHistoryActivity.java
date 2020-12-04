@@ -7,6 +7,7 @@ import android.text.format.DateFormat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.gym.FinishedTrainingPlan;
 import com.example.gym.R;
 import com.example.gym.activites.OptionsMenuActivity;
 
@@ -30,13 +31,13 @@ public class WorkoutsHistoryActivity extends OptionsMenuActivity implements Work
     }
 
     @Override
-    public void onItemSelected(Date date, String name) {
+    public void onItemSelected(FinishedTrainingPlan finishedTrainingPlan) {
         WorkoutsHistoryDetailFragment workoutsHistoryDetailFragment = (WorkoutsHistoryDetailFragment)getSupportFragmentManager().findFragmentById(R.id.workoutsHistoryDetailFragment);
         // jeżeli fragment istnieje w tej aktywności,
         // znaczy, że jesteśmy w trybie landscape
-        String stringDate= DateFormat.format("dd.MM.yyyy",date).toString();
+        //String stringDate= DateFormat.format("dd.MM.yyyy",date).toString();
         if(workoutsHistoryDetailFragment!=null && workoutsHistoryDetailFragment.isInLayout()){
-            workoutsHistoryDetailFragment.setText(name,stringDate,null,null);
+            workoutsHistoryDetailFragment.setText(finishedTrainingPlan);
         } else {
             // w trybie portrait podmieniamy fragmenty w kontenerze
             setWorkoutsHistoryDetailFragment();
@@ -44,7 +45,7 @@ public class WorkoutsHistoryActivity extends OptionsMenuActivity implements Work
             // i możemy korzystać z fragmentu
             getSupportFragmentManager().executePendingTransactions();
             // ustawiamy tekst fragmentu
-            ((WorkoutsHistoryDetailFragment) this.currentFragment).setText(name, stringDate, null, null);
+            ((WorkoutsHistoryDetailFragment) this.currentFragment).setText(finishedTrainingPlan);
         }
     }
 

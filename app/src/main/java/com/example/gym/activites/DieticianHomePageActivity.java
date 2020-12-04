@@ -12,9 +12,7 @@ import android.widget.Button;
 
 import com.example.gym.Constants;
 import com.example.gym.R;
-import com.example.gym.activites.dieticianList.DieticianDetailsActivity;
 import com.example.gym.activites.dieticianList.DieticianListActivity;
-import com.example.gym.activites.trainersList.TrainersListActivity;
 
 public class DieticianHomePageActivity extends OptionsMenuActivity {
 

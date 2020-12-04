@@ -1,10 +1,14 @@
 package com.example.gym.activites;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -17,6 +21,8 @@ import com.example.gym.activites.myDietsList.MyDietsListActivity;
 import com.example.gym.R;
 import com.manojbhadane.QButton;
 
+import net.glxn.qrgen.android.QRCode;
+
 public class HomePageActivity extends OptionsMenuActivity {
 
     private Button buttonGym;
@@ -27,9 +33,10 @@ public class HomePageActivity extends OptionsMenuActivity {
     private Button buttonDietician;
     private Button buttonMyProfile;
     private QButton buttonGym2;
-    private Button buttonQr;
 
     private int gymId;
+
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +45,8 @@ public class HomePageActivity extends OptionsMenuActivity {
 
         idInit();
         onClickListenersInit();
-    }
 
+    }
     @Override
     protected void onResume() {
         super.onResume();
@@ -58,7 +65,6 @@ public class HomePageActivity extends OptionsMenuActivity {
         buttonDiets=findViewById(R.id.buttonDiets);
         buttonDietician=findViewById(R.id.buttonDietician);
         buttonMyProfile=findViewById(R.id.buttonMyProfile);
-        buttonQr=findViewById(R.id.buttonQR);
 
 
     }
@@ -120,14 +126,7 @@ public class HomePageActivity extends OptionsMenuActivity {
             }
         });
 
-        buttonQr.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent QrIntent =  new Intent(getApplicationContext(), QRActivity.class);
-                startActivity(QrIntent);
-            }
-        });
-    }
+        }
 
 
     //nadpisanie metody pustą metodą, żeby nie dało się przejś do tej samej aktywności

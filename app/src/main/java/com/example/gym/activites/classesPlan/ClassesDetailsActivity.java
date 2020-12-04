@@ -1,4 +1,4 @@
-package com.example.gym;
+package com.example.gym.activites.classesPlan;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.gym.Classes;
+import com.example.gym.Constants;
+import com.example.gym.PerformNetworkRequest;
+import com.example.gym.R;
+import com.example.gym.SharedPreferencesOperations;
 import com.example.gym.activites.classesPlan.ClassesListAdapter;
 
 import org.json.JSONArray;
@@ -78,7 +83,10 @@ Context context;
         textViewClassesDateValue.setText(classes.getStringDate());
         //String stringDate = getIntent().getStringExtra(ClassesListAdapter.CALENDAR_SELECTED_DATE);
         //textViewClassesDateValue.setText(stringDate);
+        if(countLeftHours()>0)
         textViewNoUnsubscribes.setText("Z zajęć można wypisać się najpóźniej do 48 godzin przed rozpoczęciem zajęć, pozostały czas do rozpoczęcia zajęć: " + String.valueOf(countLeftHours()) + " godzin");
+        else
+            textViewNoUnsubscribes.setText("Te zajęcia już się odbyły, lub właśnie się odbywają");
         textViewTrainerNameSurname.setText(classes.getTrainerName()+" "+classes.getTrainerSurname());
         //Time classesStartTime = (Time)getIntent().getSerializableExtra(ClassesListAdapter.CLASSES_START_TIME);
         //Time classesEndTime = (Time)getIntent().getSerializableExtra(ClassesListAdapter.CLASSES_END_TIME);
@@ -273,7 +281,10 @@ Log.e("Check","start");
                 buttonAddClassses.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        informationDialog("Jest zbyt późno", "Nie można już wypisać się z tych zajęć, ponieważ zostało tylko " + String.valueOf(countLeftHours()) + " do rozpoczęcia zajęć");
+                        if(leftHours>0)
+                            informationDialog("Jest zbyt późno", "Nie można już wypisać się z tych zajęć, ponieważ zostało tylko " + String.valueOf(countLeftHours()) + " do rozpoczęcia zajęć");
+                        else
+                            informationDialog("Jest zbyt późno", "Nie można już wypisać się z tych zajęć, ponieważ już się zakończyły, lub właśnie trwają");
                     }
                 });
             }
@@ -281,15 +292,26 @@ Log.e("Check","start");
 //            buttonCheckTicket.setVisibility(View.VISIBLE);
             textViewCheckTicket.setVisibility(View.VISIBLE);
             buttonAddClassses.setText("Zapisz na zajęcia");
-            if(Integer.valueOf(classes.getAvailableEntries())>0)
+            if (countLeftHours() >= 0) {
+                if (Integer.valueOf(classes.getAvailableEntries()) > 0)
+                    buttonAddClassses.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            subscribeClasses();
+                        }
+                    });
+                else
+                    informationDialog("Brak wolnych miejsc", "Niestety, nie ma już wolnych miejsc, sprawdź inne  zajęcia");
+            } else {
                 buttonAddClassses.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        subscribeClasses();
+                        informationDialog("Jest zbyt późno", "Nie można już zapisać się na te zajęcia, ponieważ już się zakończyły, lub właśnie trwają");
                     }
+
+                    ;
                 });
-            else
-                informationDialog("Brak wolnych miejsc", "Niestety, nie ma już wolnych miejsc, sprawdź inne  zajęcia");
+            }
         }
     }
 

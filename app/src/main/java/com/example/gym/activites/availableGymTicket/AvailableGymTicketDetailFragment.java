@@ -1,17 +1,28 @@
-package com.example.gym;
+package com.example.gym.activites.availableGymTicket;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.example.gym.R;
+import com.example.gym.SharedPreferencesOperations;
+import com.example.gym.Ticket;
+
+import net.glxn.qrgen.android.QRCode;
 
 public class AvailableGymTicketDetailFragment extends Fragment {
 
@@ -23,6 +34,8 @@ public class AvailableGymTicketDetailFragment extends Fragment {
     // private final static String SUBSCRIBE_TRAINER="subscribeTrainer";
     // private final static String UNSUBSCRIBE_TRAINER="unsubscribeTrainer";
     Context context;
+    private Button buttonQr;
+    Ticket ticket;
 
     @Nullable
     @Override
@@ -33,17 +46,45 @@ public class AvailableGymTicketDetailFragment extends Fragment {
         filter.addAction(SUBSCRIBE_TRAINER); //dodanie akcji od zapisania do trenera
         filter.addAction(UNSUBSCRIBE_TRAINER);
 */
-
+        buttonQr=view.findViewById(R.id.buttonQR);
         landscapeConfiguration(view); //nie działa, nie trzeba zmniejszać paddingów tylko rozmiar.
 
         // buttonSign = view.findViewById(R.id.buttonSign);
         //if(getActivity().getClass().getSimpleName().equals(TrainerDetailActivity.class.getSimpleName())) {
-
-
+        qrButtonInit();
         return  view;
 
         //return super.onCreateView(inflater, container, savedInstanceState);
 
+    }
+
+    private void qrButtonInit(){
+        buttonQr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bitmap myBitmap = QRCode.from("{\"ticketId\":" + ticket.getId()+","+"\"userId:\""+ SharedPreferencesOperations.getUserId(context)+"}").withSize(350, 350).bitmap();
+                //ImageView myImage = (ImageView) findViewById(R.id.imageView);
+                //myImage.setImageBitmap(myBitmap);
+
+
+                final Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.qr_dialog);
+
+                ImageView imageViewQR = dialog.findViewById(R.id.imageViewQR);
+                imageViewQR.setImageBitmap(myBitmap);
+
+                final Button buttonCancel = dialog.findViewById(R.id.buttonCancelDialog);
+                buttonCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+            }
+
+        });
     }
 
     public void setData(Ticket ticket){
@@ -59,6 +100,8 @@ public class AvailableGymTicketDetailFragment extends Fragment {
             textViewTicketPriceValue.setText(ticket.getPrice());
         if(textViewTicketPossibilities!=null && ticket.getStringPossibilities()!=null)
             textViewTicketPossibilities.setText(ticket.getStringPossibilities());//trainer.getDescription()aboutTrainer
+        Log.e("id",String.valueOf(ticket.getId()));
+        this.ticket=ticket;
     }
 
 

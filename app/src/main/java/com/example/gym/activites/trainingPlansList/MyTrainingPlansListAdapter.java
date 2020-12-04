@@ -1,11 +1,14 @@
 package com.example.gym.activites.trainingPlansList;
 
+import android.animation.ValueAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +18,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.gym.R;
 import com.example.gym.TrainingPlan;
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 
 import java.util.List;
 
@@ -43,6 +47,7 @@ public class MyTrainingPlansListAdapter extends ArrayAdapter<TrainingPlan> {
         View line;
         TextView textViewName;
         ImageView imageViewStars;
+        SimpleRatingBar simpleRatingBarTrainingPlanDifficulty;
         //jeśli nie ma linii do przetworzenia(ponownego uzycia)
         if(convertView==null) {
             //tworzenie tzw. "pompki" do tworzenia listy ocen
@@ -59,9 +64,19 @@ public class MyTrainingPlansListAdapter extends ArrayAdapter<TrainingPlan> {
         imageViewStars= line.findViewById(R.id.imageViewTrainingPlanDifficultyStars);
         //textViewName.setText(trainingPlansListNames.get(position));
         textViewName.setText(trainingPlansList.get(position).getTrainingPlanName());
-
+        simpleRatingBarTrainingPlanDifficulty=line.findViewById(R.id.simpleRatingBarTrainingPlanDifficultyStars);
+        simpleRatingBarTrainingPlanDifficulty.getAnimationBuilder()
+                .setRepeatCount(ValueAnimator.INFINITE)
+                .setRepeatCount(0)
+                .setDuration(1000*trainingPlansList.get(position).getDifficultyLevel())
+                .setRepeatMode(ValueAnimator.REVERSE)
+                .setInterpolator(new LinearInterpolator())
+                .setRatingTarget(trainingPlansList.get(position).getDifficultyLevel())
+                .start();
+        //simpleRatingBarTrainingPlanDifficulty.setRating(trainingPlansList.get(position).getDifficultyLevel());
         int height = textViewName.getLayoutParams().height;
-        switch(trainingPlansList.get(position).getDifficultyLevel())
+        //ratingBarTrainingPlanDifficulty.setRating(trainingPlansList.get(position).getDifficultyLevel());
+       /* switch(trainingPlansList.get(position).getDifficultyLevel())
         {
             case 1:
             {
@@ -83,10 +98,10 @@ public class MyTrainingPlansListAdapter extends ArrayAdapter<TrainingPlan> {
                 imageViewStars.setImageResource(R.drawable.star_0);
                 break;
             }
-        }
+        }*/
         //imageViewStars.setImageResource(R.drawable.one_star);
-        imageViewStars.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,height));
-        imageViewStars.requestLayout();
+        //imageViewStars.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,height));
+        //imageViewStars.requestLayout();
         //textViewSurname.setText(trainingPlansListDifficulty.get(position));
         //switch (trainingPlansListDifficulty.get(position))
 

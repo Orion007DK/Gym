@@ -38,8 +38,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             >
 
             <LinearLayout
@@ -103,21 +103,21 @@
 
                 <TextView
                     android:id="@+id/textViewLeftEntries"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Pozostałe wejścia"
+                    android:text="Pozostałe wejścia: "
+                    android:layout_marginLeft="20dp"
                     android:textStyle="bold"
                     android:textAlignment="center"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/textViewLeftEntriesValue"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textAlignment="center"
+                    android:textAlignment="textStart"
                     android:text="0"
+                    android:layout_marginLeft="5dp"
                     android:textSize="20sp" />
 
 

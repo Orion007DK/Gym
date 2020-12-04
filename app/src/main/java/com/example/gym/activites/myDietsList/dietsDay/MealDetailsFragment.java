@@ -47,10 +47,17 @@ public class MealDetailsFragment extends Fragment {
     private TextView textViewPreparation;
     private TextView textViewPreparationLabel;
     private TextView textViewComponentsLabel;
+    private TextView textViewCalories;
+    private TextView textViewCaloriesLabel;
+    private TextView textViewProtein;
+    private TextView textViewProteinLabel;
+    private TextView textViewCarbohydrates;
+    private TextView textViewCarbohydratesLabel;
 
     private ArrayList<String> arrayListComponents = new ArrayList<>();
     private ArrayList<String> arrayListComponentsQuantity = new ArrayList<>();
     private ArrayList<String> arrayListPreparation = new ArrayList<>();
+    private ArrayList<String> arrayListAmount = new ArrayList<>();
 
 
     private String preparation;
@@ -59,7 +66,9 @@ public class MealDetailsFragment extends Fragment {
     private SpotsDialog progressDialog;
 
     final private static String GET_MEAL_DATA = "getMealData";
+    private TextView emptyListViewText;
 
+    Meal meal;
 
         @Nullable
         @Override
@@ -68,8 +77,8 @@ public class MealDetailsFragment extends Fragment {
 
             filter = new IntentFilter(); //utworzenie filtru zamiaru
             filter.addAction(GET_MEAL_DATA); //dodanie akcji od pobierania informacji o użytkownikach
-
             idInit(view);
+        //
 
             //setListViewAdapters(arrayListComponents, arrayListComponentsQuantity, arrayListPreparation);
             landscapeConfiguration(view);
@@ -90,7 +99,18 @@ public class MealDetailsFragment extends Fragment {
    // String title, List<String> components, List<String> componentsQuantity, List<String> preparation
         public void setData(Meal meal){
         if(meal!=null) {
+            Log.e("prot", meal.getProtein());
+//            Log.e("carbo", meal.getCarbohydrates());
+            Log.e("cal", meal.getCalories());
+
             textViewTitle.setText(meal.getName());
+            textViewProtein.setText(meal.getProtein());
+            textViewCarbohydrates.setText(meal.getCarbohydrates());
+            textViewCalories.setText(meal.getCalories());
+            textViewCaloriesLabel.setVisibility(View.VISIBLE);
+            textViewProteinLabel.setVisibility(View.VISIBLE);
+            textViewCarbohydratesLabel.setVisibility(View.VISIBLE);
+            //
             getMealData(meal);
         }
 
@@ -104,6 +124,13 @@ public class MealDetailsFragment extends Fragment {
         }
 
         private void idInit(View view){
+            textViewCarbohydratesLabel=view.findViewById(R.id.textViewMealCarbohydrates);
+            textViewCarbohydrates=view.findViewById(R.id.textViewMealCarbohydratesValue);
+            textViewCaloriesLabel=view.findViewById(R.id.textViewMealCalories);
+            textViewCalories=view.findViewById(R.id.textViewMealCaloriesValue);
+            textViewProteinLabel=view.findViewById(R.id.textViewMealProtein);
+            textViewProtein=view.findViewById(R.id.textViewMealProteinValue);
+            emptyListViewText=view.findViewById(R.id.emptyListViewText);
             textViewTitle = view.findViewById(R.id.textViewTitle);
             listViewComponents=view.findViewById(R.id.listViewComponents);
             textViewPreparation=view.findViewById(R.id.textViewPreparationValue);
@@ -112,17 +139,21 @@ public class MealDetailsFragment extends Fragment {
             //listViewPreparation=view.findViewById(R.id.listViewPreparation);
         }
 
-        private void setListViewAdapters(List<String> components, List<String> componentsQuantity, List<String> preparationList){
-            ComponentsListAdapter componentsListAdapter = new ComponentsListAdapter((AppCompatActivity)getActivity(),components, componentsQuantity, this);
+   // private void setListViewAdapters(List<String> components, List<String> componentsQuantity, List<String> preparationList){
+        private void setListViewAdapters(Meal meal){
+            ComponentsListAdapter componentsListAdapter = new ComponentsListAdapter((AppCompatActivity)getActivity(), meal.getComponents(), this);
          //   PreparationListAdapter preparationListAdapter = new PreparationListAdapter((AppCompatActivity)getActivity(), preparation, this);
             textViewPreparationLabel.setVisibility(View.VISIBLE);
             //textViewComponentsLabel.setVisibility(View.VISIBLE);
             listViewComponents.setAdapter(componentsListAdapter);
-            textViewPreparation.setText(preparation);
+            textViewPreparation.setText(meal.getPreparation());
             //setListViewHeightBasedOnChildren(listViewComponents);
+            emptyListViewText.setVisibility(View.VISIBLE);
+            listViewComponents.setEmptyView(emptyListViewText);
             View header_view =getLayoutInflater().inflate(R.layout.component_list_header, null);
             if(listViewComponents.getHeaderViewsCount()==0)
                 listViewComponents.addHeaderView(header_view);
+
             setListViewHeightBasedOnChildren(listViewComponents);
           //  justifyListViewHeightBasedOnChildren(listViewComponents);
           //  listViewPreparation.setAdapter(preparationListAdapter);
@@ -148,19 +179,22 @@ public class MealDetailsFragment extends Fragment {
                     Log.e("Reciever", "tre");
                     String jsonstr = bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
-                    JSONArray jsonArray = json.getJSONArray("mealData");
-                    arrayListComponents.clear();
-                    arrayListComponentsQuantity.clear();
+                    //JSONArray jsonArray = json.getJSONArray("mealData");
+                    //arrayListComponents.clear();
+                    //arrayListComponentsQuantity.clear();
                     //jsonArray.getJSONObject(1);
+                    /*
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject js = jsonArray.getJSONObject(i);
                         Log.e("js!", js.toString());
                         arrayListComponentsQuantity.add(js.getString("quantity"));
                         arrayListComponents.add(js.getString("mealName"));
                         preparation=js.getString("description");
+                        arrayListAmount.add(js.getString("amount"));
                         //Meal meal = new Meal(js);
-                    }
-                    setListViewAdapters(arrayListComponents, arrayListComponentsQuantity, arrayListPreparation);
+                    }*/
+                    meal = new Meal(json.getJSONObject("mealData"));
+                    setListViewAdapters(meal);
                     //listsViewInit();
                     //Log.e("gymsArrayList: ",trainersArrayList.toString());
 

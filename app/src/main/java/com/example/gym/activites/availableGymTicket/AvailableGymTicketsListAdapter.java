@@ -1,4 +1,4 @@
-package com.example.gym;
+package com.example.gym.activites.availableGymTicket;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.gym.activites.MyGymTickets.GymTicketListFragment;
+import com.example.gym.R;
+import com.example.gym.Ticket;
 
 import java.util.List;
 

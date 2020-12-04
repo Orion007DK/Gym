@@ -21,10 +21,10 @@
             android:orientation="vertical">
 
             <com.rishabhharit.roundedimageview.RoundedImageView
-                android:id="@+id/roundedViewTrainer"
+                android:id="@+id/roundedViewDietician"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:src="@drawable/trainer"
+                android:src="@drawable/man_2"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 app:cornerRadius="500dp"
