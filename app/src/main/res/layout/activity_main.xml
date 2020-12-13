@@ -119,25 +119,7 @@
                     />
                 </ss.anoop.awesometextinputlayout.AwesomeTextInputLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
 
-                    <View
-                        android:id="@+id/viewInvisible"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
-
-                    <CheckBox
-                        android:id="@+id/checkBoxSavePassword"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/colorPrimary"
-                        android:text="Zapamiętaj hasło"
-                        android:layout_gravity="right"/>
-                </LinearLayout>
 <!--
                 <Button
                     android:id="@+id/buttonLogIn"
@@ -151,6 +133,7 @@
                     android:layout_height="wrap_content"
                     android:text="Zaloguj"
                     app:circular="false"
+                    android:layout_marginTop="10dp"
                     app:end_color="@color/buttonEndColor"
                     android:textColor="@color/buttonTextColor"
                     app:filled="true"

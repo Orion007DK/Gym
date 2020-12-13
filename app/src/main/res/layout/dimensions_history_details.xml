@@ -80,7 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:text="Poziom tkanki tłuszczowej[%]:"
+                    android:text="Poziom tkanki tłuszczowej:"
                     android:textSize="24dp" />
 
                 <TextView
@@ -97,7 +97,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:text="Poziom tkanki mięśniowej[%]:"
+                    android:text="Poziom tkanki mięśniowej:"
                     android:textSize="24dp" />
 
                 <TextView
@@ -114,7 +114,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:text="Poziom wody w ciele[%]:"
+                    android:text="Poziom wody w ciele:"
                     android:textSize="24dp" />
 
                 <TextView

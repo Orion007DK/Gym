@@ -61,7 +61,7 @@ public class MyTrainingPlansListAdapter extends ArrayAdapter<TrainingPlan> {
             line=convertView;
         }
         textViewName = line.findViewById(R.id.textViewTrainingPlanName);
-        imageViewStars= line.findViewById(R.id.imageViewTrainingPlanDifficultyStars);
+        //imageViewStars= line.findViewById(R.id.imageViewTrainingPlanDifficultyStars);
         //textViewName.setText(trainingPlansListNames.get(position));
         textViewName.setText(trainingPlansList.get(position).getTrainingPlanName());
         simpleRatingBarTrainingPlanDifficulty=line.findViewById(R.id.simpleRatingBarTrainingPlanDifficultyStars);

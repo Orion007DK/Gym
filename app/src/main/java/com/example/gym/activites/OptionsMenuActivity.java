@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gym.Constants;
 import com.example.gym.R;
+import com.example.gym.activites.myClassesList.MyClassesListActivity;
+import com.example.gym.activites.myDietsList.MyDietsListActivity;
+import com.example.gym.activites.trainingPlansList.MyTrainingPlansListActivity;
 
 public class OptionsMenuActivity extends AppCompatActivity {
     
@@ -42,7 +45,7 @@ public class OptionsMenuActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.optionTrainingPlans:{
-                //Toast.makeText(this, "próba nr 2",Toast.LENGTH_SHORT).show();
+                goToMyTrainingPlansListActivity();
                 return true;
             }
             case R.id.optionTrainer:{
@@ -50,13 +53,11 @@ public class OptionsMenuActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.optionClasses:{
-               // Intent trainerIntent = new Intent(getApplicationContext(), activityTrainersListTest.class);
-               // startActivity(trainerIntent);
+                goToMyClassesListActivity();
                 return true;
             }
             case R.id.optionDiets:{
-               // Intent trainerIntent = new Intent(getApplicationContext(), activityTrainersListTest.class);
-               // startActivity(trainerIntent);
+                goToMyDietsListActivity();
                 return true;
             }
             case R.id.optionDietician:{
@@ -113,6 +114,20 @@ public class OptionsMenuActivity extends AppCompatActivity {
         startActivity(gymIntent);
     }
 
+    protected void goToMyClassesListActivity(){
+        Intent classesIntent = new Intent(getApplicationContext(), MyClassesListActivity.class);
+        startActivity(classesIntent);
+    }
+
+    protected void goToMyTrainingPlansListActivity(){
+        Intent classesIntent = new Intent(getApplicationContext(), MyTrainingPlansListActivity.class);
+        startActivity(classesIntent);
+    }
+
+    protected void goToMyDietsListActivity(){
+        Intent dietsIntent = new Intent(getApplicationContext(), MyDietsListActivity.class);
+        startActivity(dietsIntent);
+    }
 
 
     protected void goToTrainerHomePageActivity(){

@@ -1,5 +1,6 @@
 package com.example.gym.activites.availableTreningPlansList;
 
+import android.animation.ValueAnimator;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,6 +31,9 @@ import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
 import com.example.gym.SharedPreferencesOperations;
 import com.example.gym.TrainingPlan;
+import com.example.gym.activites.myDietsList.MyDietsListActivity;
+import com.example.gym.activites.trainingPlansList.MyTrainingPlansListActivity;
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,6 +53,7 @@ public class AvailableTrainingPlansListAdapter extends ArrayAdapter<TrainingPlan
     private TextView textViewName;
     private ImageView imageViewStars;
     private ImageView imageViewAddTrainingPlan;
+    private SimpleRatingBar simpleRatingBarTrainingPlanDifficulty;
     private final static String SUBSCRIBE_TRAINING_PLAN ="subscribeTrainingPlan";
     IntentFilter filter;
 
@@ -81,11 +87,12 @@ public class AvailableTrainingPlansListAdapter extends ArrayAdapter<TrainingPlan
             line=convertView;
         }
         textViewName = line.findViewById(R.id.textViewTrainingPlanName);
-        imageViewStars= line.findViewById(R.id.imageViewTrainingPlanDifficultyStars);
+        //imageViewStars= line.findViewById(R.id.imageViewTrainingPlanDifficultyStars);
         imageViewAddTrainingPlan=line.findViewById(R.id.imageViewAddTrainingPlan);
+        simpleRatingBarTrainingPlanDifficulty=line.findViewById(R.id.simpleRatingBarTrainingPlanDifficultyStars);
         textViewName.setText(trainingPlansList.get(position).getTrainingPlanName());
         int height = textViewName.getLayoutParams().height;
-        setDifficultyStarImage(imageViewStars, position, height);
+        setDifficultyStarImage(position);
         imageViewAddTrainingPlan.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,height));
         imageViewAddTrainingPlan.requestLayout();
       //  imageViewStars.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,height));
@@ -134,7 +141,7 @@ public class AvailableTrainingPlansListAdapter extends ArrayAdapter<TrainingPlan
 
 
         textViewName.setOnClickListener(forUpdateDetailsListener);
-        imageViewStars.setOnClickListener(forUpdateDetailsListener);
+        simpleRatingBarTrainingPlanDifficulty.setOnClickListener(forUpdateDetailsListener);
         line.setOnClickListener(forUpdateDetailsListener);
 
         imageViewAddTrainingPlan.setOnClickListener(new View.OnClickListener() {
@@ -150,8 +157,16 @@ public class AvailableTrainingPlansListAdapter extends ArrayAdapter<TrainingPlan
 
     }
 
-    private void setDifficultyStarImage(ImageView imageViewStars, int position, int height){
-        switch(trainingPlansList.get(position).getDifficultyLevel())
+    private void setDifficultyStarImage(int position){
+        simpleRatingBarTrainingPlanDifficulty.getAnimationBuilder()
+                .setRepeatCount(ValueAnimator.INFINITE)
+                .setRepeatCount(0)
+                .setDuration(1000*trainingPlansList.get(position).getDifficultyLevel())
+                .setRepeatMode(ValueAnimator.REVERSE)
+                .setInterpolator(new LinearInterpolator())
+                .setRatingTarget(trainingPlansList.get(position).getDifficultyLevel())
+                .start();
+        /*switch(trainingPlansList.get(position).getDifficultyLevel())
         {
             case 1:
             {
@@ -175,7 +190,7 @@ public class AvailableTrainingPlansListAdapter extends ArrayAdapter<TrainingPlan
             }
         }
         imageViewStars.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,height));
-        imageViewStars.requestLayout();
+        imageViewStars.requestLayout();*/
     }
 
     private void subscribeTrainingPlan(int trainingPlanId){
@@ -215,6 +230,25 @@ public class AvailableTrainingPlansListAdapter extends ArrayAdapter<TrainingPlan
             //   dialog.setCanceledOnTouchOutside(false);
         }
 
+    public void informationConfirmDialog(String title, String message, Context context){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(message)
+                .setCancelable(false)
+                .setTitle(title)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent myTrainingPlanListActivityIntent = new Intent(getContext(), MyTrainingPlansListActivity.class);
+                        getContext().startActivity(myTrainingPlanListActivityIntent);
+                    }
+                })
+                .create();
+        builder.setCancelable(false);
+
+        AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+    }
+
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -228,7 +262,7 @@ public class AvailableTrainingPlansListAdapter extends ArrayAdapter<TrainingPlan
                     if(isSubscribed){
                         Log.e("isSubscribed: ", json.getString("subscribed"));
                         //  Log.e("Context:","on: "+context.toString());
-                        Dialogs.informationConfirmDialog("Dodano", "Dodano plan treningowy, do Twoich planów", getContext());
+                        informationConfirmDialog("Dodano", "Dodano plan treningowy, do Twoich planów", getContext());
                     }
                     else {
                         Dialogs.informationConfirmDialog("Błąd", "Wystąpił błąd i nie udało się dodać planu treningowego, spróbuj ponownie później", getContext());

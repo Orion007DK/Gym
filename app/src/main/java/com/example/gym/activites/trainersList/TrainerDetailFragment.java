@@ -31,6 +31,7 @@ import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
 import com.example.gym.RequestHandler;
 import com.example.gym.SharedPreferencesOperations;
+import com.example.gym.activites.TrainerDetailActivity;
 import com.rishabhharit.roundedimageview.RoundedImageView;
 
 import org.json.JSONException;
@@ -60,6 +61,8 @@ public class TrainerDetailFragment extends Fragment{
     private final static String UNSUBSCRIBE_TRAINER="unsubscribeTrainer";
     RoundedImageView roundedImageView;
     Context context;
+    TextView textViewClientsNumber;
+    TextView textViewClientsNumberLabel;
 
     @Nullable
     @Override
@@ -132,6 +135,8 @@ public class TrainerDetailFragment extends Fragment{
         TextView textViewEmail = getView().findViewById(R.id.textViewEmailValue);
         TextView textViewPhoneNumber = getView().findViewById(R.id.textViewPhoneNumberValue);
         TextView textViewAboutTrainer = getView().findViewById(R.id.textViewAboutTrainerValue);
+        textViewClientsNumber = getView().findViewById(R.id.textViewClientsNumberValue);
+        textViewClientsNumberLabel = getView().findViewById(R.id.textViewClientsNumber);
         if(textViewNameSurname!=null && trainer.getSurname()!=null)
         textViewNameSurname.setText(trainer.getName()+" "+trainer.getSurname());
         if(textViewEmail!=null  && trainer.getEmail()!=null)
@@ -141,6 +146,8 @@ public class TrainerDetailFragment extends Fragment{
         Log.e("trainer",trainer.getPhoneNumber());
         if(textViewAboutTrainer!=null && trainer.getDescription()!=null)
         textViewAboutTrainer.setText(aboutTrainer);//trainer.getDescription()aboutTrainer
+        if(textViewClientsNumber!=null && trainer.getClientsNumber()>=0 && trainer.getMaxClientsNumber()>=0)
+            textViewClientsNumber.setText(trainer.getClientsNumber()+"/"+trainer.getMaxClientsNumber());
         this.trainer=trainer;
         buttonSignInit();
         getImage();
@@ -153,10 +160,13 @@ public class TrainerDetailFragment extends Fragment{
 
         if(idTrainer==trainer.getWorkerId()) {
             buttonSign.setText("Wypisz się");
+            if(getActivity().getClass().getSimpleName().equals("TrainerDetailActivity")){
+            textViewClientsNumber.setVisibility(View.GONE);
+            textViewClientsNumberLabel.setVisibility(View.GONE);}
             buttonSign.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    unsubscribeDialog();
+                        unsubscribeDialog();
                 }
             });
         }
@@ -165,7 +175,10 @@ public class TrainerDetailFragment extends Fragment{
             buttonSign.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    subscribeDialog(idTrainer);
+                    if(trainer.getClientsNumber()<trainer.getMaxClientsNumber())
+                        subscribeDialog(idTrainer);
+                    else
+                        informationConfirmDialog("Brak miejsc", "Ten trener osiągnął już limit klientów, musisz poszukać innego trenera");
                 }
             });
         }
@@ -203,6 +216,8 @@ public class TrainerDetailFragment extends Fragment{
                     editor.putInt(Constants.SP_TRAINER_ID,trainer.getWorkerId());
                     editor.apply();
                     SharedPreferencesOperations.clearTrainerData(context);
+                    trainer.setClientsNumber(trainer.getClientsNumber()+1);
+                    textViewClientsNumber.setText(String.valueOf(trainer.getClientsNumber())+"/"+trainer.getMaxClientsNumber());
                     informationConfirmDialog("Zapisano!","Pomyślnie zapisałeś się do danego trenera");
                     }
                     else {
@@ -219,6 +234,8 @@ public class TrainerDetailFragment extends Fragment{
                     json = new JSONObject(jsonstr);
                     Boolean isSubscribed = json.getBoolean("unsubscribed");
                     if(isSubscribed) {
+                        trainer.setClientsNumber(trainer.getClientsNumber()-1);
+                        textViewClientsNumber.setText(String.valueOf(trainer.getClientsNumber())+"/"+trainer.getMaxClientsNumber());
                         informationConfirmDialog("Wypisany", "Zostałeś wypisany od swojego trenera");
                         SharedPreferencesOperations.clearTrainerData(context);
                         SharedPreferencesOperations.removeTrainerId(context);

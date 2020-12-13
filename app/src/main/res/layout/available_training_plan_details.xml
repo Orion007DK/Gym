@@ -29,11 +29,6 @@
             android:paddingLeft="30dp"
             android:paddingRight="30dp">
 
-            <TextView
-                android:id="@+id/textViewTrainingPlanDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -44,22 +39,22 @@
                     android:layout_height="wrap_content"
 
                     >
-
                     <TextView
                         android:id="@+id/textViewEstimatedDuration"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:text="Szacowany czas: "
                         android:textSize="20dp"
-                        android:text="Szacowany czas trwania: "/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textViewEstimatedDurationValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
-                        android:textSize="20dp"
-                        android:text="10 minut" />
+                        android:text="10 minut"
+                        android:textSize="20dp" />
                 </TableRow>
 
                 <TableRow
@@ -70,19 +65,39 @@
                         android:id="@+id/textViewBurnedCalories"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="Spalone kalorie:"
                         android:textSize="20dp"
-                        android:layout_weight="1"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textViewBurnedCaloriesValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20dp"
                         android:layout_weight="0.5"
-                        android:text="550" />
+                        android:text="550"
+                        android:textSize="20dp" />
                 </TableRow>
             </TableLayout>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="100sp"
+                android:nestedScrollingEnabled="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100sp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textViewTrainingPlanDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="true"
+                        android:text="TextView"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </ScrollView>
 
             <ListView
                 android:id="@+id/listViewExercises"

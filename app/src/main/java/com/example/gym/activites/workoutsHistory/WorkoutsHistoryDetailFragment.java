@@ -33,7 +33,7 @@ public class WorkoutsHistoryDetailFragment extends Fragment {
         textViewTrainingPlanNameValue.setText(finishedTrainingPlan.getTrainingPlanName());
         textViewWorkoutDateValue.setText(finishedTrainingPlan.getStringDate());
         textViewWorkoutDurationValue.setText(finishedTrainingPlan.getDuration());
-        //textViewBurnedCaloriesValue.setText(burnedCalories);
+       // textViewBurnedCaloriesValue.setText(finishedTrainingPlan.get);
     }
 
     private void landscapeConfiguration(View view){

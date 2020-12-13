@@ -24,7 +24,7 @@ import java.util.Objects;
 
 import dmax.dialog.SpotsDialog;
 
-public class DieticianDetailsActivity extends AppCompatActivity {
+public class DieticianDetailActivity extends AppCompatActivity {
 
     IntentFilter filter;
     private static final String GET_DIETICIAN_DATA = "getDieticianData";
@@ -96,6 +96,8 @@ public class DieticianDetailsActivity extends AppCompatActivity {
             String email = data.getString(Constants.SP_GYM_WORKER_EMAIL, null);
             String phoneNumber = data.getString(Constants.SP_GYM_WORKER_PHONE_NUMBER, null);
             String description = data.getString(Constants.SP_GYM_WORKER_DESCRIPTION, null);
+            //int clientsNumber = data.getInt(Constants.SP_GYM_WORKER_CLIENTS_NUMBER,-1);
+            //int maxClientsNumber = data.getInt(Constants.SP_GYM_WORKER_MAX_CLIENTS_NUMBER,-1);
             Log.e("DATA from Prefs: ",name+" "+surname+" "+email+" "+ phoneNumber+" "+description);
             dietician = new GymWorker(dieticianId, name, surname, email, phoneNumber, description);
             setData();
@@ -118,6 +120,10 @@ public class DieticianDetailsActivity extends AppCompatActivity {
                 editor.putString(Constants.SP_GYM_WORKER_DESCRIPTION,dietician.getDescription());
             if(dietician.getPhoto()!=null)
                 editor.putString(Constants.SP_GYM_WORKER_PHOTO,dietician.getPhoto());
+           /* if(dietician.getClientsNumber()>=0)
+                editor.putInt(Constants.SP_GYM_WORKER_CLIENTS_NUMBER, dietician.getClientsNumber());
+            if(dietician.getMaxClientsNumber()>=0)
+                editor.putInt(Constants.SP_GYM_WORKER_MAX_CLIENTS_NUMBER, dietician.getMaxClientsNumber());*/
             editor.apply();
         }
 

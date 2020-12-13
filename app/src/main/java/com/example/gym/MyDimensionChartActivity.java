@@ -37,7 +37,7 @@ import com.skydoves.powerspinner.PowerSpinnerView;
 import com.skydoves.powerspinner.SpinnerAnimation;
 
 
-
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -79,8 +79,9 @@ public class MyDimensionChartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_dimension_chart);
+        spinnerDataNamesInit();
 
-       spinnerDataNamesInit();
+
        // arrayListsInit();
 
         filter = new IntentFilter(); //utworzenie filtru zamiaru
@@ -161,19 +162,65 @@ public class MyDimensionChartActivity extends AppCompatActivity {
 
 
             List<IconSpinnerItem> iconSpinnerItems = new ArrayList<>();
-            iconSpinnerItems.add(new IconSpinnerItem(null, "Waga"));
-            iconSpinnerItems.add(new IconSpinnerItem(null, "Wzrost"));
-            iconSpinnerItems.add(new IconSpinnerItem(null, "Poziom tkanki tłuszczowej"));
-            iconSpinnerItems.add(new IconSpinnerItem(null, "Poziom tkanki mięśniowej"));
-            iconSpinnerItems.add(new IconSpinnerItem(null, "Poziom wody w ciele"));
+            iconSpinnerItems.add(new IconSpinnerItem("Waga",null));
+            iconSpinnerItems.add(new IconSpinnerItem( "Wzrost",null));
+            iconSpinnerItems.add(new IconSpinnerItem( "Poziom tkanki tłuszczowej", null));
+            iconSpinnerItems.add(new IconSpinnerItem("Poziom tkanki mięśniowej",null));
+            iconSpinnerItems.add(new IconSpinnerItem( "Poziom wody w ciele",null));
 
             IconSpinnerAdapter iconSpinnerAdapter = new IconSpinnerAdapter(powerSpinnerView);
-            powerSpinnerView.setSpinnerAdapter(iconSpinnerAdapter);
+            if(powerSpinnerView!=null)
+            powerSpinnerView.setSpinnerAdapter(iconSpinnerAdapter); //to powoduje błąd, ale nie wiem dlaczego
             powerSpinnerView.setItems(iconSpinnerItems);
 
             powerSpinnerView.setSpinnerPopupAnimation(SpinnerAnimation.FADE);
             powerSpinnerView.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener<IconSpinnerItem>() {
                 @Override
+                public void onItemSelected(int i, @Nullable IconSpinnerItem iconSpinnerItem, int i1, IconSpinnerItem t1) {
+                    switch (i1){
+                        case 0:
+                            cartesian.title(("Pomiary wagi"));
+                            cartesian.yAxis(0).title("Waga [kg]");
+                            cartesian.xAxis(0).title("Data pomiaru");
+                            cartesian.tooltip().format("{%Value}kg");
+                            cartesian.data(weightDataList);
+                            break;
+
+                        case 1:
+                            cartesian.title(("Pomiary wzrostu"));
+                            cartesian.yAxis(0).title("Wzrost [cm]");
+                            cartesian.xAxis(0).title("Data pomiaru");
+                            cartesian.tooltip().format("{%Value}cm");
+                            cartesian.data(heightDataList);
+                            break;
+
+                        case 2:
+                            cartesian.title(("Pomiary poziomu tkanki tłuszczowej"));
+                            cartesian.yAxis(0).title("Poziom tkanki tłuszczowej [%]");
+                            cartesian.xAxis(0).title("Data pomiaru");
+                            cartesian.tooltip().format("{%Value}%");
+                            cartesian.data(adiposeTissueList);
+                            break;
+
+                        case 3:
+                            cartesian.title(("Pomiary poziomu tkanki mięśniowej"));
+                            cartesian.yAxis(0).title("Poziomu tkanki mięśniowej [%]");
+                            cartesian.xAxis(0).title("Data pomiaru");
+                            cartesian.tooltip().format("{%Value}%");
+                            cartesian.data(muscleTissueList);
+                            break;
+
+                        case 4:
+                            cartesian.title(("Poziom wody w ciele"));
+                            cartesian.yAxis(0).title("Poziom wody w ciele [%]");
+                            cartesian.xAxis(0).title("Data pomiaru");
+                            cartesian.tooltip().format("{%Value}%");
+                            cartesian.data(bodyWaterPercentageList);
+                            break;
+                    }
+                }
+
+               /* @Override
                 public void onItemSelected(int i, IconSpinnerItem iconSpinnerItem) {
 
                     switch (i){
@@ -217,7 +264,7 @@ public class MyDimensionChartActivity extends AppCompatActivity {
                             cartesian.data(bodyWaterPercentageList);
                             break;
                     }
-                }
+                }*/
 
                 });
             }
@@ -269,7 +316,7 @@ public class MyDimensionChartActivity extends AppCompatActivity {
                         dimensionsArrayList.add(dimensions);
                     }
 
-                    for(int i=0; i<dimensionsArrayList.size();i++){
+                    for(int i=dimensionsArrayList.size()-1; i>=0;i--){
                         if(dimensionsArrayList.get(i).getWeight()!=null) {
                             int weight = Integer.parseInt(dimensionsArrayList.get(i).getWeight());
                             weightDataList.add(new ValueDataEntry(sdf.format(dimensionsArrayList.get(i).getDate()), weight));

@@ -88,4 +88,5 @@ public class TrainersListActivity extends AppCompatActivity implements TrainersL
 
     }
 
+
 }

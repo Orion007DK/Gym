@@ -114,7 +114,7 @@
                 android:id="@+id/buttonQR"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="QR"
+                android:text="Mój kod QR"
                 app:circular="false"
                 app:end_color="@color/buttonStartColor"
                 android:textColor="@color/buttonStartColor"

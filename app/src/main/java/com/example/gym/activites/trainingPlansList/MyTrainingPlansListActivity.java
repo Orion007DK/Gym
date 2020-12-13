@@ -8,8 +8,9 @@ import android.os.Bundle;
 
 import com.example.gym.R;
 import com.example.gym.TrainingPlan;
+import com.example.gym.activites.OptionsMenuActivity;
 
-public class MyTrainingPlansListActivity extends AppCompatActivity implements MyTrainingPlansListFragment.MyTrainingPlansListFragmentActivityListener {
+public class MyTrainingPlansListActivity extends OptionsMenuActivity implements MyTrainingPlansListFragment.MyTrainingPlansListFragmentActivityListener {
 
     private boolean isLand = false;
     private Fragment currentFragment = null;
@@ -66,5 +67,9 @@ public class MyTrainingPlansListActivity extends AppCompatActivity implements My
 
         // zatwierdzamy transakcję
         ft.commit(); //commitAllowingStateLoss
+    }
+
+    @Override
+    protected void goToMyTrainingPlansListActivity() {
     }
 }

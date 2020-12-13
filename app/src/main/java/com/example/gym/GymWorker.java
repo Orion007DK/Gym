@@ -12,6 +12,8 @@ public class GymWorker {
     private String email;
     private String description;
     private String photo;
+    private int clientsNumber;
+    private int maxClientsNumber;
 
     public GymWorker(int workerId, String name, String surname, String phoneNumber, String email, String description, String photo) {
         this.workerId = workerId;
@@ -30,6 +32,8 @@ public class GymWorker {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.description = description;
+        this.clientsNumber=clientsNumber;
+        this.maxClientsNumber=maxClientsNumber;
     }
 
     public GymWorker(JSONObject jsonObject) throws JSONException {
@@ -39,11 +43,26 @@ public class GymWorker {
         this.phoneNumber = jsonObject.getString("phoneNumber");
         this.email = jsonObject.getString("email");
         this.description = jsonObject.getString("description");
+        this.clientsNumber=jsonObject.getInt("clientsNumber");
+        if(!jsonObject.isNull("maxClientsNumber"))
+        this.maxClientsNumber=jsonObject.getInt("maxClientsNumber");
     }
 
     public GymWorker(String name, String surname) {
         this.name = name;
         this.surname = surname;
+    }
+
+    public int getClientsNumber() {
+        return clientsNumber;
+    }
+
+    public int getMaxClientsNumber() {
+        return maxClientsNumber;
+    }
+
+    public void setClientsNumber(int clientsNumber) {
+        this.clientsNumber = clientsNumber;
     }
 
     public int getWorkerId() {

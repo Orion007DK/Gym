@@ -72,6 +72,9 @@ public class AvailableTrainingPlanDetailsFragment extends Fragment {
     }
 
     private void listViewInit(View view){
+        View header_view =getLayoutInflater().inflate(R.layout.exercises_list_header_line, null);
+        if(listViewExercises.getHeaderViewsCount()==0)
+            listViewExercises.addHeaderView(header_view);
         exercisesListInit();
         //ExercisesListAdapter exercisesListAdapter = new ExercisesListAdapter((AppCompatActivity)view.getContext(), listViewExercises, this);
         //listViewExercises.setAdapter(exercisesListAdapter);

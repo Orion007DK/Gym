@@ -48,7 +48,7 @@ public class DieticianHomePageActivity extends OptionsMenuActivity {
             @Override
             public void onClick(View v) {
                 if(idDietician!=(-1)) {
-                    Intent myDieticianProfileActivity = new Intent(getApplicationContext(), DieticianDetailsActivity.class);
+                    Intent myDieticianProfileActivity = new Intent(getApplicationContext(), DieticianDetailActivity.class);
                    // myDieticianProfileActivity.putExtra("name", "Janek");
                     //myDieticianProfileActivity.putExtra("surname", "Kos");
                     //myDieticianProfileActivity.putExtra("landscapeOn", true);

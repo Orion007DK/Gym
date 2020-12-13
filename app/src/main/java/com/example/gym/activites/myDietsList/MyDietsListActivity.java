@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.gym.activites.OptionsMenuActivity;
 import com.example.gym.activites.availableDietsList.AvailableDietsList;
 import com.example.gym.Constants;
 import com.example.gym.PerformNetworkRequest;
@@ -31,7 +32,7 @@ import java.util.Objects;
 import dmax.dialog.SpotsDialog;
 
 
-public class MyDietsListActivity extends AppCompatActivity {
+public class MyDietsListActivity extends OptionsMenuActivity {
     ArrayList<String> dietNamesList = new ArrayList<>();
     ArrayList<Integer> dietIdList = new ArrayList<>();
     DietsListAdapter dietsListAdapter;
@@ -150,8 +151,7 @@ public class MyDietsListActivity extends AppCompatActivity {
 
     }
 
-
-
-
-
+    @Override
+    protected void goToMyDietsListActivity() {
+    }
 }

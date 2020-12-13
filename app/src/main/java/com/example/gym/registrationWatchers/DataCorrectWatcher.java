@@ -66,12 +66,14 @@ public class DataCorrectWatcher {
     public void validation(){
         if(isValidated()){
             dataCorrect=true;
-            buttonRegister.setBackgroundColor(Color.GREEN);
+            //buttonRegister.setBackgroundColor(Color.GREEN);
+            buttonRegister.setTextColor(Color.GREEN);
             buttonRegister.setEnabled(true);
         }
         else{
             dataCorrect=false;
-            buttonRegister.setBackgroundColor(Color.GRAY);
+            buttonRegister.setTextColor(Color.GRAY);
+            //buttonRegister.setBackgroundColor(Color.GRAY);
             buttonRegister.setEnabled(false);
         }
 

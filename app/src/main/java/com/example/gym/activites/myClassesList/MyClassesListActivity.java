@@ -18,6 +18,7 @@ import com.example.gym.Classes;
 import com.example.gym.Constants;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.SharedPreferencesOperations;
+import com.example.gym.activites.OptionsMenuActivity;
 import com.example.gym.activites.classesPlan.ClassesPlanActivity;
 import com.example.gym.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -35,7 +36,7 @@ import java.util.Objects;
 
 import dmax.dialog.SpotsDialog;
 
-public class MyClassesListActivity extends AppCompatActivity {
+public class MyClassesListActivity extends OptionsMenuActivity {
 
     ListView myClasseslistView;
     ArrayList<String> classNames = new ArrayList<>();
@@ -198,5 +199,7 @@ public class MyClassesListActivity extends AppCompatActivity {
         }
     };
 
-
+    @Override
+    protected void goToMyClassesListActivity() {
+    }
 }

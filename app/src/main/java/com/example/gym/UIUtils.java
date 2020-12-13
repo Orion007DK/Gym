@@ -84,7 +84,7 @@ public class UIUtils {
         float textWidth = textView.getPaint().measureText(fullString);
 // this method will give you the total width required to display total String
 
-        int numberOfLines = ((int) textWidth/textSpaceWidth) + 1;
+        int numberOfLines = ((int) textWidth/textSpaceWidth);
 // calculate number of lines it might take
 
         textView.setLines(numberOfLines);
@@ -146,10 +146,12 @@ public class UIUtils {
             //params.height = (int)((totalItemsHeight + totalDividersHeight)*0.55);
             double g=0;
             if(numberOfItems==1)
-                g=20;
+                g=25;
             if(numberOfItems==2)
-                g=8;
-            params.height = (int)((totalItemsHeight + totalDividersHeight)*0.5+g);
+                g=60;
+            if(numberOfItems==3)
+                g=-70;
+            params.height = (int)((totalItemsHeight + totalDividersHeight)*0.4+g);
 
             listView.setLayoutParams(params);
             listView.requestLayout();

@@ -30,7 +30,6 @@ import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
 import com.example.gym.RequestHandler;
 import com.example.gym.SharedPreferencesOperations;
-import com.example.gym.activites.trainersList.TrainerDetailFragment;
 import com.rishabhharit.roundedimageview.RoundedImageView;
 
 import org.json.JSONException;
@@ -48,6 +47,8 @@ public class DieticiansDetailFragment extends Fragment {
     private final static String UNSUBSCRIBE_DIETICIAN ="unsubscribeDietician";
     Context context;
     RoundedImageView roundedImageView;
+    TextView textViewClientsNumber;
+    TextView textViewClientsNumberLabel;
 
     @Nullable
     @Override
@@ -59,7 +60,6 @@ public class DieticiansDetailFragment extends Fragment {
         filter.addAction(UNSUBSCRIBE_DIETICIAN);
         roundedImageView=view.findViewById(R.id.roundedViewDietician);
         buttonSign = view.findViewById(R.id.buttonSign);
-
         return view;
     }
 
@@ -126,6 +126,8 @@ public class DieticiansDetailFragment extends Fragment {
         TextView textViewEmail = getView().findViewById(R.id.textViewEmailValue);
         TextView textViewPhoneNumber = getView().findViewById(R.id.textViewPhoneNumberValue);
         TextView textViewAboutDietician = getView().findViewById(R.id.textViewAboutDieticianValue);
+        textViewClientsNumber = getView().findViewById(R.id.textViewClientsNumberValue);
+        textViewClientsNumberLabel = getView().findViewById(R.id.textViewClientsNumber);
         //textViewNameSurname.setText(dietician.getName()+" "+dietician.getSurname());
         if(textViewNameSurname!=null && dietician.getSurname()!=null)
             textViewNameSurname.setText(dietician.getName()+" "+dietician.getSurname());
@@ -135,6 +137,8 @@ public class DieticiansDetailFragment extends Fragment {
             textViewPhoneNumber.setText(dietician.getPhoneNumber());
         if(textViewAboutDietician!=null && dietician.getDescription()!=null)
             textViewAboutDietician.setText(dietician.getDescription());//trainer.getDescription()aboutTrainer
+        if(textViewClientsNumber!=null && dietician.getClientsNumber()>=0 && dietician.getMaxClientsNumber()>=0)
+            textViewClientsNumber.setText(dietician.getClientsNumber()+"/"+dietician.getMaxClientsNumber());
         this.dietician=dietician;
         buttonSignInit();
         getImage();
@@ -147,6 +151,9 @@ public class DieticiansDetailFragment extends Fragment {
 
         if(idDietician==dietician.getWorkerId()) {
             buttonSign.setText("Wypisz się");
+            if(getActivity().getClass().getSimpleName().equals("DieticianDetailActivity")){
+                textViewClientsNumber.setVisibility(View.GONE);
+                textViewClientsNumberLabel.setVisibility(View.GONE);}
             buttonSign.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -159,7 +166,11 @@ public class DieticiansDetailFragment extends Fragment {
             buttonSign.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    subscribeDialog(idDietician);
+                    if(dietician.getClientsNumber()<dietician.getMaxClientsNumber())
+                        subscribeDialog(idDietician);
+                    else
+                        informationConfirmDialog("Brak miejsc", "Ten trener osiągnął już limit klientów, musisz poszukać innego trenera");
+
                 }
             });
         }
@@ -196,6 +207,8 @@ public class DieticiansDetailFragment extends Fragment {
                         SharedPreferences.Editor editor = data.edit();
                         editor.putInt(Constants.SP_DIETICIAN_ID,dietician.getWorkerId());
                         editor.apply();
+                        dietician.setClientsNumber(dietician.getClientsNumber()+1);
+                        textViewClientsNumber.setText(dietician.getClientsNumber()+"/"+dietician.getMaxClientsNumber());
                         SharedPreferences dataDietician = context.getSharedPreferences(Constants.SP_DIETICIAN_DATA, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editorDietician = dataDietician.edit();
                         editorDietician.clear();
@@ -218,8 +231,11 @@ public class DieticiansDetailFragment extends Fragment {
                     json = new JSONObject(jsonstr);
                     Boolean isSubscribed = json.getBoolean("unsubscribed");
                     if(isSubscribed) {
+                        dietician.setClientsNumber(dietician.getClientsNumber()-1);
+                        textViewClientsNumber.setText(dietician.getClientsNumber()+"/"+dietician.getMaxClientsNumber());
                         informationConfirmDialog("Wypisany", "Zostałeś wypisany od swojego dietetyka");
                         SharedPreferencesOperations.clearDieticianData(context);
+                        SharedPreferencesOperations.removeDieteticianId(context);
                     } else {
                         informationConfirmDialog("Błąd", "Wystąpił błąd, nie udało się wypisać Cię od Twojego dietetyka, spróbuj później");
                     }

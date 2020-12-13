@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.gym.Constants;
+import com.example.gym.Dialogs;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
 import com.example.gym.changePersonalDataWatchers.ChangeDataCorrectWatcher;
@@ -45,14 +46,14 @@ public class MyPersonalDataActivity extends OptionsMenuActivity {
 
     private final static String GET_USER_DATA = "getUserData";
     private final static String UPDATE_USER_DATA = "updateUserData";
-
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_personal_data);
         idInit();
-
+        context=this;
         //tymczasowe dane, powinny byc odczytywane z bazy danych
         String previousName="Janek";
         String previousSurname="Kos";
@@ -104,6 +105,7 @@ public class MyPersonalDataActivity extends OptionsMenuActivity {
                 unregisterReceiver(broadcastReceiver);
             } else if(intent.getAction().equals(UPDATE_USER_DATA)){
                 Log.e("MyPersonalDataActivity", bundle.getString("JSON"));
+                Dialogs.informationConfirmDialog("Zmieniono dane", "Twoje dane zostały pomyślnie zmienione", context);
                 //rozmiar pliku przeliczony na kB
                 unregisterReceiver(broadcastReceiver);
             }

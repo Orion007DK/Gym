@@ -54,7 +54,7 @@
         <activity android:name=".activites.gymsList.GymsListActivity" />
         <activity android:name=".activites.GymHomePageActivity" />
         <activity android:name=".activites.dieticianList.DieticianListActivity" />
-        <activity android:name=".activites.DieticianDetailsActivity" />
+        <activity android:name=".activites.DieticianDetailActivity" />
         <activity android:name=".activites.DieticianHomePageActivity" />
         <activity android:name=".activites.TrainerHomePageActivity" />
         <activity android:name=".activites.workoutsHistory.WorkoutsHistoryActivity" />

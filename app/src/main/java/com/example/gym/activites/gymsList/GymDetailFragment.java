@@ -33,7 +33,6 @@ import com.example.gym.R;
 import com.example.gym.RequestHandler;
 import com.example.gym.SharedPreferencesOperations;
 import com.example.gym.activites.MapsActivity;
-import com.example.gym.activites.trainersList.TrainerDetailFragment;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 

@@ -337,7 +337,7 @@ private void setwHeight() {
                 UIUtils.setListViewHeightBasedOnItems(listViewDinner, R.id.textViewMealName, getContext());
         }
        emptyLabelsHide();
-        setwHeight();
+        //setwHeight();
     }
 
     public void setText(String title){

@@ -1,32 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_more"
+        android:title="more"
+        android:icon="@drawable/more_icon"
+        app:showAsAction="always">
+        <menu>
     <item android:id="@+id/optionHomePage"
         android:title="Strona główna"
+        android:icon="@drawable/home_icon"
         app:showAsAction="never"/>
     <item android:id="@+id/optionGym"
         android:title="Moja siłownia"
-         app:showAsAction="never"/>
-    <item android:id="@+id/optionTrainingPlans"
-        android:title="Moje plany treningowe"
-        app:showAsAction="never"/>
-    <item android:id="@+id/optionTrainer"
-        android:title="Mój trener"
-        app:showAsAction="never"/>
+        android:icon="@drawable/gym"
+         app:showAsAction="always"/>
     <item android:id="@+id/optionClasses"
         android:title="Zajęcia"
+        android:icon="@drawable/classes_icon"
+        app:showAsAction="never"/>
+    <item android:id="@+id/optionTrainingPlans"
+        android:icon="@drawable/training_plans_icon"
+        android:title="Moje plany treningowe"
         app:showAsAction="never"/>
     <item android:id="@+id/optionDiets"
         android:title="Moje diety"
+        android:icon="@drawable/diets_icon"
+        app:showAsAction="never"/>
+    <item android:id="@+id/optionTrainer"
+        android:title="Mój trener"
+        android:icon="@drawable/coach"
         app:showAsAction="never"/>
     <item android:id="@+id/optionDietician"
         android:title="Mój dietetyk"
+        android:icon="@drawable/dietician_icon"
         app:showAsAction="never"/>
     <item android:id="@+id/optionMyProfile"
+        android:icon="@drawable/my_profile_icon"
         android:title="Mój profil"
         app:showAsAction="never"/>
     <item android:id="@+id/optionLogout"
         android:title="Wyloguj"
+        android:icon="@drawable/logout_icon"
         app:showAsAction="never"/>
+        </menu>
+    </item>
 
 </menu>

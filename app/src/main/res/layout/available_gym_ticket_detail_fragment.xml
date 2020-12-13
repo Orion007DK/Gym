@@ -153,7 +153,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/qr_code_icon"
-                            android:text="QR"
+                            android:text="Kod QR karnetu"
                             android:textColor="@color/buttonStartColor"
                             app:circular="false"
                             app:end_color="@color/buttonStartColor"

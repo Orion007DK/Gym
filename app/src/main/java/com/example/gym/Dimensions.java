@@ -124,31 +124,31 @@ public class Dimensions {
     public String getHeightWithoutNull() {
         if(height==null || height=="")
             return "Nie podano wartości";
-        return height;
+        return height+"cm";
     }
 
     public String getWeightWithoutNull() {
         if(weight==null || weight=="")
             return "Nie podano wartości";
-        return weight;
+        return weight+"kg";
     }
 
     public String getAdiposeTissueWithoutNull() {
         if(adiposeTissue==null || adiposeTissue=="")
             return "Nie podano wartości";
-        return adiposeTissue;
+        return adiposeTissue+"%";
     }
 
     public String getMuscleTissueWithoutNull() {
         if(muscleTissue==null || muscleTissue=="")
             return "Nie podano wartości";
-        return muscleTissue;
+        return muscleTissue+"%";
     }
 
     public String getBodyWaterPercentageWithoutNull() {
         if(bodyWaterPercentage==null || bodyWaterPercentage=="")
             return "Nie podano wartości";
-        return bodyWaterPercentage;
+        return bodyWaterPercentage+"%";
     }
 
 

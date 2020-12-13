@@ -19,6 +19,8 @@ public class Constants {
     public static final String URL_GET_USER_DATA = ROOT_URL + "getUserData";
     public static final String URL_LOG_IN = ROOT_URL + "logIn";
     public static final String URL_UPDATE_PASSWORD = ROOT_URL + "updatePassword";
+    public static final String URL_CHECK_EMAIL = ROOT_URL + "checkEmail";
+    public static final String URL_GET_REGULATIONS = ROOT_URL + "getRegulations";
 
     public static final String DATA_FORMAT="dd.MM.yyyy";
     public static final String DATABASE_DATA_FORMAT="yyyy-MM-dd";
@@ -36,6 +38,9 @@ public class Constants {
     public static final String SP_GYM_WORKER_EMAIL = "email";
     public static final String SP_GYM_WORKER_DESCRIPTION = "description";
     public static final String SP_GYM_WORKER_PHOTO = "photo";
+    public static final String SP_GYM_WORKER_CLIENTS_NUMBER = "clientsNumber";
+    public static final String SP_GYM_WORKER_MAX_CLIENTS_NUMBER = "maxClientsNumber";
+
 
 
 

@@ -78,7 +78,7 @@ public class AvailableTrainingPlansListFragment extends Fragment {
 
         emptyListViewText=view.findViewById(R.id.emptyListViewText);
 
-        View header_view =getLayoutInflater().inflate(R.layout.my_classes_list_header, null);
+        View header_view =getLayoutInflater().inflate(R.layout.available_training_plans_list_header_line, null);
         if(listView.getHeaderViewsCount()==0)
             listView.addHeaderView(header_view);
         listView.setEmptyView(emptyListViewText);
