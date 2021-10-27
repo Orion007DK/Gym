@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.gym.Constants;
+import com.example.gym.Dialogs;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
 import com.flaviofaria.kenburnsview.KenBurnsView;
@@ -31,7 +32,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+import dmax.dialog.SpotsDialog;
+
+public class LoginActivity extends AppCompatActivity {
 
     private TextView register;
     private Button buttonLogin;
@@ -45,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private final static String LOGIN = "logIn";
     private final static String GET_USER_DATA = "getUserData";
 
-
+    private SpotsDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent registrationIntent = new Intent(MainActivity.this, RegistrationActivity.class);
+                Intent registrationIntent = new Intent(LoginActivity.this, RegistrationActivity.class);
                 startActivity(registrationIntent);
             }
         });
@@ -74,14 +77,8 @@ public class MainActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent homePageIntent = new Intent(MainActivity.this, HomePageActivity.class);
-                //startActivity(homePageIntent);
-                //Background background = new Background(MainActivity.this, editTextEmail, editTextPassword);
-                //background.execute(email,password);
-                /// registerReceiver(broadcastReceiver, filter);
-                //Log.e("klik","klik");
-               //  readUsers();
-               //  getUSerId();
+                progressDialog = new SpotsDialog(LoginActivity.this, R.style.Custom);
+                progressDialog.show();
                 SharedPreferences data = getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE);
                 int id = data.getInt(Constants.SP_USER_ID, -1);
                 if(id!=(-1)){
@@ -104,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void onResume() {
-        MainActivity.super.onResume();
+        LoginActivity.super.onResume();
         filter = new IntentFilter(); //utworzenie filtru zamiaru
         filter.addAction(GET_USER_DATA); //dodanie akcji od pobierania informacji o użytkownikach
         filter.addAction(GET_USER_ID); //akcja od pobierania id użytkownika
@@ -129,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
                     JSONObject userJson = json.getJSONObject("userData");
                     Log.e("js",jsonstr);
                     Log.e("userjs: ",userJson.toString());
@@ -149,37 +147,62 @@ public class MainActivity extends AppCompatActivity {
                     editor.apply();
                     Log.e("name111: ",getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE).getString(Constants.SP_USER_NAME, null));
                     Log.e("dieticianIDDD: ","t"+String.valueOf(getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE).getInt(Constants.SP_DIETICIAN_ID, -1)));
+                    } else {
+                        Dialogs.noNetworkDialog(context);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                if(progressDialog.isShowing())
+                    progressDialog.dismiss();
                 unregisterReceiver(broadcastReceiver);
             } else if (Objects.equals(intent.getAction(), GET_USER_ID)) {
-                Log.e("Main", bundle.getString("JSON"));
-                unregisterReceiver(broadcastReceiver);
+                String jsonstr =bundle.getString("JSON");
+                JSONObject json = null;
+                try {
+                    json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
+                        Log.e("Main", bundle.getString("JSON"));
+                        unregisterReceiver(broadcastReceiver);
+                    } else {
+                        Dialogs.noNetworkDialog(context);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if(progressDialog.isShowing())
+                    progressDialog.dismiss();
+
             } else if(intent.getAction().equals(LOGIN)){
                 Log.e("Broad","cast");
                 try {
                     JSONObject json = new JSONObject(bundle.getString("JSON"));
-                    int userId = json.getInt("userId");
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
+                        int userId = json.getInt("userId");
 
 
-                    if(userId!=0){
-                        SharedPreferences data = getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = data.edit();
-                        editor.putInt(Constants.SP_USER_ID,userId);
-                        editor.apply();
-                        loginDialog(true);
-                        getUserData(userId);
+                         if(userId!=0){
+                            SharedPreferences data = getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = data.edit();
+                            editor.putInt(Constants.SP_USER_ID,userId);
+                            editor.apply();
+                         loginDialog(true);
+                            getUserData(userId);
                      //   getUser+Data(userId);
-                    }
-                    else{
-                        loginDialog(false);}
+                     }
+                         else{
+                           loginDialog(false);}
 
                     Log.e("userID:", String.valueOf(userId));
+                    } else {
+                        Dialogs.noNetworkDialog(context);
+                    }
                 } catch (JSONException e) {
                     loginDialog(false);
                     e.printStackTrace();
                 }
+                if(progressDialog.isShowing())
+                    progressDialog.dismiss();
                 Log.e("Main", bundle.getString("JSON"));
                 //unregisterReceiver(broadcastReceiver);
             }
@@ -191,10 +214,10 @@ public class MainActivity extends AppCompatActivity {
     private void loginDialog(boolean status){
         if(status) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Zalogowałeś się pomyślnie")
+            builder.setMessage(R.string.LoginSuccesfulLogInDialogMessage)
                     .setCancelable(false)
-                    .setTitle("Zalogowano")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    .setTitle(R.string.LoginSuccesfulLogInDialogTitle)
+                    .setPositiveButton(R.string.InformationDialogPositiveButtonOk, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             nextActivity();
                         }
@@ -205,10 +228,10 @@ public class MainActivity extends AppCompatActivity {
         } else
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Podany został błędny login lub hasło, spróbuj ponownie")
+            builder.setMessage(R.string.LoginUnsuccesfulLogInDialogMessage)
                     .setCancelable(false)
-                    .setTitle("Nieudane logowanie")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    .setTitle(R.string.LoginUnsuccesfulLogInDialogTitle)
+                    .setPositiveButton(R.string.InformationDialogPositiveButtonOk, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
 
                         }
@@ -248,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void nextActivity(){
-        Intent homePageIntent = new Intent(MainActivity.this, HomePageActivity.class);
+        Intent homePageIntent = new Intent(LoginActivity.this, HomePageActivity.class);
         startActivity(homePageIntent);
     }
 

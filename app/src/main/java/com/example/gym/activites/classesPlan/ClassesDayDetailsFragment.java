@@ -19,7 +19,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.gym.Classes;
+import com.example.gym.Dialogs;
+import com.example.gym.dataClasses.Classes;
 import com.example.gym.Constants;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
@@ -206,6 +207,7 @@ private void listViewClassesInit(LayoutInflater inflater){
                 try {
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
                     JSONArray jsonArray = json.getJSONArray("classesList");
 
                     for(int i=0;i<jsonArray.length();i++){
@@ -218,7 +220,9 @@ private void listViewClassesInit(LayoutInflater inflater){
                     Log.e("js",jsonstr);
 
                     Log.e("jsonArray: ",jsonArray.toString());
-
+                    } else {
+                        Dialogs.noNetworkDialog(context);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -227,7 +231,8 @@ private void listViewClassesInit(LayoutInflater inflater){
                 //if (dialog.isShowing()) {
                 //     dialog.dismiss();
                 //}
-                progressDialog.dismiss();
+                if(progressDialog.isShowing())
+                    progressDialog.dismiss();
             }
         }
     };

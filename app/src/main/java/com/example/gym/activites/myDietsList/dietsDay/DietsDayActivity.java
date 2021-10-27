@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.example.gym.Constants;
-import com.example.gym.Meal;
+import com.example.gym.dataClasses.Meal;
 import com.example.gym.R;
 
 public class DietsDayActivity extends AppCompatActivity implements MealsListFragment.MealsListFragmentActivityListener {

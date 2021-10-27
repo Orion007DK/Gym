@@ -1,17 +1,13 @@
 package com.example.gym.activites.dimensionHistory;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.gym.Dimensions;
+import com.example.gym.dataClasses.Dimensions;
 import com.example.gym.R;
 import com.example.gym.activites.OptionsMenuActivity;
-
-import java.util.Date;
 
 public class DimensionHistoryActivity extends OptionsMenuActivity implements DimensionHistoryListFragment.DimensionsHistoryListFragmentActivityListener {
 

@@ -20,12 +20,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.gym.Dialogs;
 import com.example.gym.activites.availableGymTicket.AvailableGymTickets;
 import com.example.gym.Constants;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
 import com.example.gym.SharedPreferencesOperations;
-import com.example.gym.Ticket;
+import com.example.gym.dataClasses.Ticket;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
@@ -169,6 +170,7 @@ public class GymTicketListFragment extends Fragment {
                     Log.e("Reciever","tre");
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
                     JSONArray jsonArray = json.getJSONArray("ticketsList");
 
                     //JSONObject userJson = json.getJSONObject("dimensionsData");
@@ -198,6 +200,9 @@ public class GymTicketListFragment extends Fragment {
 
                   //  trainersListAdapter=new TrainersListAdapter(appContext, trainersArrayList, fragment);
                    // listView.setAdapter(trainersListAdapter);*/
+                    } else {
+                        Dialogs.noNetworkFinishDialog(context, getActivity());
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (ParseException e) {
@@ -207,7 +212,8 @@ public class GymTicketListFragment extends Fragment {
                 //if (dialog.isShowing()) {
                 //     dialog.dismiss();
                 //}
-                progressDialog.dismiss();
+                if(progressDialog.isShowing())
+                    progressDialog.dismiss();
             }
         }
     };

@@ -11,7 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.gym.Constants;
-import com.example.gym.GymWorker;
+import com.example.gym.Dialogs;
+import com.example.gym.dataClasses.GymWorker;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
 import com.example.gym.activites.dieticianList.DieticiansDetailFragment;
@@ -136,15 +137,20 @@ public class DieticianDetailActivity extends AppCompatActivity {
                     try {
                         String jsonstr = bundle.getString("JSON");
                         JSONObject json = new JSONObject(jsonstr);
+                        if(json.isNull(Constants.NETWORK_ERROR_TAG)){
                         JSONObject jsonObject = json.getJSONObject("dieticianData");
                         dietician= new GymWorker(jsonObject);
+                        setData();
+                        putDataIntoPref();
+                        } else {
+                            Dialogs.noNetworkFinishDialog(context, DieticianDetailActivity.this);
+                        }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     unregisterReceiver(broadcastReceiver);
-                    setData();
-                    putDataIntoPref();
+
                     if (progressDialog.isShowing()) {
                         progressDialog.dismiss();
                     }

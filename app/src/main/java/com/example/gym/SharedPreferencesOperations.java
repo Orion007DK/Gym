@@ -32,6 +32,22 @@ public class SharedPreferencesOperations {
         editorDietician.apply();
     }
 
+    static public void clearUserData(Context context){
+        SharedPreferences data = context.getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = data.edit();
+        editor.clear();
+        editor.commit();
+    }
+
+    static public void clearAllData(Context context){
+        clearTrainerData(context);
+        clearDieticianData(context);
+        clearGymData(context);
+        clearUserData(context);
+    }
+
+
+
     static public void removeDieteticianId(Context context){
         SharedPreferences data = context.getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = data.edit();
@@ -54,6 +70,11 @@ public class SharedPreferencesOperations {
     static public int getUserId(Context context){
         SharedPreferences data = context.getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE);
         return  data.getInt(Constants.SP_USER_ID, -1);
+    }
+
+    static public String getUserName(Context context) {
+        SharedPreferences data = context.getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE);
+        return  data.getString(Constants.SP_USER_NAME, null)+" "+data.getString(Constants.SP_USER_SURNAME, null);
     }
 
 

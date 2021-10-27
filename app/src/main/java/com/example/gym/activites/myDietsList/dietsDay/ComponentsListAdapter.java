@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.gym.Component;
+import com.example.gym.dataClasses.Component;
 import com.example.gym.R;
 
 import java.util.List;
@@ -55,13 +55,13 @@ public class ComponentsListAdapter extends ArrayAdapter<Component> {
         textViewComponentName.setText(componentsList.get(position).getName()); //textViewComponentName.setText(componentsListNames.get(position));
         else{
             TextView textViewHeader=line.findViewById(R.id.textViewComponentNameHeader);
-            textViewHeader.setText("Składnik");
+            textViewHeader.setText(R.string.ComponentsListComponentNameHeader);
         }
         if(textViewComponentName!=null) {
             textViewComponentQuantity.setText(componentsList.get(position).getQuantityWithAmount());//textViewComponentQuantity.setText(componentsListQuantity.get(position));
         }else{
             TextView textViewHeader=line.findViewById(R.id.textViewComponentQuantityHeader);
-            textViewHeader.setText("Ilość");
+            textViewHeader.setText(R.string.ComponentsListComponentQuantityHeader);
         }
 
 

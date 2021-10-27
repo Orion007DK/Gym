@@ -1,10 +1,12 @@
 package com.example.gym.registrationWatchers;
 
 
+import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import com.example.gym.R;
 import com.example.gym.ValidationRules;
 
 //klasa pozwalająca na sprawdzanie poprawności danych wprowadzonych do pola tekstowego do którego
@@ -14,10 +16,12 @@ public class SournameTextEditWatcher implements TextWatcher {
 
     private EditText surnameEditText;
     private DataCorrectWatcher dataCorrectWatcher;
+    private Context context;
 
-    public SournameTextEditWatcher(EditText surnameEditText, DataCorrectWatcher dataCorrectWatcher) {
+    public SournameTextEditWatcher(EditText surnameEditText, DataCorrectWatcher dataCorrectWatcher, Context context) {
         this.surnameEditText = surnameEditText;
         this.dataCorrectWatcher=dataCorrectWatcher;
+        this.context=context;
     }
 
 
@@ -41,16 +45,16 @@ public class SournameTextEditWatcher implements TextWatcher {
         textSurname = s.toString();
         if(textSurname.length()!=0) {
             //sprawdzenie czy podany tekst pasuje do wzoru
-            if(ValidationRules.isSurnameRight(textSurname)){
+            if(ValidationRules.isSurnameCorrect(textSurname)){
                 //ustawienie flagi poprawności pola na "true"
                 dataCorrectWatcher.setSurnameCorrect(true);
             } else {
-                surnameEditText.setError( "Niewłaściwe nazwisko, nazwisko może się składać jedynie z liter a-z, A-Z oraz znaku '-', np. 'Wiktorowski-Wania'");
+                surnameEditText.setError(context.getString(R.string.registration_incorrect_surname_error));
                 dataCorrectWatcher.setSurnameCorrect(false);
             }
         } else {
             dataCorrectWatcher.setSurnameCorrect(false);
-            surnameEditText.setError("Brak danych");
+            surnameEditText.setError(context.getString(R.string.registration_no_data_error));
         }
         //sprawdzanie czy wszystkie pola zawierają poprawne dane, jeśli tak
         //wyświetlany jest przycisk umożliwiający przejście dalej

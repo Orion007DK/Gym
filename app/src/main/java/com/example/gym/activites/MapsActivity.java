@@ -50,7 +50,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.e("position", String.valueOf(longitude)+"/"+String.valueOf(latitude));
         LatLng gymLocalisation = new LatLng(longitude, latitude);
         //LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(gymLocalisation).title("Wybrana siłownia"));
+        mMap.addMarker(new MarkerOptions().position(gymLocalisation).title(getString(R.string.MapsSelectedGym)));
         float zoomLevel = 16.0f;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(gymLocalisation, zoomLevel));
 

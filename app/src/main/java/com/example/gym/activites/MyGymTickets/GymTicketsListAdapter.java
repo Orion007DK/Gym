@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.gym.R;
-import com.example.gym.Ticket;
+import com.example.gym.dataClasses.Ticket;
 
 import java.util.Date;
 import java.util.List;
@@ -58,7 +58,7 @@ public class GymTicketsListAdapter extends ArrayAdapter<Ticket> {
                         textViewTicketName.setText(ticketsList.get(position).getName());
                 else{
                         TextView textViewTicketNameHeader=line.findViewById(R.id.textViewTicketNameHeader);
-                        textViewTicketNameHeader.setText("Nazwa");
+                        textViewTicketNameHeader.setText(R.string.GymTicketListTicketNameHeader);
                 }
                 Date today = new Date();
                 if(textViewTicketDates!=null) {
@@ -71,7 +71,7 @@ public class GymTicketsListAdapter extends ArrayAdapter<Ticket> {
                         textViewTicketDates.setText(ticketsList.get(position).getStringStartDate() + " - " + ticketsList.get(position).getStringEndDate());
                 } else {
                         TextView textViewTicketDatesHeader=line.findViewById(R.id.textViewTicketDatesHeader);
-                        textViewTicketDatesHeader.setText("Czas obowiązywania");
+                        textViewTicketDatesHeader.setText(R.string.GymTicketListTicketDatesHeader);
                 }
 
                 line.setOnClickListener(new View.OnClickListener() {

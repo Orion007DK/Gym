@@ -21,7 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.gym.Constants;
-import com.example.gym.FinishedTrainingPlan;
+import com.example.gym.Dialogs;
+import com.example.gym.dataClasses.FinishedTrainingPlan;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
 import com.example.gym.SharedPreferencesOperations;
@@ -83,6 +84,8 @@ public class WorkoutsHistoryListFragment extends Fragment {
         Log.e("size", String.valueOf(arrayListFinishedTrainingPlans.size()));
         if(arrayListFinishedTrainingPlans.size()<=0){
             getUserTrainingPlans();
+            progressDialog = new SpotsDialog(getContext(), R.style.Custom);
+            progressDialog.show();
         } else {
             workoutsHistoryListAdapter = new WorkoutsHistoryListAdapter((AppCompatActivity)view.getContext(), arrayListFinishedTrainingPlans,this);
             listView.setAdapter(workoutsHistoryListAdapter);
@@ -157,6 +160,7 @@ public class WorkoutsHistoryListFragment extends Fragment {
                 try {
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
                     JSONArray jsonArray = json.getJSONArray("trainingPlansList");
                     Log.e("TrainingPlansList:", jsonArray.toString());
                     for(int i=0;i<jsonArray.length();i++){
@@ -165,12 +169,17 @@ public class WorkoutsHistoryListFragment extends Fragment {
                     }
                     WorkoutsHistoryListAdapter workoutsHistoryListAdapter = new WorkoutsHistoryListAdapter(appContext, arrayListFinishedTrainingPlans, fragment);
                     listView.setAdapter(workoutsHistoryListAdapter);
+                    } else {
+                        Dialogs.noNetworkFinishDialog(context, getActivity());
+                    }
 
                 } catch (JSONException | ParseException e) {
                     e.printStackTrace();
                 }
                 Log.e("KONIEC","BroadcatAvailableTickets");
                 appContext.unregisterReceiver(broadcastReceiver);
+                if(progressDialog.isShowing())
+                    progressDialog.dismiss();
                 //if (dialog.isShowing()) {
                 //     dialog.dismiss();
                 //}

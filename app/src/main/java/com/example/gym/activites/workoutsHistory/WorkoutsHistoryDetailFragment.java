@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.gym.FinishedTrainingPlan;
+import com.example.gym.dataClasses.FinishedTrainingPlan;
 import com.example.gym.R;
 
 public class WorkoutsHistoryDetailFragment extends Fragment {
@@ -29,7 +29,7 @@ public class WorkoutsHistoryDetailFragment extends Fragment {
         TextView textViewTrainingPlanNameValue= getView().findViewById(R.id.textViewTrainingPlanNameValue);
         TextView textViewWorkoutDateValue= getView().findViewById(R.id.textViewWorkoutDateValue);
         TextView textViewWorkoutDurationValue= getView().findViewById(R.id.textViewWorkoutDurationValue);
-        TextView textViewBurnedCaloriesValue= getView().findViewById(R.id.textViewBurnedCaloriesValue);
+       // TextView textViewBurnedCaloriesValue= getView().findViewById(R.id.textViewBurnedCaloriesValue);
         textViewTrainingPlanNameValue.setText(finishedTrainingPlan.getTrainingPlanName());
         textViewWorkoutDateValue.setText(finishedTrainingPlan.getStringDate());
         textViewWorkoutDurationValue.setText(finishedTrainingPlan.getDuration());

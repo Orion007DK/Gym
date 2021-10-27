@@ -113,16 +113,16 @@ public class GymHomePageActivity extends OptionsMenuActivity {
 
     private void noGymDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(GymHomePageActivity.this);
-        builder.setMessage("Nie masz jeszcze wybranej siłowni, czy chcesz ją teraz wybrać?")
+        builder.setMessage(R.string.GymHomePageWantGymSubscribeDialogMessage)
                 .setCancelable(true)
-                .setTitle("Brak Siłowni")
-                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.GymHomePageWantGymSubscribeDialogTitle)
+                .setPositiveButton(R.string.DialogPositiveButtonYes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent gymListActivityIntent = new Intent(getApplicationContext(),GymsListActivity.class);
                         startActivity(gymListActivityIntent);
                     }
                 })
-                .setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.DialogNegativeButtonNo, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 

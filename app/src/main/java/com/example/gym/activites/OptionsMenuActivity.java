@@ -72,7 +72,8 @@ public class OptionsMenuActivity extends AppCompatActivity {
             case R.id.optionLogout:{
                 clearUserData();
                 clearDieticianData();
-                Intent nextActivityIntent = new Intent(getApplicationContext(),MainActivity.class);
+                clearTrainerData();
+                Intent nextActivityIntent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(nextActivityIntent);
                 return true;
             }

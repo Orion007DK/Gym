@@ -46,7 +46,7 @@ public class ChangeSurnameTextEditWatcher implements TextWatcher {
             changeDataCorrectWatcher.setSurnameChanged(true);
             if (textSurname.length() != 0) {
                 //sprawdzenie czy podany tekst pasuje do wzoru
-                if (ValidationRules.isSurnameRight(textSurname)) {
+                if (ValidationRules.isSurnameCorrect(textSurname)) {
                     //ustawienie flagi poprawności pola na "true"
                     changeDataCorrectWatcher.setSurnameCorrect(true);
                 } else {

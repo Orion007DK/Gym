@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.gym.Classes;
+import com.example.gym.dataClasses.Classes;
 import com.example.gym.activites.classesPlan.ClassesDetailsActivity;
 import com.example.gym.R;
 

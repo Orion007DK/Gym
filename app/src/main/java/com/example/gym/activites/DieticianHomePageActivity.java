@@ -31,7 +31,7 @@ public class DieticianHomePageActivity extends OptionsMenuActivity {
     }
 
     private void idInit(){
-        buttonShowMyDieticianProfile=findViewById(R.id.buttonShowDieticianProfil);
+        buttonShowMyDieticianProfile=findViewById(R.id.buttonShowDieticianProfile);
         buttonFindDietician=findViewById(R.id.buttonFindDietician);
        // buttonUnsubsribeFromDietician=findViewById(R.id.buttonUnsubscribeFromDietician);
     }
@@ -79,16 +79,16 @@ public class DieticianHomePageActivity extends OptionsMenuActivity {
 
     private void noDieticianDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(DieticianHomePageActivity.this);
-        builder.setMessage("Nie masz jeszcze wybranego dietetyka, czy chcesz teraz go wybrać?")
+        builder.setMessage(R.string.DieticianHomePageWantDieticianSubscribeDialogMessage)
                 .setCancelable(true)
-                .setTitle("Brak dietetyka")
-                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.DieticianHomePageWantDieticianSubscribeDialogTitle)
+                .setPositiveButton(R.string.DialogPositiveButtonYes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent trainerListActivityIntent = new Intent(getApplicationContext(), DieticianListActivity.class);
                         startActivity(trainerListActivityIntent);
                     }
                 })
-                .setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.DialogNegativeButtonNo, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 

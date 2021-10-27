@@ -1,19 +1,23 @@
 package com.example.gym.registrationWatchers;
 
+import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import com.example.gym.R;
 import com.example.gym.ValidationRules;
 
 public class PhoneNumberTextEditWatcher implements TextWatcher {
 
     private EditText phoneNumberEditText;
     private DataCorrectWatcher dataCorrectWatcher;
+    private Context context;
 
-    public PhoneNumberTextEditWatcher(EditText phoneNumberEditText, DataCorrectWatcher dataCorrectWatcher){
+    public PhoneNumberTextEditWatcher(EditText phoneNumberEditText, DataCorrectWatcher dataCorrectWatcher, Context context){
         this.dataCorrectWatcher=dataCorrectWatcher;
         this.phoneNumberEditText=phoneNumberEditText;
+        this.context=context;
     }
 
     @Override
@@ -32,18 +36,18 @@ public class PhoneNumberTextEditWatcher implements TextWatcher {
         textNumber = s.toString();
         if(textNumber.length()!=0) {
             //sprawdzenie czy podany tekst pasuje do wzoru
-            if(ValidationRules.isPhoneNumberRight(textNumber)){
+            if(ValidationRules.isPhoneNumberCorrect(textNumber)){
                 //ustawienie flagi poprawności pola na "tru
                 //ustawienie flagi poprawności pola na "true"
                 dataCorrectWatcher.setPhoneNumberCorrect(true);
 
             } else {
-                phoneNumberEditText.setError("Błąd, niepoprawny numer telefonu");
+                phoneNumberEditText.setError(context.getString(R.string.registration_incorrect_phone_number_error));
                 dataCorrectWatcher.setPhoneNumberCorrect(false);
             }
         } else {
             dataCorrectWatcher.setPhoneNumberCorrect(false);
-            phoneNumberEditText.setError("Brak wprowadzonych danych!");
+            phoneNumberEditText.setError(context.getString(R.string.registration_no_data_error));
 
         }
         //sprawdzanie czy wszystkie pola zawierają poprawne dane, jeśli tak

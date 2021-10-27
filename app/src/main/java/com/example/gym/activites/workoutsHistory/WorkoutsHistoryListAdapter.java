@@ -1,6 +1,5 @@
 package com.example.gym.activites.workoutsHistory;
 
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.gym.FinishedTrainingPlan;
+import com.example.gym.dataClasses.FinishedTrainingPlan;
 import com.example.gym.R;
 
 import java.util.Date;

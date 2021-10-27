@@ -20,7 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.gym.Constants;
-import com.example.gym.GymWorker;
+import com.example.gym.Dialogs;
+import com.example.gym.dataClasses.GymWorker;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
 import com.example.gym.SharedPreferencesOperations;
@@ -129,9 +130,9 @@ public class TrainersListFragment extends Fragment {
             Bundle bundle = intent.getExtras(); //pobranie pakunku danych z zamiaru
             if (Objects.equals(intent.getAction(), GET_TRAINERS)) {
                 try {
-                    Log.e("Reciever","tre");
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
                     JSONArray jsonArray = json.getJSONArray("trainers");
                     //JSONObject userJson = json.getJSONObject("dimensionsData");
                     //jsonArray.getJSONObject(1);
@@ -147,14 +148,16 @@ public class TrainersListFragment extends Fragment {
 
                     trainersListAdapter=new TrainersListAdapter(appContext, trainersArrayList, fragment);
                     listView.setAdapter(trainersListAdapter);
+                    } else {
+                        Dialogs.noNetworkFinishDialog(context, getActivity());
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
+
                 }
                 getContext().unregisterReceiver(broadcastReceiver);
-                //if (dialog.isShowing()) {
-                //     dialog.dismiss();
-                //}
-                progressDialog.dismiss();
+                if(progressDialog.isShowing())
+                    progressDialog.dismiss();
             }
         }
     };

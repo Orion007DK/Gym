@@ -16,8 +16,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.gym.Constants;
+import com.example.gym.Dialogs;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -63,8 +67,21 @@ public class AddDimensionsActivity extends AppCompatActivity {
             Bundle bundle = intent.getExtras(); //pobranie pakunku danych z zamiaru
             if (intent.getAction().equals(CREATE_DIMENSIONS)) {
                 Log.e("AddDimensionsActivity", bundle.getString("JSON"));
+                String jsonstr =bundle.getString("JSON");
+                JSONObject json;
+                try {
+                    json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
+                        addedDimensionsDialog(true);
+                    } else {
+                        Dialogs.noNetworkDialog(context);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 unregisterReceiver(broadcastReceiver); //odrejestrowanie odbiorcy
-                addedDimensionsDialog(true);
+
             }
         }
     };
@@ -104,10 +121,10 @@ public class AddDimensionsActivity extends AppCompatActivity {
     private void addedDimensionsDialog(boolean status){
         if(status) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Pomyślnie dodano wymiary!")
+            builder.setMessage(R.string.AddDimensionsSuccessfulAddDimensionsDialogMessage)
                     .setCancelable(false)
-                    .setTitle("Dodano wymiary")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    .setTitle(R.string.AddDimensionsSuccessfulAddDimensionsDialogTitle)
+                    .setPositiveButton(R.string.InformationDialogPositiveButtonOk, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             Intent myProfileActivityIntent = new Intent(getApplicationContext(), MyProfileActivity.class);
                             startActivity(myProfileActivityIntent);
@@ -120,10 +137,10 @@ public class AddDimensionsActivity extends AppCompatActivity {
         } else
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Wystąpił błąd podczas dodawania wymiarów")
+            builder.setMessage(R.string.AddDimensionsUnsuccessfulAddDimensionsDialogMessage)
                     .setCancelable(false)
-                    .setTitle("Nieudane dodanie wymiarow")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    .setTitle(R.string.AddDimensionsUnsuccessfulAddDimensionsDialogTitle)
+                    .setPositiveButton(R.string.InformationDialogPositiveButtonOk, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
 
                         }

@@ -1,17 +1,22 @@
 package com.example.gym.registrationWatchers;
 
+import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+
+import com.example.gym.R;
 
 
 public class EmailTextEditWatcher implements TextWatcher {
     private EditText emailEditText;
     private DataCorrectWatcher dataCorrectWatcher;
+    private Context context;
 
-    public EmailTextEditWatcher(EditText emailEditText, DataCorrectWatcher dataCorrectWatcher){
+    public EmailTextEditWatcher(EditText emailEditText, DataCorrectWatcher dataCorrectWatcher, Context context){
         this.emailEditText=emailEditText;
         this.dataCorrectWatcher=dataCorrectWatcher;
+        this.context=context;
     }
 
     @Override
@@ -32,12 +37,12 @@ public class EmailTextEditWatcher implements TextWatcher {
                 dataCorrectWatcher.setEmailCorrect(true);
 
             } else {
-                emailEditText.setError("Błąd, niepoprawny adres email");
+                emailEditText.setError(context.getString(R.string.registration_incorrect_email_error));
                 dataCorrectWatcher.setEmailCorrect(false);
             }
         } else {
             dataCorrectWatcher.setEmailCorrect(false);
-            emailEditText.setError("Brak wprowadzonych danych!");
+            emailEditText.setError(context.getString(R.string.registration_no_data_error));
 
         }
         //sprawdzanie czy wszystkie pola zawierają poprawne dane, jeśli tak

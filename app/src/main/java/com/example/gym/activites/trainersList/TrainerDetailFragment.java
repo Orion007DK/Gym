@@ -1,6 +1,5 @@
 package com.example.gym.activites.trainersList;
 
-import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,31 +25,19 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.example.gym.Constants;
-import com.example.gym.GymWorker;
+import com.example.gym.Dialogs;
+import com.example.gym.dataClasses.GymWorker;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
 import com.example.gym.RequestHandler;
 import com.example.gym.SharedPreferencesOperations;
-import com.example.gym.activites.TrainerDetailActivity;
 import com.rishabhharit.roundedimageview.RoundedImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
-
-import javax.net.ssl.HttpsURLConnection;
 
 public class TrainerDetailFragment extends Fragment{
 
@@ -145,6 +132,7 @@ public class TrainerDetailFragment extends Fragment{
         textViewPhoneNumber.setText(trainer.getPhoneNumber());
         Log.e("trainer",trainer.getPhoneNumber());
         if(textViewAboutTrainer!=null && trainer.getDescription()!=null)
+            //TODO zmienić!
         textViewAboutTrainer.setText(aboutTrainer);//trainer.getDescription()aboutTrainer
         if(textViewClientsNumber!=null && trainer.getClientsNumber()>=0 && trainer.getMaxClientsNumber()>=0)
             textViewClientsNumber.setText(trainer.getClientsNumber()+"/"+trainer.getMaxClientsNumber());
@@ -159,7 +147,7 @@ public class TrainerDetailFragment extends Fragment{
         final int idTrainer = data.getInt(Constants.SP_TRAINER_ID, -1);
 
         if(idTrainer==trainer.getWorkerId()) {
-            buttonSign.setText("Wypisz się");
+            buttonSign.setText(R.string.TrainerDetailTrainerUnsubscribeButton);
             if(getActivity().getClass().getSimpleName().equals("TrainerDetailActivity")){
             textViewClientsNumber.setVisibility(View.GONE);
             textViewClientsNumberLabel.setVisibility(View.GONE);}
@@ -171,14 +159,14 @@ public class TrainerDetailFragment extends Fragment{
             });
         }
         else {
-            buttonSign.setText("Zapisz się");
+            buttonSign.setText(R.string.TrainerDetailTrainerSubscribeButton);
             buttonSign.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(trainer.getClientsNumber()<trainer.getMaxClientsNumber())
                         subscribeDialog(idTrainer);
                     else
-                        informationConfirmDialog("Brak miejsc", "Ten trener osiągnął już limit klientów, musisz poszukać innego trenera");
+                        informationConfirmDialog(getString(R.string.TrainerDetailMaxClientsNumberDialogTitle), getString(R.string.TrainerDetailMaxClientsNumberDialogMessage));
                 }
             });
         }
@@ -207,6 +195,7 @@ public class TrainerDetailFragment extends Fragment{
                 try {
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
                     Boolean isSubscribed = json.getBoolean("subscribed");
                     if(isSubscribed){
                     Log.e("isSubscribed: ", json.getString("subscribed"));
@@ -218,10 +207,13 @@ public class TrainerDetailFragment extends Fragment{
                     SharedPreferencesOperations.clearTrainerData(context);
                     trainer.setClientsNumber(trainer.getClientsNumber()+1);
                     textViewClientsNumber.setText(String.valueOf(trainer.getClientsNumber())+"/"+trainer.getMaxClientsNumber());
-                    informationConfirmDialog("Zapisano!","Pomyślnie zapisałeś się do danego trenera");
+                    informationConfirmDialog(getString(R.string.TrainerDetailSuccessfulTrainerSubcribeDialogTitle),getString(R.string.TrainerDetailSuccessfulTrainerSubcribeDialogMessage));
                     }
                     else {
-                    informationConfirmDialog("Nieudane zapisanie", "Niesety wystąpiły pewne problemy przy zapisywaniu Cie do trenera, spróbuj ponownie poźniej");
+                    informationConfirmDialog(getString(R.string.TrainerDetailUnsuccessfulTrainerSubcribeDialogTitle), getString(R.string.TrainerDetailUnsuccessfulTrainerSubcribeDialogMessage));
+                    }
+                    } else {
+                        Dialogs.noNetworkDialog(context);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -232,15 +224,19 @@ public class TrainerDetailFragment extends Fragment{
                 JSONObject json = null;
                 try {
                     json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
                     Boolean isSubscribed = json.getBoolean("unsubscribed");
                     if(isSubscribed) {
                         trainer.setClientsNumber(trainer.getClientsNumber()-1);
                         textViewClientsNumber.setText(String.valueOf(trainer.getClientsNumber())+"/"+trainer.getMaxClientsNumber());
-                        informationConfirmDialog("Wypisany", "Zostałeś wypisany od swojego trenera");
+                        informationConfirmDialog(getString(R.string.TrainerDetailSuccessfulTrainerUnsubcribeDialogTitle), getString(R.string.TrainerDetailSuccessfulTrainerUnsubcribeDialogMessage));
                         SharedPreferencesOperations.clearTrainerData(context);
                         SharedPreferencesOperations.removeTrainerId(context);
                     } else {
-                        informationConfirmDialog("Błąd", "Wystąpił błąd, nie udało się wypisać Cię od Twojego trenera, spróbuj później");
+                        informationConfirmDialog(getString(R.string.ErrorDialogTitle), getString(R.string.TrainerDetailUnsuccesfulTrainerUnsubscribeDialogMessage));
+                    }
+                    } else {
+                        Dialogs.noNetworkDialog(context);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -254,21 +250,21 @@ public class TrainerDetailFragment extends Fragment{
     private void subscribeDialog(int idTrainer) {
         String message  ="";
         if (idTrainer==-1) {
-            message="Czy na pewno chcesz zapisać się do tego trenera?";
+            message=getString(R.string.TrainerDetailWantTrainerSubscribeDialogMessage);
         } else {
-            message="Jesteś już zapisany do innego trenera! Czy na pewno chcesz zapisać się do tego trenera? Będzie to skutkowało wypisaniem od obecnego trenera";
+            message=getString(R.string.TrainerDetailTrainerAlreadySubscribedDialogMessage);
         }
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(message)
                 .setCancelable(true)
-                .setTitle("Potwierdzenie chęci zapisania")
-                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.TrainerDetailWantTrainerSubscribeDialogTitle)
+                .setPositiveButton(R.string.DialogPositiveButtonYes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         subscribeTrainer();
 
                     }
                 })
-                .setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.DialogNegativeButtonNo, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -279,16 +275,16 @@ public class TrainerDetailFragment extends Fragment{
 
     private void unsubscribeDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage("Czy na pewno chcesz się wypisać od danego trenera?")
+        builder.setMessage(R.string.TrainerDetailWantTrainerUnsubscribeDialogMessage)
                 .setCancelable(true)
-                .setTitle("Potwierdzenie chęci wypisania")
-                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.TrainerDetailWantTrainerUnsubscribeDialogTitle)
+                .setPositiveButton(R.string.DialogPositiveButtonYes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         unsubscribeTrainer();
 
                     }
                 })
-                .setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.DialogNegativeButtonNo, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -305,7 +301,7 @@ public class TrainerDetailFragment extends Fragment{
             builder.setMessage(message)
                     .setCancelable(false)
                     .setTitle(title)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.InformationDialogPositiveButtonOk, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             buttonSignInit();
                         }
@@ -355,30 +351,32 @@ public class TrainerDetailFragment extends Fragment{
             super.onPostExecute(s);
             Log.e("exec","Eex");
             // progressBar.setVisibility(GONE);
-            try {
-                JSONObject object = new JSONObject(s);
+            if(s!=null) {
+                try {
+                    JSONObject object = new JSONObject(s);
 
-                if (!object.getBoolean("error")) {
-                    //   Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
-                    //refreshing the herolist after every operation
-                    //so we get an updated list
-                    //we will create this method right now it is commented
-                    JSONObject trainerData = object.getJSONObject("trainerData");
-                    String image = trainerData.getString("image");
-                    if(!image.equals("null")) {
-                        byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
-                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                        if (roundedImageView != null)
-                            roundedImageView.setImageBitmap(decodedByte);
+                    if (!object.getBoolean("error")) {
+                        //   Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
+                        //refreshing the herolist after every operation
+                        //so we get an updated list
+                        //we will create this method right now it is commented
+                        JSONObject trainerData = object.getJSONObject("trainerData");
+                        String image = trainerData.getString("image");
+                        if (!image.equals("null")) {
+                            byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
+                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                            if (roundedImageView != null)
+                                roundedImageView.setImageBitmap(decodedByte);
+                        }
+                        // sendBroadcastJSON(object, action);
+                        //because we haven't created it yet
+
+                    } else {
+                        Log.e("error: ", object.getString("message"));
                     }
-                   // sendBroadcastJSON(object, action);
-                    //because we haven't created it yet
-
-                } else {
-                    Log.e("error: ",object.getString("message"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
         }
 

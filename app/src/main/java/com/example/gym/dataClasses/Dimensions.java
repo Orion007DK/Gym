@@ -1,7 +1,9 @@
-package com.example.gym;
+package com.example.gym.dataClasses;
 
 import android.text.format.DateFormat;
 import android.util.Log;
+
+import com.example.gym.Constants;
 
 import org.json.JSONException;
 import org.json.JSONObject;

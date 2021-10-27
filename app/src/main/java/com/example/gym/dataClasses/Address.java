@@ -1,4 +1,4 @@
-package com.example.gym;
+package com.example.gym.dataClasses;
 
 import android.os.Parcel;
 import android.os.Parcelable;

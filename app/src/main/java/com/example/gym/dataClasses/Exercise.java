@@ -1,4 +1,4 @@
-package com.example.gym;
+package com.example.gym.dataClasses;
 
 import android.util.Log;
 
@@ -15,6 +15,7 @@ public class Exercise implements Serializable {
     String exerciseDescription;
     String repetitions;
     String sets;
+    String load;
 
     public Exercise(JSONObject jsonObjectTicket) throws JSONException, ParseException {
         Log.e("jsTICKET:", jsonObjectTicket.toString());
@@ -29,6 +30,9 @@ public class Exercise implements Serializable {
             this.repetitions = jsonObjectTicket.getString("repetitions");
         if (!jsonObjectTicket.isNull("sets"))
             this.sets = jsonObjectTicket.getString("sets");
+        if (!jsonObjectTicket.isNull("load"))
+            this.load = jsonObjectTicket.getString("load");
+        else load=null;
     }
 
     public Exercise(String exerciseName, String repetitions, String sets) {
@@ -59,5 +63,9 @@ public class Exercise implements Serializable {
 
     public String getSets() {
         return sets;
+    }
+
+    public String getLoad() {
+        return load;
     }
 }

@@ -9,10 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -20,14 +17,11 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.gym.Constants;
 import com.example.gym.Dialogs;
 import com.example.gym.PerformNetworkRequest;
-import com.example.gym.PieProgressDrawable;
-import com.example.gym.SharedPreferencesOperations;
 import com.example.gym.registrationWatchers.DataCorrectWatcher;
 import com.example.gym.registrationWatchers.EmailTextEditWatcher;
 import com.example.gym.registrationWatchers.NameTextEditWatcher;
@@ -39,14 +33,8 @@ import com.example.gym.registrationWatchers.SournameTextEditWatcher;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
-
-import dmax.dialog.SpotsDialog;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -96,19 +84,34 @@ public class RegistrationActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             Bundle bundle = intent.getExtras(); //pobranie pakunku danych z zamiaru
             if (intent.getAction().equals(CREATE_USER)) {
-                Log.e("RegistrationActivity", bundle.getString("JSON"));
+
+                    try {
+                        String jsonstr =bundle.getString("JSON");
+                        JSONObject json = new JSONObject(jsonstr);
+                        if(json.isNull(Constants.NETWORK_ERROR_TAG)) {
+                        } else {
+                            Dialogs.noNetworkDialog(context);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    Log.e("RegistrationActivity", bundle.getString("JSON"));
                 unregisterReceiver(broadcastReceiver); //odrejestrowanie odbiorcy
             } else if(intent.getAction().equals(CHECK_EMAIL)){
                 String jsonstr =bundle.getString("JSON");
                 try {
                     JSONObject json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
                     boolean check = json.getBoolean("check");
                     if(check){
                         createUser();
                         registerDialog();
                     } else {
-                        editTextEmail.setError("Istnieje już konto z podanym adresem email");
-                        Dialogs.informationConfirmDialog("Nieprawidłowy adres email", "Niestety, istnieje już konto z podanym adresem email", context);
+                        editTextEmail.setError(getString(R.string.RegistrationEmailAlreadyExistsError));
+                        Dialogs.informationConfirmDialog(getString(R.string.RegistrationEmailAlreadyExistsDialogTitle), getString(R.string.RegistrationEmailAlreadyExistsDialogMessage), context);
+                    }
+                    } else {
+                        Dialogs.noNetworkDialog(context);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -122,7 +125,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     //json.getString("regulations");
                     dialogInit(json.getString("regulations"));
                 } catch (JSONException e) {
-                    Dialogs.informationConfirmDialog("Błąd", "Nieststy coś poszło nie tak, spróbuj później", context);
+                    Dialogs.informationConfirmDialog(getString(R.string.ErrorDialogTitle), getString(R.string.RegistrationUnsuccesfulGetRegulationsDialogMessage), context);
                     e.printStackTrace();
                 }
 
@@ -181,16 +184,16 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private void listenersInit(){
         dataCorrectWatcher = new DataCorrectWatcher((Button)findViewById(R.id.buttonRegister));
-        NameTextEditWatcher nameWatcher = new NameTextEditWatcher(editTextName, dataCorrectWatcher);
+        NameTextEditWatcher nameWatcher = new NameTextEditWatcher(editTextName, dataCorrectWatcher, this);
         editTextName.addTextChangedListener(nameWatcher);
-        SournameTextEditWatcher surnameWatcher = new SournameTextEditWatcher(editTextSurname, dataCorrectWatcher);
+        SournameTextEditWatcher surnameWatcher = new SournameTextEditWatcher(editTextSurname, dataCorrectWatcher, this);
         editTextSurname.addTextChangedListener(surnameWatcher);
-        EmailTextEditWatcher emailTextEditWatcher = new EmailTextEditWatcher(editTextEmail, dataCorrectWatcher);
+        EmailTextEditWatcher emailTextEditWatcher = new EmailTextEditWatcher(editTextEmail, dataCorrectWatcher, this);
         editTextEmail.addTextChangedListener(emailTextEditWatcher);
-        PhoneNumberTextEditWatcher phoneNumberTextEditWatcher = new PhoneNumberTextEditWatcher(editTextPhoneNumber, dataCorrectWatcher);
+        PhoneNumberTextEditWatcher phoneNumberTextEditWatcher = new PhoneNumberTextEditWatcher(editTextPhoneNumber, dataCorrectWatcher, this);
         editTextPhoneNumber.addTextChangedListener(phoneNumberTextEditWatcher);
-        PasswordTextEditWatcher passwordTextEditWatcher = new PasswordTextEditWatcher(editTextPassword, editTextRepeatedPassword, dataCorrectWatcher);
-        PasswordTextEditWatcher repeatedPasswordTextEditWatcher = new PasswordTextEditWatcher(editTextRepeatedPassword, editTextPassword, dataCorrectWatcher);
+        PasswordTextEditWatcher passwordTextEditWatcher = new PasswordTextEditWatcher(editTextPassword, editTextRepeatedPassword, dataCorrectWatcher, this);
+        PasswordTextEditWatcher repeatedPasswordTextEditWatcher = new PasswordTextEditWatcher(editTextRepeatedPassword, editTextPassword, dataCorrectWatcher, this);
         editTextPassword.addTextChangedListener(passwordTextEditWatcher);
         editTextRepeatedPassword.addTextChangedListener(repeatedPasswordTextEditWatcher);
         RegulationsCheckBoxWatcher regulationsCheckBoxWatcher = new RegulationsCheckBoxWatcher(dataCorrectWatcher);
@@ -215,12 +218,12 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private void registerDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Twoje konto zostało założone")
+        builder.setMessage(R.string.RegistrationSucessfulAcoutCreateDialogMessage)
                 .setCancelable(false)
-                .setTitle("Zarejestrowano")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.RegistrationSucessfulAcoutCreateDialogTitle)
+                .setPositiveButton(R.string.InformationDialogPositiveButtonOk, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Intent loginIntent = new Intent(RegistrationActivity.this, MainActivity.class);
+                        Intent loginIntent = new Intent(RegistrationActivity.this, LoginActivity.class);
                         startActivity(loginIntent);
                     }
                 });

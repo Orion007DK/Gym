@@ -1,9 +1,11 @@
 package com.example.gym.activites.gymsList;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -11,7 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.gym.Constants;
-import com.example.gym.Gym;
+import com.example.gym.dataClasses.Gym;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
 
@@ -54,7 +56,7 @@ public class GymDetailsActivity extends AppCompatActivity {
         int gymId = data.getInt(Constants.SP_GYM_ID, -1);
         Log.e("gymId: ", String.valueOf(gymId));
         if(gymId!=-1){
-            getGymData(1);
+            getGymData(gymId);
         }
 
         //if (bundle != null) {
@@ -107,6 +109,7 @@ public class GymDetailsActivity extends AppCompatActivity {
                     Log.e("Reciever", "tre");
                     String jsonstr = bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
                     JSONObject jsonObject = json.getJSONObject("gymData");
                     gym = new Gym(jsonObject);
                     //JSONObject userJson = json.getJSONObject("dimensionsData");
@@ -115,6 +118,13 @@ public class GymDetailsActivity extends AppCompatActivity {
                     Log.e("js", jsonstr);
                     //Log.e("userjs: ",userJson.toString());
                     Log.e("jsonObject: ", jsonObject.toString());
+                    setData();
+                    progressDialog.dismiss();
+                    }
+                    else {
+                        progressDialog.dismiss();
+                        noNetworkDialog(context);
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -123,11 +133,25 @@ public class GymDetailsActivity extends AppCompatActivity {
                 //if (dialog.isShowing()) {
                 //     dialog.dismiss();
                 //}
-                setData();
-                progressDialog.dismiss();
+
 
             }
 
         }
     };
+
+    private void noNetworkDialog(final Context context){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(R.string.NoNetworkConnectionDialogMessage)
+                .setCancelable(false)
+                .setTitle(R.string.NoNetworkConnectionDialogTitle)
+                .setPositiveButton(R.string.InformationDialogPositiveButtonOk, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+                    }
+                })
+                .create();
+
+        AlertDialog dialog = builder.show();
+    }
 }

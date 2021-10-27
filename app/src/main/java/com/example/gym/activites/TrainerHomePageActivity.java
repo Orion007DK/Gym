@@ -77,16 +77,16 @@ public class TrainerHomePageActivity extends OptionsMenuActivity {
 
     private void noTrainerDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(TrainerHomePageActivity.this);
-        builder.setMessage("Nie masz jeszcze wybranego trenera, czy chcesz teraz go wybrać?")
+        builder.setMessage(R.string.TrainerHomePageWantTrainerSubscribeDialogMessage)
                 .setCancelable(true)
-                .setTitle("Brak trenera")
-                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.TrainerHomePageWantTrainerSubscribeDialogTitle)
+                .setPositiveButton(R.string.DialogPositiveButtonYes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent trainerListActivityIntent = new Intent(getApplicationContext(), TrainersListActivity.class);
                         startActivity(trainerListActivityIntent);
                     }
                 })
-                .setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.DialogNegativeButtonNo, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 

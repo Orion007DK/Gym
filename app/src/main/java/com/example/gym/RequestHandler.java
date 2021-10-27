@@ -29,15 +29,12 @@ public class RequestHandler {
         //StringBuilder object to store the message retrieved from the server
         StringBuilder sb = new StringBuilder();
         try {
-            //Initializing Url
             url = new URL(requestURL);
-
-            //Creating an httmlurl connection
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
             //Configuring connection properties
-            conn.setReadTimeout(15000);
-            conn.setConnectTimeout(15000);
+            conn.setReadTimeout(1000);
+            conn.setConnectTimeout(1000);
             conn.setRequestMethod("POST");
             conn.setDoInput(true);
             conn.setDoOutput(true);
@@ -55,9 +52,7 @@ public class RequestHandler {
             writer.close();
             os.close();
             int responseCode = conn.getResponseCode();
-            //Log.e("połączenie","?");
             if (responseCode == HttpsURLConnection.HTTP_OK) {
-                //Log.e("połączono","t");
                 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 sb = new StringBuilder();
                 String response;
@@ -65,12 +60,13 @@ public class RequestHandler {
                 while ((response = br.readLine()) != null) {
                     sb.append(response);
                 }
-                //Log.e("sb",sb.toString());
+            } else {
+                return null;
             }
-            // else   Log.e("NIE połączono",sb.toString());
 
         } catch (Exception e) {
-            e.printStackTrace();
+           // e.printStackTrace();
+            return null;
         }
         return sb.toString();
     }
@@ -80,6 +76,10 @@ public class RequestHandler {
         try {
             URL url = new URL(requestURL);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setReadTimeout(1000);
+            con.setConnectTimeout(1000);
+            con.setRequestMethod("GET");
+            con.setDoInput(true);
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
             String s;
@@ -87,8 +87,12 @@ public class RequestHandler {
                 sb.append(s + "\n");
             }
         } catch (Exception e) {
+            return null;
         }
-        return sb.toString();
+        if(!sb.toString().equals(""))
+            return sb.toString();
+        else
+            return null;
     }
 
 

@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.gym.R;
-import com.example.gym.TrainingPlan;
+import com.example.gym.dataClasses.TrainingPlan;
 import com.example.gym.UIUtils;
 import com.example.gym.activites.trainingPlansList.ExercisesListAdapter;
 

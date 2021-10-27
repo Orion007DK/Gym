@@ -2,18 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.gym">
 
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality.
-    -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!--android:icon="@mipmap/ic_launcher"-->
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/launch_icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -31,24 +26,20 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-        <activity
-            android:name=".activites.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+        <activity android:name=".activites.MapsActivity" android:label="@string/title_activity_maps"></activity>
         <activity android:name=".InteractiveTrainingActivity" />
         <activity android:name=".QRActivity" />
         <activity android:name=".activites.availableGymTicket.AvailableGymTickets" />
         <activity android:name=".activites.MyGymTickets.MyGymTickets" />
         <activity android:name=".activites.availableDietsList.AvailableDietsList" />
-        <activity android:name=".MyDimensionChartActivity" />
+        <activity android:name=".activites.MyDimensionChartActivity" />
         <activity android:name=".activites.classesPlan.ClassesDetailsActivity" />
         <activity android:name=".activites.classesPlan.ClassesPlanActivity" />
-        <activity android:name=".Niepotrzebne.ChooseWeekActivity" />
         <activity android:name=".activites.myClassesList.MyClassesListActivity" />
         <activity android:name=".activites.availableTreningPlansList.AvailableTrainingPlansListActivity" />
         <activity android:name=".activites.trainingPlansList.MyTrainingPlansListActivity" />
         <activity android:name=".activites.myDietsList.dietsDay.DietsDayActivity" />
         <activity android:name=".activites.myDietsList.DietDaysListActivity" />
-        <activity android:name=".Niepotrzebne.Diet_activity" />
         <activity android:name=".activites.myDietsList.MyDietsListActivity" />
         <activity android:name=".activites.gymsList.GymDetailsActivity" />
         <activity android:name=".activites.gymsList.GymsListActivity" />
@@ -71,11 +62,10 @@
             android:name=".activites.RegistrationActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activites.MainActivity"
+            android:name=".activites.LoginActivity"
             android:windowSoftInputMode="stateVisible">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

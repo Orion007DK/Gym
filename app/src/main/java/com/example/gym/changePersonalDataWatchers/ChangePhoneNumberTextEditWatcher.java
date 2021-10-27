@@ -5,7 +5,6 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 
 import com.example.gym.ValidationRules;
-import com.example.gym.registrationWatchers.DataCorrectWatcher;
 
 public class ChangePhoneNumberTextEditWatcher implements TextWatcher {
     private EditText phoneNumberEditText;
@@ -43,7 +42,7 @@ public class ChangePhoneNumberTextEditWatcher implements TextWatcher {
             changeDataCorrectWatcher.setEmailChanged(true);
             if (textNumber.length() != 0) {
                 //sprawdzenie czy podany tekst pasuje do wzoru
-                if (ValidationRules.isPhoneNumberRight(textNumber)) {
+                if (ValidationRules.isPhoneNumberCorrect(textNumber)) {
                     //ustawienie flagi poprawności pola na "tru
                     //ustawienie flagi poprawności pola na "true"
                     changeDataCorrectWatcher.setPhoneNumberCorrect(true);

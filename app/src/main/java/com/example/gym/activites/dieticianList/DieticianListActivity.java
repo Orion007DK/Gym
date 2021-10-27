@@ -4,12 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.gym.GymWorker;
+import com.example.gym.dataClasses.GymWorker;
 import com.example.gym.R;
-import com.example.gym.activites.dimensionHistory.DimensionsHistoryDetailFragment;
 
 public class DieticianListActivity extends AppCompatActivity implements DieticiansListFragment.DieticiansListFragmentActivityListener {
 

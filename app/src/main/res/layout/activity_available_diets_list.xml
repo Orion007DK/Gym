@@ -18,7 +18,7 @@
         android:fontFamily="@string/FontFamilyTitle"
         android:paddingTop="50dp"
         android:paddingBottom="50dp"
-        android:text="Lista dostępnych diet"
+        android:text="@string/AvailableDietsListTitleTextView"
         android:textAlignment="center"
         android:textSize="@dimen/textSizeTitle" />
 
@@ -36,7 +36,7 @@
             android:textAlignment="center"
             android:layout_gravity="center|center_horizontal"
             android:textSize="20dp"
-            android:text="Niestety nie ma żadnych nowych diet"
+            android:text="@string/AvailableDietsListNoDietsTextView"
             />
 
 </LinearLayout>

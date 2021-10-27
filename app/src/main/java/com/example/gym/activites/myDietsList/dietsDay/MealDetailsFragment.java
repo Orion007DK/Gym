@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,24 +16,21 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gym.Constants;
-import com.example.gym.Meal;
+import com.example.gym.Dialogs;
+import com.example.gym.dataClasses.Meal;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
-import com.example.gym.UIUtils;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
 
 import dmax.dialog.SpotsDialog;
@@ -179,6 +175,7 @@ public class MealDetailsFragment extends Fragment {
                     Log.e("Reciever", "tre");
                     String jsonstr = bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
                     //JSONArray jsonArray = json.getJSONArray("mealData");
                     //arrayListComponents.clear();
                     //arrayListComponentsQuantity.clear();
@@ -203,12 +200,16 @@ public class MealDetailsFragment extends Fragment {
 
                     // dietsListAdapter=new DietsListAdapter(MyDietsListActivity.this, dietNamesList, dietIdList);
                     //dietListView.setAdapter(dietsListAdapter);
+                    } else {
+                        Dialogs.noNetworkFinishDialog(context, getActivity());
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 if (getContext() != null)
                     getContext().unregisterReceiver(broadcastReceiver);
-                progressDialog.dismiss();
+                if(progressDialog.isShowing())
+                    progressDialog.dismiss();
                 //if (dialog.isShowing()) {
                 //     dialog.dismiss();
                 //}

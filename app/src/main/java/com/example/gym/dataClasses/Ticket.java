@@ -1,7 +1,9 @@
-package com.example.gym;
+package com.example.gym.dataClasses;
 
 import android.text.format.DateFormat;
 import android.util.Log;
+
+import com.example.gym.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -81,6 +83,8 @@ public class Ticket {
             this.endDate=new SimpleDateFormat("yyyy-MM-dd").parse(jsonObjectTicket.getString("dateEnd"));
         if(!jsonObjectTicket.isNull("entries"))
             this.entries=jsonObjectTicket.getInt("entries");
+        else
+            entries=-1;
         if(!jsonObjectTicket.isNull("duration"))
             this.duration=jsonObjectTicket.getString("duration");
         if(!jsonObjectTicket.isNull("price"))

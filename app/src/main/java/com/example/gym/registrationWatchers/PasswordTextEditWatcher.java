@@ -1,19 +1,24 @@
 package com.example.gym.registrationWatchers;
 
+import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+
+import com.example.gym.R;
 
 public class PasswordTextEditWatcher implements TextWatcher {
 
     private EditText passwordEditText;
     private EditText repeatedPasswordEditText;
     private DataCorrectWatcher dataCorrectWatcher;
+    private Context context;
 
-    public PasswordTextEditWatcher(EditText passwordEditText, EditText repeatedPasswordEditText, DataCorrectWatcher dataCorrectWatcher){
+    public PasswordTextEditWatcher(EditText passwordEditText, EditText repeatedPasswordEditText, DataCorrectWatcher dataCorrectWatcher, Context context){
         this.passwordEditText=passwordEditText;
         this.repeatedPasswordEditText=repeatedPasswordEditText;
         this.dataCorrectWatcher=dataCorrectWatcher;
+        this.context=context;
     }
 
     @Override
@@ -43,12 +48,12 @@ public class PasswordTextEditWatcher implements TextWatcher {
                 repeatedPasswordEditText.setError(null);
 
             } else {
-                passwordEditText.setError("Błąd, podane hasła różnią się");
+                passwordEditText.setError(context.getString(R.string.registration_incorrect_passwords_error));
                 dataCorrectWatcher.setPasswordCorrect(false);
             }
         } else {
             dataCorrectWatcher.setPasswordCorrect(false);
-            passwordEditText.setError("Brak wprowadzonego hasła!");
+            passwordEditText.setError(context.getString(R.string.registration_no_data_error));
 
         }
         //sprawdzanie czy wszystkie pola zawierają poprawne dane, jeśli tak

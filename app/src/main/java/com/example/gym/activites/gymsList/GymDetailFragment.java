@@ -27,7 +27,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.example.gym.Constants;
-import com.example.gym.Gym;
+import com.example.gym.Dialogs;
+import com.example.gym.dataClasses.Gym;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
 import com.example.gym.RequestHandler;
@@ -181,7 +182,7 @@ ImageListener imageListener;
             PerformNetworkRequest request = new PerformNetworkRequest(Constants.URL_UNSUBSCRIBE_GYM, params, Constants.CODE_POST_REQUEST, context, UNSUBSCRIBE_GYM);
             request.execute();
         } else {
-            informationConfirmDialog("Błąd", "Wystąpił bład, wyloguj się i zaloguj, a następnie spróbuj ponownie");
+            informationConfirmDialog(getString(R.string.ErrorDialogTitle), getString(R.string.GymDetailUnsubscribeGymErrorDialogTitle));
         }
     }
 
@@ -252,7 +253,7 @@ ImageListener imageListener;
         Log.e("buttonSignInit idGym:", String.valueOf(idGym));
         if(idGym==gym.getGymId()) {
             Log.e("buttonSignInit: ", "Wypisz");
-            buttonSign.setText("Wypisz się");
+            buttonSign.setText(R.string.GymDetailUnsubscribeGymButton);
             buttonSign.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -262,7 +263,7 @@ ImageListener imageListener;
         }
         else {
             Log.e("buttonSignInit: ", "Zapisz");
-            buttonSign.setText("Zapisz się");
+            buttonSign.setText(R.string.GymDetailSubscribeGymButton);
             buttonSign.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -287,6 +288,7 @@ ImageListener imageListener;
                 try {
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
                     Boolean isSubscribed = json.getBoolean("subscribed");
                     if(isSubscribed){
                         Log.e("isSubscribed: ", json.getString("subscribed"));
@@ -299,10 +301,14 @@ ImageListener imageListener;
                         SharedPreferencesOperations.removeDieteticianId(context);
                         SharedPreferencesOperations.clearTrainerData(context);
                         SharedPreferencesOperations.clearDieticianData(context);
-                        informationConfirmDialog("Zapisano!","Pomyślnie zapisałeś się do siłowni!");
+                        informationConfirmDialog(getString(R.string.GymDetailSuccesfulGymSubscribeDialogTitle),getString(R.string.GymDetailSuccesfulGymSubscribeDialogMessage));
+                        Log.e("GymId:",String.valueOf(SharedPreferencesOperations.getGymId(context)));
                     }
                     else {
-                        informationConfirmDialog("Nieudane zapisanie", "Niesety wystąpiły pewne problemy przy zapisywaniu Cie do siłowni, spróbuj ponownie poźniej");
+                        informationConfirmDialog(getString(R.string.GymDetailUnsuccessfulGymSubscribeDialogTitle), getString(R.string.GymDetailUnsuccessfulGymSubscribeDialogMesage));
+                    }}
+                    else {
+                        Dialogs.noNetworkDialog(context);
                     }
                     //editor.putString(Constants.SP_USER_SURNAME, userJson.getString("surname"));
                     //Log.e("gymId", String.valueOf(userJson.getInt("gymId")));
@@ -315,16 +321,20 @@ ImageListener imageListener;
                 JSONObject json = null;
                 try {
                     json = new JSONObject(jsonstr);
-                    Boolean isSubscribed = json.getBoolean("unsubscribed");
-                    if(isSubscribed) {
-                        informationConfirmDialog("Wypisany", "Zostałeś wypisany ze swojej siłowni");
-                        SharedPreferencesOperations.removeTrainerId(context);
-                        SharedPreferencesOperations.removeDieteticianId(context);
-                        SharedPreferencesOperations.clearTrainerData(context);
-                        SharedPreferencesOperations.clearDieticianData(context);
-                        SharedPreferencesOperations.clearGymData(context);
-                    } else {
-                        informationConfirmDialog("Błąd", "Wystąpił błąd, nie udało się wypisać Cię od Twojego trenera, spróbuj później");
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)) {
+                        Boolean isSubscribed = json.getBoolean("unsubscribed");
+                        if (isSubscribed) {
+                            informationConfirmDialog(getString(R.string.GymDetailSuccessfulGymUnsubscribeDialogTitle), getString(R.string.GymDetailSuccessfulGymUnsubscribeDialogMessage));
+                            SharedPreferencesOperations.removeTrainerId(context);
+                            SharedPreferencesOperations.removeDieteticianId(context);
+                            SharedPreferencesOperations.clearTrainerData(context);
+                            SharedPreferencesOperations.clearDieticianData(context);
+                            SharedPreferencesOperations.clearGymData(context);
+                        } else {
+                            informationConfirmDialog(getString(R.string.ErrorDialogTitle), getString(R.string.GymDetailUnsuccessfulGymUnsubscribeDialogMessage));
+                        }
+                    }else {
+                        Dialogs.noNetworkDialog(context);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -338,21 +348,21 @@ ImageListener imageListener;
     private void subscribeDialog(int idTrainer) {
         String message  ="";
         if (idTrainer==-1) {
-            message="Czy na pewno chcesz zapisać się do tej siłowni?";
+            message=getString(R.string.GymDetailWantGymSubscribeDialogMessage);
         } else {
-            message="Jesteś już zapisany do innej siłowni! Czy na pewno chcesz zapisać się do tej siłowni? Będzie to skutkowało wypisaniem z obecnej siłowni, oraz wypisaniem od trenera i dietetyka";
+            message=getString(R.string.GymDetaiGymAlreadySubscribedDialogMessage);
         }
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(message)
                 .setCancelable(true)
-                .setTitle("Potwierdzenie chęci zapisania")
-                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.GymDetailWantGymSubscribeDialogTitle)
+                .setPositiveButton(R.string.DialogPositiveButtonYes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         subscribeGym();
 
                     }
                 })
-                .setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.DialogNegativeButtonNo, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -365,16 +375,16 @@ ImageListener imageListener;
 
     private void unsubscribeDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage("Czy na pewno chcesz się wypisać z danej siłowni? Poskutkuje to również wypisaniem od trenera i dietetyka")
+        builder.setMessage(R.string.GymDetailWantGymUnsubscribeDialogMessage)
                 .setCancelable(true)
-                .setTitle("Potwierdzenie chęci wypisania")
-                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.GymDetailWantGymUnsubscribeDialogTitle)
+                .setPositiveButton(R.string.DialogPositiveButtonYes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         unsubscribeGym();
 
                     }
                 })
-                .setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.DialogNegativeButtonNo, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -391,7 +401,7 @@ ImageListener imageListener;
             builder.setMessage(message)
                     .setCancelable(false)
                     .setTitle(title)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.InformationDialogPositiveButtonOk, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             buttonSignInit();
                         }
@@ -439,6 +449,7 @@ ImageListener imageListener;
             super.onPostExecute(s);
             Log.e("exec","Eex");
             // progressBar.setVisibility(GONE);
+            if(s!=null) {
             try {
                 JSONObject object = new JSONObject(s);
 
@@ -475,6 +486,8 @@ ImageListener imageListener;
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
+            }
+            } else {
             }
         }
 

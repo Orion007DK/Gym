@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.gym.Classes;
+import com.example.gym.dataClasses.Classes;
 import com.example.gym.R;
 
 import java.sql.Time;

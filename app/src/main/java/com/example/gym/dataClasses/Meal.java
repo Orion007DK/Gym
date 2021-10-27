@@ -1,6 +1,8 @@
-package com.example.gym;
+package com.example.gym.dataClasses;
 
 import android.util.Log;
+
+import com.example.gym.dataClasses.Component;
 
 import org.json.JSONArray;
 import org.json.JSONException;

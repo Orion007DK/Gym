@@ -1,15 +1,12 @@
 package com.example.gym.activites.trainingPlansList;
 
-import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,12 +23,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.gym.Constants;
 import com.example.gym.Dialogs;
-import com.example.gym.Exercise;
+import com.example.gym.dataClasses.Exercise;
 import com.example.gym.InteractiveTrainingActivity;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
 import com.example.gym.SharedPreferencesOperations;
-import com.example.gym.TrainingPlan;
+import com.example.gym.dataClasses.TrainingPlan;
 import com.example.gym.UIUtils;
 
 import org.json.JSONException;
@@ -42,12 +39,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Objects;
 
+import dmax.dialog.SpotsDialog;
+
 public class TrainingPlanDetailsFragment extends Fragment {
 
     TextView textViewTitle;
     TextView textViewEstimatedDurationValue;
     TextView textViewBurnedCaloriesValue;
-    TextView textViewCompletedTrainingsValue;
+    //TextView textViewCompletedTrainingsValue;
     TextView textViewTrainingPlanDescription;
     ListView listViewExercises;
 
@@ -65,7 +64,7 @@ public class TrainingPlanDetailsFragment extends Fragment {
 
     IntentFilter filter;
     private final static String UNSUBSCRIBE_TRAINING_PLAN ="unsubscribeTrainingPlan";
-
+    private SpotsDialog progressDialog;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.training_plan_details, container, false);
@@ -101,7 +100,8 @@ public class TrainingPlanDetailsFragment extends Fragment {
     private void unsubscribeTrainingPlan(){
         //progressDialog = new SpotsDialog(this, R.style.Custom);
         //progressDialog.show();
-
+        progressDialog = new SpotsDialog(getContext(), R.style.Custom);
+        progressDialog.show();
         context.registerReceiver(broadcastReceiver, filter);
 
             HashMap<String, String> params = new HashMap<>();
@@ -120,18 +120,24 @@ public class TrainingPlanDetailsFragment extends Fragment {
                 try {
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
                     Boolean isUnsubscribed = json.getBoolean("unsubscribed");
                     if(isUnsubscribed){
-                        Dialogs.informationConfirmDialog("Usunięto", "Plan treningowy został usunięty z listy Twoich planów treningowych", context);
+                        Dialogs.informationConfirmDialog(getString(R.string.TrainingPlanDetailsSuccessfulTrainingPlanDeleteDialogTitle), getString(R.string.TrainingPlanDetailsSuccessfulTrainingPlanDeleteDialogMessage), context);
                     }
                     else {
-                        Dialogs.informationConfirmDialog("Błąd", "Wystąpił błąd, nie udało się usunąć planu treningowego",context );
+                        Dialogs.informationConfirmDialog(getString(R.string.TrainingPlanDetailsUnsuccessfulTrainingPlanDeleteDialogTitle), getString(R.string.TrainingPlanDetailsUnsuccessfulTrainingPlanDeleteDialogMessage),context );
                     }
                     //editor.putString(Constants.SP_USER_SURNAME, userJson.getString("surname"));
                     //Log.e("gymId", String.valueOf(userJson.getInt("gymId")));
+                    } else {
+                        Dialogs.noNetworkDialog(context);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                if(progressDialog.isShowing())
+                    progressDialog.dismiss();
                 context.unregisterReceiver(broadcastReceiver);
             }
 
@@ -139,19 +145,19 @@ public class TrainingPlanDetailsFragment extends Fragment {
     };
 
     private void unsubscribeDialog() {
-            String message="Czy na pewno chcesz usunąć ten plan treningowy?";
+            String message=getString(R.string.TrainingPlanDetailsWantDeleteTrainingPlanDialogMessage);
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(message)
                 .setCancelable(true)
-                .setTitle("Potwierdzenie chęci usunięcia planu")
-                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.TrainingPlanDetailsWantDeleteTrainingPlanDialogTitle)
+                .setPositiveButton(R.string.DialogPositiveButtonYes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         unsubscribeTrainingPlan();
 
                     }
                 })
-                .setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.DialogNegativeButtonNo, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -167,7 +173,7 @@ public class TrainingPlanDetailsFragment extends Fragment {
         textViewTitle.setText(trainingPlan.getTrainingPlanName());
         textViewEstimatedDurationValue.setText(trainingPlan.getEstimatedDuration());
         textViewBurnedCaloriesValue.setText(trainingPlan.getBurnedCalories());
-        textViewCompletedTrainingsValue.setText("Brak");
+        //textViewCompletedTrainingsValue.setText("");
         textViewTrainingPlanDescription.setText(trainingPlan.getTrainingPlanDescription());
         //Log.e("array", trainingPlan.getExercises().toString());
         exercisesArrayList=new ArrayList<>(Arrays.asList(trainingPlan.getExercises()));
@@ -179,7 +185,7 @@ public class TrainingPlanDetailsFragment extends Fragment {
     private void idInit(View view){
         textViewEstimatedDurationValue= view.findViewById(R.id.textViewEstimatedDurationValue);
         textViewBurnedCaloriesValue=view.findViewById(R.id.textViewBurnedCaloriesValue);
-        textViewCompletedTrainingsValue=view.findViewById(R.id.textViewCompletedTrainingsValue);
+        //textViewCompletedTrainingsValue=view.findViewById(R.id.textViewCompletedTrainingsValue);
         listViewExercises=view.findViewById(R.id.listViewExercises);
         textViewTitle=view.findViewById(R.id.textViewTitle);
         textViewTrainingPlanDescription=view.findViewById(R.id.textViewTrainingPlanDescription);

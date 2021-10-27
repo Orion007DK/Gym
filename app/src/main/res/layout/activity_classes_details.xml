@@ -1,4 +1,5 @@
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="50dp"
-            android:text="Nazwa zajęć"
+            android:text="@string/ClassesDetailsTitleTextView"
             android:textAlignment="center"
             android:textSize="@dimen/textSizeTitle"
             android:fontFamily="@string/FontFamilyTitle"/>
@@ -25,7 +26,7 @@
             android:id="@+id/textViewTrainerNameSurname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Imię i nazwisko Trenera"
+            android:text="@string/ClassesDetailsTrainerNameSurnameTextView"
             android:textAlignment="center"
             android:paddingBottom="50dp"/>
 
@@ -52,7 +53,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Data: "
+                        android:text="@string/ClassesDetailsClassesDateTextView"
                         android:textStyle="bold"
                         android:textSize="20dp" />
 
@@ -61,7 +62,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.1"
-                        android:text="02.06.2020"
+                        android:text=""
                         android:textAlignment="center"
                         android:textSize="20dp" />
                 </TableRow>
@@ -75,7 +76,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Godziny zajęć"
+                        android:text="@string/ClassesDetailsClassesTimeTextView"
                         android:textStyle="bold"
                         android:textSize="20dp" />
 
@@ -84,7 +85,7 @@
                         android:layout_width="match_parent"
                         android:layout_weight="0.1"
                         android:layout_height="wrap_content"
-                        android:text="15.30 - 17.30"
+                        android:text=""
                         android:textAlignment="textEnd"
                         android:layout_gravity="end"
                         android:textSize="20dp" />
@@ -99,7 +100,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Wolne miejsca:"
+                        android:text="@string/ClassesDetailsFreeSlotsTextView"
                         android:textStyle="bold"
                         android:textSize="20dp" />
 
@@ -108,7 +109,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="7"
+                        android:text=""
                         android:textAlignment="center"
                         android:textSize="20dp" />
                 </TableRow>
@@ -121,7 +122,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textStyle="bold"
-                        android:text="Wymagany typ karnetu"
+                        android:text="@string/ClassesDetailsRequiredTicketTypeTextView"
                         android:textSize="20dp"/>
 
                     <TextView
@@ -130,7 +131,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.1"
                         android:textAlignment="center"
-                        android:text="Standard"
+                        android:text=""
                         android:textSize="20dp"/>
                 </TableRow>
 
@@ -147,15 +148,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:textSize="20dp"
-                android:text="Opis zajęć:" />
+                android:textSize="20sp"
+                android:text="@string/ClassesDetailsClassesDescriptionTextView" />
 
             <TextView
                 android:id="@+id/textViewClassesDescriptionValue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="Opis zajęć" />
+                android:text="Brak opisu" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -194,6 +195,22 @@
                 android:textAlignment="center"
                 android:textColor="#FF0000"
                 android:text="" />
+
+            <com.bartbergmans.gradientbutton.views.GradientButton
+                android:id="@+id/buttonAddClassses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ClassesDetailsSubscribeClassesButton"
+                app:circular="false"
+                app:end_color="@color/buttonStartColor"
+                android:textColor="@color/buttonStartColor"
+                app:filled="false"
+                app:orientation="top_bottom"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                app:start_color="@color/buttonEndColor"
+                app:stroke="3dp" />
+            <!--
             <Button
                 android:id="@+id/buttonAddClassses"
                 android:layout_width="wrap_content"
@@ -201,9 +218,11 @@
 
                 android:text="Zapisz na zajęcia"
                 android:textAlignment="center" />
+                -->
+
 
         </LinearLayout>
     </LinearLayout>
 
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.core.widget.NestedScrollView>

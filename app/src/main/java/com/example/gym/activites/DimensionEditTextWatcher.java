@@ -33,7 +33,7 @@ public class DimensionEditTextWatcher implements TextWatcher {
             textNumber = s.toString();
             if(textNumber.length()!=0) {
                 //sprawdzenie czy podany tekst pasuje do wzoru
-                if(ValidationRules.isPhoneNumberRight(textNumber)){
+                if(ValidationRules.isPhoneNumberCorrect(textNumber)){
                     //ustawienie flagi poprawności pola na "tru
                     //ustawienie flagi poprawności pola na "true"
                     dataCorrectWatcher.setPhoneNumberCorrect(true);

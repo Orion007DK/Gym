@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.gym.Dialogs;
 import com.example.gym.activites.OptionsMenuActivity;
 import com.example.gym.activites.availableDietsList.AvailableDietsList;
 import com.example.gym.Constants;
@@ -19,6 +20,7 @@ import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
 import com.example.gym.activites.HomePageActivity;
 import com.example.gym.SharedPreferencesOperations;
+import com.example.gym.activites.myClassesList.MyClassesListActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
@@ -98,6 +100,7 @@ public class MyDietsListActivity extends OptionsMenuActivity {
                     Log.e("Reciever","tre");
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
                     JSONArray jsonArray = json.getJSONArray("dietsList");
                     //jsonArray.getJSONObject(1);
                     for(int i=0;i<jsonArray.length();i++){
@@ -121,6 +124,9 @@ public class MyDietsListActivity extends OptionsMenuActivity {
                     dietsListAdapter=new DietsListAdapter(MyDietsListActivity.this, dietNamesList, dietIdList);
                     dietListView.setAdapter(dietsListAdapter);
                     dietListView.setEmptyView(emptyListViewText);
+                    } else {
+                        Dialogs.noNetworkFinishDialog(context, MyDietsListActivity.this);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -128,7 +134,8 @@ public class MyDietsListActivity extends OptionsMenuActivity {
                 //if (dialog.isShowing()) {
                 //     dialog.dismiss();
                 //}
-                progressDialog.dismiss();
+                if(progressDialog.isShowing())
+                    progressDialog.dismiss();
             }
         }
     };

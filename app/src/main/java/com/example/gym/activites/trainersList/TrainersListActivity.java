@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
-import com.example.gym.GymWorker;
+import com.example.gym.dataClasses.GymWorker;
 import com.example.gym.R;
 
 public class TrainersListActivity extends AppCompatActivity implements TrainersListFragment.TrainersListFragmentActivityListener {

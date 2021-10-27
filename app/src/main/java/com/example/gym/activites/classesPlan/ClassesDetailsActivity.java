@@ -10,28 +10,23 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.gym.Classes;
+import com.example.gym.Dialogs;
+import com.example.gym.dataClasses.Classes;
 import com.example.gym.Constants;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
 import com.example.gym.SharedPreferencesOperations;
-import com.example.gym.activites.classesPlan.ClassesListAdapter;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
@@ -84,9 +79,9 @@ Context context;
         //String stringDate = getIntent().getStringExtra(ClassesListAdapter.CALENDAR_SELECTED_DATE);
         //textViewClassesDateValue.setText(stringDate);
         if(countLeftHours()>0)
-        textViewNoUnsubscribes.setText("Z zajęć można wypisać się najpóźniej do 48 godzin przed rozpoczęciem zajęć, pozostały czas do rozpoczęcia zajęć: " + String.valueOf(countLeftHours()) + " godzin");
+        textViewNoUnsubscribes.setText(getString(R.string.ClassesDetailsSignOutRequirements1) + String.valueOf(countLeftHours()) + getString(R.string.ClassesDetailsSignOutRequirements2));
         else
-            textViewNoUnsubscribes.setText("Te zajęcia już się odbyły, lub właśnie się odbywają");
+            textViewNoUnsubscribes.setText(R.string.ClassesDetailsRunningClassesInfo);
         textViewTrainerNameSurname.setText(classes.getTrainerName()+" "+classes.getTrainerSurname());
         //Time classesStartTime = (Time)getIntent().getSerializableExtra(ClassesListAdapter.CLASSES_START_TIME);
         //Time classesEndTime = (Time)getIntent().getSerializableExtra(ClassesListAdapter.CLASSES_END_TIME);
@@ -107,7 +102,10 @@ Context context;
 */
         //String time =DateFormat.format("HH:mm",classesStartTime)+" - "+DateFormat.format("HH:mm",classesEndTime);
         textViewClassesTimeValue.setText(classes.getClassesStartTime()+" - "+classes.getClassesEndTime());
-        textViewClassesFreeSlotsValue.setText(classes.getAvailableEntries());
+        if(classes.getAvailableEntries()!=null)
+            textViewClassesFreeSlotsValue.setText(classes.getAvailableEntries());
+        else
+            textViewClassesFreeSlotsValue.setText(R.string.ClassesDetailsNoLimitsEntries);
         textViewClassesDescriptionValue.setText(classes.getClassesDescription());
         textViewRequiredGymTicketTypeValue.setText(classes.getRequiredOption());
     }
@@ -188,19 +186,20 @@ Log.e("Check","start");
                 try {
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
-                    unregisterReceiver(broadcastReceiver);
-                    //progressDialog.dismiss();
-                    //checkTicketDialog(json.getBoolean("checkTicket"));
-                    if(json.getBoolean("checkTicket")){
-                        textViewCheckTicket.setText("Posiadasz odpowiedni karnet");
-                        textViewCheckTicket.setTextColor(Color.parseColor("#0eb35e"));
-                        Log.e("Check","true");
-                    } else {
-                        textViewCheckTicket.setText("Nie posiadasz wymaganego karnetu");
-                        textViewCheckTicket.setTextColor(Color.RED);
-                        Log.e("Check","false");
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)) {
+                        unregisterReceiver(broadcastReceiver);
+                        //progressDialog.dismiss();
+                        //checkTicketDialog(json.getBoolean("checkTicket"));
+                        if (json.getBoolean("checkTicket")) {
+                            textViewCheckTicket.setText(R.string.ClassesDetailsCorrectTicketInfo);
+                            textViewCheckTicket.setTextColor(Color.parseColor("#0eb35e"));
+                            Log.e("Check", "true");
+                        } else {
+                            textViewCheckTicket.setText(R.string.ClassesDetailsIncorrectTicketInfo);
+                            textViewCheckTicket.setTextColor(Color.RED);
+                            Log.e("Check", "false");
+                        }
                     }
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -216,11 +215,18 @@ Log.e("Check","start");
                 try {
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)) {
                     unregisterReceiver(broadcastReceiver);
                     progressDialog.dismiss();
                     buttonsInit(json.getBoolean("check"));
                     if(!json.getBoolean("check"))
                         checkTicket();
+                    } else {
+                        buttonsInit(false);
+                        unregisterReceiver(broadcastReceiver);
+                        progressDialog.dismiss();
+                        Dialogs.noNetworkDialog(context);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -229,6 +235,7 @@ Log.e("Check","start");
                 try {
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)) {
                    unregisterReceiver(broadcastReceiver);
                     progressDialog.dismiss();
                     if(json.getBoolean("classesSubscription"))
@@ -236,6 +243,11 @@ Log.e("Check","start");
                         textViewClassesFreeSlotsValue.setText(classes.getAvailableEntries());
                     buttonsInit((json.getBoolean("classesSubscription")));
                     subscribedClassesDialog(json.getBoolean("classesSubscription"));
+                    } else {
+                        unregisterReceiver(broadcastReceiver);
+                        progressDialog.dismiss();
+                        Dialogs.noNetworkDialog(context);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -244,6 +256,7 @@ Log.e("Check","start");
                     try {
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
+                        if(json.isNull(Constants.NETWORK_ERROR_TAG)) {
                     unregisterReceiver(broadcastReceiver);
                     progressDialog.dismiss();
                     boolean isUnsubscribed=json.getBoolean("classesUnsubscription");
@@ -252,9 +265,14 @@ Log.e("Check","start");
                     textViewClassesFreeSlotsValue.setText(classes.getAvailableEntries());
                     buttonsInit(!isUnsubscribed);
                     if(isUnsubscribed)
-                        informationDialog("Wypisano", "Pomyślnie udało Ci sie wypisać z zajęć");
+                        informationDialog(getString(R.string.ClassesDetailsSignOutDialogTitle), "Pomyślnie udało Ci sie wypisać z zajęć");
                     else
-                        informationDialog("Błąd", "Niestety nie udało się wypisać Cię z zajęć, spróbuj ponownie później");
+                        informationDialog(getString(R.string.ErrorDialogTitle), getString(R.string.ClassesDetailsSignOutErrorMessage));
+                    } else {
+                        unregisterReceiver(broadcastReceiver);
+                        progressDialog.dismiss();
+                        Dialogs.noNetworkDialog(context);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -268,7 +286,7 @@ Log.e("Check","start");
         if(isSubscribed) {
        //     buttonCheckTicket.setVisibility(View.GONE);
             textViewCheckTicket.setVisibility(View.GONE);
-            buttonAddClassses.setText("Wypisz z zajęć");
+            buttonAddClassses.setText(R.string.ClassesDetailsSignOutButton);
             final int leftHours = countLeftHours();
             if (leftHours >= 48 ) {
                 buttonAddClassses.setOnClickListener(new View.OnClickListener() {
@@ -282,18 +300,18 @@ Log.e("Check","start");
                     @Override
                     public void onClick(View v) {
                         if(leftHours>0)
-                            informationDialog("Jest zbyt późno", "Nie można już wypisać się z tych zajęć, ponieważ zostało tylko " + String.valueOf(countLeftHours()) + " do rozpoczęcia zajęć");
+                            informationDialog(getString(R.string.ClassesDetailsTooLateDialogTitle), getString(R.string.ClassesDetailsTooLateDialogMessage1) + String.valueOf(countLeftHours()) + getString(R.string.ClassesDetailsTooLateDialogMessage2));
                         else
-                            informationDialog("Jest zbyt późno", "Nie można już wypisać się z tych zajęć, ponieważ już się zakończyły, lub właśnie trwają");
+                            informationDialog(getString(R.string.ClassesDetailsTooLateDialogTitle), getString(R.string.ClassesDetailsTooLateClassesEndedDialogMessage));
                     }
                 });
             }
         } else {
 //            buttonCheckTicket.setVisibility(View.VISIBLE);
             textViewCheckTicket.setVisibility(View.VISIBLE);
-            buttonAddClassses.setText("Zapisz na zajęcia");
+            buttonAddClassses.setText(R.string.ClassesDetailsSignUpButton);
             if (countLeftHours() >= 0) {
-                if (Integer.valueOf(classes.getAvailableEntries()) > 0)
+                if (classes.getAvailableEntries()==null || Integer.valueOf(classes.getAvailableEntries()) > 0)
                     buttonAddClassses.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -301,12 +319,12 @@ Log.e("Check","start");
                         }
                     });
                 else
-                    informationDialog("Brak wolnych miejsc", "Niestety, nie ma już wolnych miejsc, sprawdź inne  zajęcia");
+                    informationDialog(getString(R.string.ClassesDetailsNoFreeSlotsDialogTitle), getString(R.string.ClassesDetailsNoFreeSlotsDialogMessage));
             } else {
                 buttonAddClassses.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        informationDialog("Jest zbyt późno", "Nie można już zapisać się na te zajęcia, ponieważ już się zakończyły, lub właśnie trwają");
+                        informationDialog(getString(R.string.ClassesDetailsTooLateDialogTitle), getString(R.string.ClassesDetailsTooLateClassesEndedDialogMessage));
                     }
 
                     ;
@@ -343,17 +361,17 @@ Log.e("Check","start");
         String message  ="";
         String title = "";
         if (subscribed) {
-            message="Gratulujemy!, pomyślnie zapisałeś się na zajęcia";
-            title="Zapisano";
+            message=getString(R.string.ClassesDetailsSuccessfulSignUpDialogMessage);
+            title=getString(R.string.ClassesDetailsSuccessfulSignUpDialogTitle);
         } else {
-            message="Niestety, nie nie udało nam się zapisać Cie na dane zajęcia, sprawdź swoje karnety i spróbuj później";
-            title="Nie zapisano";
+            message=getString(R.string.ClassesDetailsUnsuccessfulSignUpDialogMessage);
+            title=getString(R.string.ClassesDetailsUnsuccessfulSignUpDialogTitle);
         }
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(message)
                 .setCancelable(true)
                 .setTitle(title)
-                .setPositiveButton("Zrozumiałem", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.DialogPositiveButtonUnderstand, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                     }
@@ -368,7 +386,7 @@ Log.e("Check","start");
         builder.setMessage(message)
                 .setCancelable(true)
                 .setTitle(title)
-                .setPositiveButton("Zrozumiałem", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.DialogPositiveButtonUnderstand, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                     }

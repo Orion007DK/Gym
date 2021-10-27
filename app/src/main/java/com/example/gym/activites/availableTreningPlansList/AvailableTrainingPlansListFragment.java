@@ -20,10 +20,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.gym.Constants;
+import com.example.gym.Dialogs;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
 import com.example.gym.SharedPreferencesOperations;
-import com.example.gym.TrainingPlan;
+import com.example.gym.dataClasses.TrainingPlan;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -154,6 +155,7 @@ public class AvailableTrainingPlansListFragment extends Fragment {
                 try {
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
                     JSONArray jsonArray = json.getJSONArray("trainingPlansList");
                     Log.e("TrainingPlansList:", jsonArray.toString());
                     for(int i=0;i<jsonArray.length();i++){
@@ -162,7 +164,9 @@ public class AvailableTrainingPlansListFragment extends Fragment {
                     }
                     AvailableTrainingPlansListAdapter availableTrainingPlansListAdapter = new AvailableTrainingPlansListAdapter(appContext, arrayListTrainingPlans, fragment);
                     listView.setAdapter(availableTrainingPlansListAdapter);
-
+                    } else {
+                        Dialogs.noNetworkFinishDialog(context, getActivity());
+                    }
                 } catch (JSONException | ParseException e) {
                     e.printStackTrace();
                 }
@@ -171,7 +175,8 @@ public class AvailableTrainingPlansListFragment extends Fragment {
                 //if (dialog.isShowing()) {
                 //     dialog.dismiss();
                 //}
-                progressDialog.dismiss();
+                if(progressDialog.isShowing())
+                    progressDialog.dismiss();
             }
         }
     };

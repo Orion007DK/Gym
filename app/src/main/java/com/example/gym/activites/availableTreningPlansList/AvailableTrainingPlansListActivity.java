@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.example.gym.R;
-import com.example.gym.TrainingPlan;
+import com.example.gym.dataClasses.TrainingPlan;
 
 public class AvailableTrainingPlansListActivity extends AppCompatActivity implements AvailableTrainingPlansListFragment.AvailableTrainingPlansListFragmentActivityListener {
 

@@ -1,19 +1,17 @@
 package com.example.gym.activites.myDietsList.dietsDay;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.gym.Meal;
+import com.example.gym.dataClasses.Meal;
 import com.example.gym.R;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.gym;
+package com.example.gym.activites;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,6 +30,11 @@ import com.anychart.charts.Cartesian;
 import com.anychart.core.ui.ChartScroller;
 import com.anychart.enums.HoverMode;
 import com.anychart.enums.TooltipPositionMode;
+import com.example.gym.Constants;
+import com.example.gym.Dialogs;
+import com.example.gym.PerformNetworkRequest;
+import com.example.gym.R;
+import com.example.gym.dataClasses.Dimensions;
 import com.skydoves.powerspinner.IconSpinnerAdapter;
 import com.skydoves.powerspinner.IconSpinnerItem;
 import com.skydoves.powerspinner.OnSpinnerItemSelectedListener;
@@ -118,7 +123,7 @@ public class MyDimensionChartActivity extends AppCompatActivity {
         cartesian.animation(true);
 
         // cartesian.setTitle(("Pomiary wagi"));
-        cartesian.title("Pomiary wagi");
+        cartesian.title(getString(R.string.MyDimensionsChartWeightDimensions));
 
         //cartesian.getYScale().setMinimum(0d);
         cartesian.yScale().minimum(0d);
@@ -136,10 +141,10 @@ public class MyDimensionChartActivity extends AppCompatActivity {
         cartesian.interactivity().hoverMode(HoverMode.BY_X);
 
         //cartesian.getXAxis().setTitle("Data pomiaru");
-        cartesian.xAxis(0).title("Data pomiaru");
+        cartesian.xAxis(0).title(getString(R.string.MyDimensionsChartDimensionsDate));
 
         //cartesian.getYAxis().setTitle("Waga [kg]");
-        cartesian.yAxis(0).title("Waga [kg]");
+        cartesian.yAxis(0).title(getString(R.string.MyDimensionsChartWeightKg));
 
         //cartesian.setXScroller(true);
         cartesian.xScroller(true);
@@ -162,11 +167,11 @@ public class MyDimensionChartActivity extends AppCompatActivity {
 
 
             List<IconSpinnerItem> iconSpinnerItems = new ArrayList<>();
-            iconSpinnerItems.add(new IconSpinnerItem("Waga",null));
-            iconSpinnerItems.add(new IconSpinnerItem( "Wzrost",null));
-            iconSpinnerItems.add(new IconSpinnerItem( "Poziom tkanki tłuszczowej", null));
-            iconSpinnerItems.add(new IconSpinnerItem("Poziom tkanki mięśniowej",null));
-            iconSpinnerItems.add(new IconSpinnerItem( "Poziom wody w ciele",null));
+            iconSpinnerItems.add(new IconSpinnerItem(getString(R.string.MyDimensionsChartWeightName),null));
+            iconSpinnerItems.add(new IconSpinnerItem( getString(R.string.MyDimensionsChartHeightName),null));
+            iconSpinnerItems.add(new IconSpinnerItem( getString(R.string.MyDimensionsChartAdiposeTissueName), null));
+            iconSpinnerItems.add(new IconSpinnerItem(getString(R.string.MyDimensionsChartMuscleTissueName),null));
+            iconSpinnerItems.add(new IconSpinnerItem( getString(R.string.MyDimensionsChartBodyWaterPercentageName),null));
 
             IconSpinnerAdapter iconSpinnerAdapter = new IconSpinnerAdapter(powerSpinnerView);
             if(powerSpinnerView!=null)
@@ -179,41 +184,41 @@ public class MyDimensionChartActivity extends AppCompatActivity {
                 public void onItemSelected(int i, @Nullable IconSpinnerItem iconSpinnerItem, int i1, IconSpinnerItem t1) {
                     switch (i1){
                         case 0:
-                            cartesian.title(("Pomiary wagi"));
-                            cartesian.yAxis(0).title("Waga [kg]");
-                            cartesian.xAxis(0).title("Data pomiaru");
+                            cartesian.title((getString(R.string.MyDimensionsChartWeightDimensions)));
+                            cartesian.yAxis(0).title(getString(R.string.MyDimensionsChartWeightKg));
+                            cartesian.xAxis(0).title(getString(R.string.MyDimensionsChartDimensionsDate));
                             cartesian.tooltip().format("{%Value}kg");
                             cartesian.data(weightDataList);
                             break;
 
                         case 1:
-                            cartesian.title(("Pomiary wzrostu"));
-                            cartesian.yAxis(0).title("Wzrost [cm]");
-                            cartesian.xAxis(0).title("Data pomiaru");
+                            cartesian.title((getString(R.string.MyDimensionsChartHeightDimensions)));
+                            cartesian.yAxis(0).title(getString(R.string.MyDimensionsChartHeightCm));
+                            cartesian.xAxis(0).title(getString(R.string.MyDimensionsChartDimensionsDate));
                             cartesian.tooltip().format("{%Value}cm");
                             cartesian.data(heightDataList);
                             break;
 
                         case 2:
-                            cartesian.title(("Pomiary poziomu tkanki tłuszczowej"));
-                            cartesian.yAxis(0).title("Poziom tkanki tłuszczowej [%]");
-                            cartesian.xAxis(0).title("Data pomiaru");
+                            cartesian.title((getString(R.string.MyDimensionsChartAdiposeTissueDimensions)));
+                            cartesian.yAxis(0).title(getString(R.string.MyDimensionsChartAdiposeTissuePercentage));
+                            cartesian.xAxis(0).title(getString(R.string.MyDimensionsChartDimensionsDate));
                             cartesian.tooltip().format("{%Value}%");
                             cartesian.data(adiposeTissueList);
                             break;
 
                         case 3:
-                            cartesian.title(("Pomiary poziomu tkanki mięśniowej"));
-                            cartesian.yAxis(0).title("Poziomu tkanki mięśniowej [%]");
-                            cartesian.xAxis(0).title("Data pomiaru");
+                            cartesian.title((getString(R.string.MyDimensionsChartMuscleTissueDimensions)));
+                            cartesian.yAxis(0).title(getString(R.string.MyDimensionsChartMuscleTissuePercentage));
+                            cartesian.xAxis(0).title(getString(R.string.MyDimensionsChartDimensionsDate));
                             cartesian.tooltip().format("{%Value}%");
                             cartesian.data(muscleTissueList);
                             break;
 
                         case 4:
-                            cartesian.title(("Poziom wody w ciele"));
-                            cartesian.yAxis(0).title("Poziom wody w ciele [%]");
-                            cartesian.xAxis(0).title("Data pomiaru");
+                            cartesian.title((getString(R.string.MyDimensionsChartBodyWaterDimensions)));
+                            cartesian.yAxis(0).title(getString(R.string.MyDimensionsChartBodyWaterPercentage));
+                            cartesian.xAxis(0).title(getString(R.string.MyDimensionsChartDimensionsDate));
                             cartesian.tooltip().format("{%Value}%");
                             cartesian.data(bodyWaterPercentageList);
                             break;
@@ -308,6 +313,7 @@ public class MyDimensionChartActivity extends AppCompatActivity {
                 try {
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
                     JSONArray jsonArray = json.getJSONArray("dimensionsData");
                     //JSONObject userJson = json.getJSONObject("dimensionsData");
                     jsonArray.getJSONObject(1);
@@ -348,6 +354,9 @@ public class MyDimensionChartActivity extends AppCompatActivity {
                     Log.e("jsonArray: ",jsonArray.toString());
 
                     chartInit();
+                    } else {
+                        Dialogs.noNetworkFinishDialog(context, MyDimensionChartActivity.this);
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();

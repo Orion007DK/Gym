@@ -1,10 +1,12 @@
 package com.example.gym.registrationWatchers;
 
 
+import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import com.example.gym.R;
 import com.example.gym.ValidationRules;
 
 //klasa pozwalająca na sprawdzanie poprawności danych wprowadzonych do pola tekstowego do którego
@@ -14,10 +16,13 @@ public class NameTextEditWatcher implements TextWatcher {
 
     private EditText nameEditText;
     private DataCorrectWatcher dataCorrectWatcher;
+    private Context context;
 
-    public NameTextEditWatcher(EditText nameEditText, DataCorrectWatcher dataCorrectWatcher) {
+    public NameTextEditWatcher(EditText nameEditText, DataCorrectWatcher dataCorrectWatcher, Context context) {
         this.nameEditText = nameEditText;
         this.dataCorrectWatcher=dataCorrectWatcher;
+        this.context=context;
+        
     }
 
     @Override
@@ -37,21 +42,17 @@ public class NameTextEditWatcher implements TextWatcher {
         String textName;
         textName = s.toString();
         if(textName.length()!=0) {
-            if(ValidationRules.isNameRight(textName)){
-                //ustawienie flagi poprawności pola na "true"
+            if(ValidationRules.isNameCorrect(textName)){
                 dataCorrectWatcher.setNameCorrect(true);
-
             } else {
-                nameEditText.setError("Błąd, imię powinno zaczynać się od jednej dużej litery, a po niej, powinny następować co najmniej dwie małe litery, dozwolone są tylko znaki A-Z i a-z");
+                nameEditText.setError(context.getString(R.string.registration_incorrect_name_error));
                 dataCorrectWatcher.setNameCorrect(false);
             }
         } else {
             dataCorrectWatcher.setNameCorrect(false);
-            nameEditText.setError("Brak wprowadzonych danych!");
-
+            nameEditText.setError(context.getString(R.string.registration_no_data_error));
         }
-        //sprawdzanie czy wszystkie pola zawierają poprawne dane, jeśli tak
-        //wyświetlany jest przycisk umożliwiający przejście dalej
+        //check if other data is correct and enable or disable registration button
         dataCorrectWatcher.validation();
     }
     }

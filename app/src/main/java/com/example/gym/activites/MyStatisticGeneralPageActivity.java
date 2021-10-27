@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.gym.MyDimensionChartActivity;
 import com.example.gym.R;
 import com.example.gym.activites.workoutsHistory.WorkoutsHistoryActivity;
 import com.example.gym.activites.dimensionHistory.DimensionHistoryActivity;

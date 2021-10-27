@@ -22,7 +22,7 @@
                 android:fontFamily="@string/FontFamilyTitle"
                 android:paddingTop="50dp"
                 android:paddingBottom="50dp"
-                android:text="Dodaj wymiary"
+                android:text="@string/AddDimensionsAddDimensionTextView"
                 android:textAlignment="center"
                 android:textSize="@dimen/textSizeTitle" />
 
@@ -37,7 +37,7 @@
                     android:id="@+id/textViewHeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Wzrost[cm]:"
+                    android:text="@string/AddDimensionsHeightTextView"
                     android:textSize="20dp" />
 
                 <ss.anoop.awesometextinputlayout.AwesomeTextInputLayout
@@ -53,7 +53,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Height"
+                    android:hint="@string/AddDimensionsHeightEditTextHint"
                     android:paddingLeft="10dp"
                     android:inputType="numberDecimal" />
 
@@ -63,7 +63,7 @@
                     android:id="@+id/textViewWeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Waga[kg]:"
+                    android:text="@string/AddDimensionsWeightTextView"
                     android:textSize="20dp" />
 
                 <ss.anoop.awesometextinputlayout.AwesomeTextInputLayout
@@ -79,7 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Weight"
+                    android:hint="@string/AddDimensionsWeightEditTextHint"
                     android:paddingLeft="10dp"
                     android:inputType="numberDecimal" />
 
@@ -89,7 +89,7 @@
                     android:id="@+id/textViewAdiposeTissue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Poziom tkanki tłuszczowej[%]:"
+                    android:text="@string/AddDimensionsAdiposeTissueTextView"
                     android:textSize="20dp" />
 
                 <ss.anoop.awesometextinputlayout.AwesomeTextInputLayout
@@ -105,7 +105,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Adipose tissue"
+                    android:hint="@string/AddDimensionsAdiposeTissueEditTextHint"
                     android:paddingLeft="10dp"
                     android:inputType="numberDecimal" />
 
@@ -115,7 +115,7 @@
                     android:id="@+id/textViewMuscleTissue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Poziom tkanki mięśniowej[%]:"
+                    android:text="@string/AddDimensionsMuscleTissueTextView"
                     android:textSize="20dp" />
 
                 <ss.anoop.awesometextinputlayout.AwesomeTextInputLayout
@@ -131,7 +131,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Muscle tissue"
+                    android:hint="@string/AddDimensionsMuscleTissueEditTextHint"
                     android:paddingLeft="10dp"
                     android:inputType="numberDecimal" />
 
@@ -141,7 +141,7 @@
                     android:id="@+id/textViewBodyWaterPercentage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Poziom wody w ciele[%]:"
+                    android:text="@string/AddDimensionsBodyWaterPercentageTextView"
                     android:textSize="20dp" />
 
                 <ss.anoop.awesometextinputlayout.AwesomeTextInputLayout
@@ -157,7 +157,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Body water percentage"
+                    android:hint="@string/AddDimensionsBodyWaterPercentageEditTextHint"
                     android:paddingLeft="10dp"
                     android:inputType="numberDecimal" />
 
@@ -182,7 +182,7 @@
                         android:id="@+id/buttonSaveChanges"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Zapisz"
+                        android:text="@string/AddDimensionsSaveDimensionsButton"
                         app:circular="false"
                         app:end_color="@color/buttonEndColor"
                         android:textColor="@color/buttonTextColor"

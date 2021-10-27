@@ -65,12 +65,12 @@ public class PasswordChangeActivity extends AppCompatActivity {
                     Log.e("start","zmiana hasla");
                     if(newPassword.equals(previousPassword))
                     {
-                        changePasswordDialog(false, "Nowe hasło musi różnić się od poprzedniego");
+                        changePasswordDialog(false, getString(R.string.PasswordChangeSameAsOldPasswordError));
                     } else {
                     changePassword(previousPassword, newPassword);
                     }
                 } else {
-                    changePasswordDialog(false,"Podane hasła nie są takie same");
+                    changePasswordDialog(false,getString(R.string.PasswordChangeDifferendPasswordsError));
                 }
 
 
@@ -97,9 +97,9 @@ public class PasswordChangeActivity extends AppCompatActivity {
                         else{
                             int errorNo = json.getInt("errorNo");
                             if(errorNo == 1){
-                            changePasswordDialog(succes, "Złe hasło, podaj dobre hasło");
+                            changePasswordDialog(succes, getString(R.string.PasswordChangeIncorrectPasswordDialogMessage));
                             } else {
-                                changePasswordDialog(succes, "Coś poszło nie tak, spróbuj później");
+                                changePasswordDialog(succes, getString(R.string.PasswordChangeUnsuccessfulPasswordDialogMessage));
                             }
                         }
 
@@ -133,10 +133,10 @@ public class PasswordChangeActivity extends AppCompatActivity {
     private void changePasswordDialog(boolean status, String errorInfo){
         if(status) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Zmiana hasła")
+            builder.setMessage(R.string.PasswordChangeSuccessfulPasswordChangeDialogMessage)
                     .setCancelable(false)
-                    .setTitle("Pomyślnie zmieniono hasło!")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    .setTitle(R.string.PasswordChangeSuccessfulPasswordChangeDialogTitle)
+                    .setPositiveButton(R.string.InformationDialogPositiveButtonOk, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             Intent myProfileActivityIntent = new Intent(getApplicationContext(), MyProfileActivity.class);
                             startActivity(myProfileActivityIntent);
@@ -151,8 +151,8 @@ public class PasswordChangeActivity extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(errorInfo)
                     .setCancelable(false)
-                    .setTitle("Błąd przy zmianie hasła")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    .setTitle(R.string.PasswordChangeUnsuccessfulPasswordChangeDialogTitle)
+                    .setPositiveButton(R.string.InformationDialogPositiveButtonOk, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
 
                         }

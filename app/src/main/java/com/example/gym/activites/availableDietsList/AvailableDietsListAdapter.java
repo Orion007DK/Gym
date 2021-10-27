@@ -116,15 +116,15 @@ public class AvailableDietsListAdapter extends ArrayAdapter<String> {
 
     private void subscribeDialog(final int dietId) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setMessage("Czy na pewno chcesz dodać tą dietę?")
+        builder.setMessage(R.string.AvailableDietsAddDietDialogMessage)
                 .setCancelable(true)
-                .setTitle("Dodawanie diety")
-                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.AvailableDietsAddDietDialogTitle)
+                .setPositiveButton(R.string.DialogPositiveButtonYes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         subscribeDiet(dietId);
                     }
                 })
-                .setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.DialogNegativeButtonNo, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 

@@ -21,14 +21,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.gym.Constants;
-import com.example.gym.Dimensions;
+import com.example.gym.Dialogs;
+import com.example.gym.dataClasses.Dimensions;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -158,6 +158,7 @@ public class DimensionHistoryListFragment extends Fragment {
                 try {
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
                     JSONArray jsonArray = json.getJSONArray("dimensionsData");
                     //JSONObject userJson = json.getJSONObject("dimensionsData");
                    // jsonArray.getJSONObject(0);
@@ -174,6 +175,9 @@ public class DimensionHistoryListFragment extends Fragment {
 
                     dimensionsHistoryListAdapter=new DimensionsHistoryListAdapter(appContext, dimensionsArrayList, fragment);
                     listView.setAdapter(dimensionsHistoryListAdapter);
+                } else {
+                    Dialogs.noNetworkFinishDialog(context, getActivity());
+                }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -182,7 +186,8 @@ public class DimensionHistoryListFragment extends Fragment {
                 //if (dialog.isShowing()) {
                //     dialog.dismiss();
                 //}
-                progressDialog.dismiss();
+                if(progressDialog.isShowing())
+                    progressDialog.dismiss();
             }
         }
     };

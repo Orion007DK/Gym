@@ -28,6 +28,9 @@
         <item name="filled">false</item>
         <item name="circular">false</item>
     </style>
+    <style name="ColorPickerDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
 
 
     <!--

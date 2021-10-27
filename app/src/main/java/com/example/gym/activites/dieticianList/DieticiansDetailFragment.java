@@ -25,7 +25,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.example.gym.Constants;
-import com.example.gym.GymWorker;
+import com.example.gym.Dialogs;
+import com.example.gym.dataClasses.GymWorker;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
 import com.example.gym.RequestHandler;
@@ -150,7 +151,7 @@ public class DieticiansDetailFragment extends Fragment {
         final int idDietician = data.getInt(Constants.SP_DIETICIAN_ID, -1);
 
         if(idDietician==dietician.getWorkerId()) {
-            buttonSign.setText("Wypisz się");
+            buttonSign.setText(R.string.DieticiansDetailSignOutButton);
             if(getActivity().getClass().getSimpleName().equals("DieticianDetailActivity")){
                 textViewClientsNumber.setVisibility(View.GONE);
                 textViewClientsNumberLabel.setVisibility(View.GONE);}
@@ -162,14 +163,14 @@ public class DieticiansDetailFragment extends Fragment {
             });
         }
         else {
-            buttonSign.setText("Zapisz się");
+            buttonSign.setText(R.string.DieticiansDetailSignInButton);
             buttonSign.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(dietician.getClientsNumber()<dietician.getMaxClientsNumber())
                         subscribeDialog(idDietician);
                     else
-                        informationConfirmDialog("Brak miejsc", "Ten trener osiągnął już limit klientów, musisz poszukać innego trenera");
+                        informationConfirmDialog(getString(R.string.DieticiansDetailsNoFreeSlotsDialogTitle), getString(R.string.DieticiansDetailsNoFreeSlotsDialogMessage));
 
                 }
             });
@@ -199,27 +200,30 @@ public class DieticiansDetailFragment extends Fragment {
                 try {
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
-                    Boolean isSubscribed = json.getBoolean("subscribed");
-                    if(isSubscribed){
-                        Log.e("isSubscribed: ", json.getString("subscribed"));
-                        //  Log.e("Context:","on: "+context.toString());
-                        SharedPreferences data = context.getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = data.edit();
-                        editor.putInt(Constants.SP_DIETICIAN_ID,dietician.getWorkerId());
-                        editor.apply();
-                        dietician.setClientsNumber(dietician.getClientsNumber()+1);
-                        textViewClientsNumber.setText(dietician.getClientsNumber()+"/"+dietician.getMaxClientsNumber());
-                        SharedPreferences dataDietician = context.getSharedPreferences(Constants.SP_DIETICIAN_DATA, Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editorDietician = dataDietician.edit();
-                        editorDietician.clear();
-                        editorDietician.apply();
-                        informationConfirmDialog("Zapisano!","Pomyślnie zapisałeś się do danego dietetyka");
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)) {
+                        Boolean isSubscribed = json.getBoolean("subscribed");
+                        if (isSubscribed) {
+                            Log.e("isSubscribed: ", json.getString("subscribed"));
+                            //  Log.e("Context:","on: "+context.toString());
+                            SharedPreferences data = context.getSharedPreferences(Constants.SP_USER_DATA, Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = data.edit();
+                            editor.putInt(Constants.SP_DIETICIAN_ID, dietician.getWorkerId());
+                            editor.apply();
+                            dietician.setClientsNumber(dietician.getClientsNumber() + 1);
+                            textViewClientsNumber.setText(dietician.getClientsNumber() + "/" + dietician.getMaxClientsNumber());
+                            SharedPreferences dataDietician = context.getSharedPreferences(Constants.SP_DIETICIAN_DATA, Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editorDietician = dataDietician.edit();
+                            editorDietician.clear();
+                            editorDietician.apply();
+                            informationConfirmDialog(getString(R.string.DieticiansDetailsSuccessfulDieteticianSubscribeDialogTitle), getString(R.string.DieticiansDetailsSuccessfulDieteticianSubscribeDialogMessage));
+                        } else {
+                            informationConfirmDialog(getString(R.string.DieticiansDetailsUnsuccessfulDieteticianSubscribeDialogTitle), getString(R.string.DieticiansDetailsUnsuccessfulDieteticianSubscribeDialogMessage));
+                        }
+                        //editor.putString(Constants.SP_USER_SURNAME, userJson.getString("surname"));
+                        //Log.e("gymId", String.valueOf(userJson.getInt("gymId")));
+                    } else {
+                        Dialogs.noNetworkDialog(context);
                     }
-                    else {
-                        informationConfirmDialog("Nieudane zapisanie", "Niesety wystąpiły pewne problemy przy zapisywaniu Cie do dietetyka, spróbuj ponownie poźniej");
-                    }
-                    //editor.putString(Constants.SP_USER_SURNAME, userJson.getString("surname"));
-                    //Log.e("gymId", String.valueOf(userJson.getInt("gymId")));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -229,16 +233,20 @@ public class DieticiansDetailFragment extends Fragment {
                 JSONObject json = null;
                 try {
                     json = new JSONObject(jsonstr);
-                    Boolean isSubscribed = json.getBoolean("unsubscribed");
-                    if(isSubscribed) {
-                        dietician.setClientsNumber(dietician.getClientsNumber()-1);
-                        textViewClientsNumber.setText(dietician.getClientsNumber()+"/"+dietician.getMaxClientsNumber());
-                        informationConfirmDialog("Wypisany", "Zostałeś wypisany od swojego dietetyka");
-                        SharedPreferencesOperations.clearDieticianData(context);
-                        SharedPreferencesOperations.removeDieteticianId(context);
-                    } else {
-                        informationConfirmDialog("Błąd", "Wystąpił błąd, nie udało się wypisać Cię od Twojego dietetyka, spróbuj później");
-                    }
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)) {
+                        Boolean isSubscribed = json.getBoolean("unsubscribed");
+                        if (isSubscribed) {
+                            dietician.setClientsNumber(dietician.getClientsNumber() - 1);
+                            textViewClientsNumber.setText(dietician.getClientsNumber() + "/" + dietician.getMaxClientsNumber());
+                            informationConfirmDialog(getString(R.string.DieticiansDetailsSuccessfulDieteticianUnsubscribedDialogTitle), getString(R.string.DieticiansDetailsSuccessfulDieteticianUnsubscribedDialogMessage));
+                            SharedPreferencesOperations.clearDieticianData(context);
+                            SharedPreferencesOperations.removeDieteticianId(context);
+                        } else {
+                            informationConfirmDialog(getString(R.string.DieticiansDetailsUnsuccessfulDieteticianUnsubscribedDialogTitle), getString(R.string.DieticiansDetailsUnsuccessfulDieteticianUnsubscribedDialogMessage));
+                        }
+                    }else {
+                            Dialogs.noNetworkDialog(context);
+                        }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -251,21 +259,21 @@ public class DieticiansDetailFragment extends Fragment {
     private void subscribeDialog(int idDietician) {
         String message  ="";
         if (idDietician==-1) {
-            message="Czy na pewno chcesz zapisać się do tego trenera?";
+            message=getString(R.string.DieticiansDetailsIfSubcribeDialogMessage);
         } else {
-            message="Jesteś już zapisany do innego dietetyka! Czy na pewno chcesz zapisać się do tego dietetyka? Będzie to skutkowało wypisaniem od obecnego dietetyka";
+            message=getString(R.string.DieticiansDetailsAlreadySubscribingDialogMessage);
         }
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(message)
                 .setCancelable(true)
-                .setTitle("Potwierdzenie chęci zapisania")
-                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.DieticiansDetailsIfSubscribeDialogTitle)
+                .setPositiveButton(R.string.DialogPositiveButtonYes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         subscribeDietician();
 
                     }
                 })
-                .setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.DialogNegativeButtonNo, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -278,15 +286,15 @@ public class DieticiansDetailFragment extends Fragment {
 
     private void unsubscribeDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage("Czy na pewno chcesz się wypisać od danego dietetyka?")
-                .setTitle("Potwierdzenie chęci wypisania")
-                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+        builder.setMessage(R.string.DieticiansDetailsIfUnsubcribeDialogMessage)
+                .setTitle(R.string.DieticiansDetailsIfUnsubscribeDialogTitle)
+                .setPositiveButton(R.string.DialogPositiveButtonYes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         unsubscribeDietician();
 
                     }
                 })
-                .setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.DialogNegativeButtonNo, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -303,7 +311,7 @@ public class DieticiansDetailFragment extends Fragment {
             builder.setMessage(message)
                     .setCancelable(false)
                     .setTitle(title)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.InformationDialogPositiveButtonOk, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             buttonSignInit();
                         }
@@ -351,30 +359,32 @@ public class DieticiansDetailFragment extends Fragment {
             super.onPostExecute(s);
             Log.e("exec","Eex");
             // progressBar.setVisibility(GONE);
-            try {
-                JSONObject object = new JSONObject(s);
+            if(s!=null) {
+                try {
+                    JSONObject object = new JSONObject(s);
 
-                if (!object.getBoolean("error")) {
-                    //   Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
-                    //refreshing the herolist after every operation
-                    //so we get an updated list
-                    //we will create this method right now it is commented
-                    JSONObject trainerData = object.getJSONObject("dieticianData");
-                    String image = trainerData.getString("image");
-                    if(!image.equals("null")) {
-                        byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
-                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                        if (roundedImageView != null)
-                            roundedImageView.setImageBitmap(decodedByte);
+                    if (!object.getBoolean("error")) {
+                        //   Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
+                        //refreshing the herolist after every operation
+                        //so we get an updated list
+                        //we will create this method right now it is commented
+                        JSONObject trainerData = object.getJSONObject("dieticianData");
+                        String image = trainerData.getString("image");
+                        if (!image.equals("null")) {
+                            byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
+                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                            if (roundedImageView != null)
+                                roundedImageView.setImageBitmap(decodedByte);
+                        }
+                        // sendBroadcastJSON(object, action);
+                        //because we haven't created it yet
+
+                    } else {
+                        Log.e("error: ", object.getString("message"));
                     }
-                    // sendBroadcastJSON(object, action);
-                    //because we haven't created it yet
-
-                } else {
-                    Log.e("error: ",object.getString("message"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
         }
 

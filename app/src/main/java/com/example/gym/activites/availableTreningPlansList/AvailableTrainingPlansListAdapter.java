@@ -1,13 +1,11 @@
 package com.example.gym.activites.availableTreningPlansList;
 
 import android.animation.ValueAnimator;
-import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,8 +28,7 @@ import com.example.gym.Dialogs;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
 import com.example.gym.SharedPreferencesOperations;
-import com.example.gym.TrainingPlan;
-import com.example.gym.activites.myDietsList.MyDietsListActivity;
+import com.example.gym.dataClasses.TrainingPlan;
 import com.example.gym.activites.trainingPlansList.MyTrainingPlansListActivity;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 
@@ -208,18 +205,18 @@ public class AvailableTrainingPlansListAdapter extends ArrayAdapter<TrainingPlan
     }
 
         private void addTrainingPlanDialog(final int trainingPlanId) {
-            String message  ="Czy chcesz dodać ten plan treningowy?";
+            String message  =context.getString(R.string.AvailableTrainingPlansAddTrainingDialogMessage);
             final AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setMessage(message)
                     .setCancelable(true)
-                    .setTitle("Potwierdzenie chęci zapisania")
-                    .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                    .setTitle(R.string.AvailableTrainingPlanAddTrainingDialogTitle)
+                    .setPositiveButton(context.getString(R.string.DialogPositiveButtonYes), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             subscribeTrainingPlan(trainingPlanId);
 
                         }
                     })
-                    .setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(context.getString(R.string.DialogNegativeButtonNo), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
@@ -235,7 +232,7 @@ public class AvailableTrainingPlansListAdapter extends ArrayAdapter<TrainingPlan
         builder.setMessage(message)
                 .setCancelable(false)
                 .setTitle(title)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.InformationDialogPositiveButtonOk, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent myTrainingPlanListActivityIntent = new Intent(getContext(), MyTrainingPlansListActivity.class);
                         getContext().startActivity(myTrainingPlanListActivityIntent);
@@ -258,6 +255,7 @@ public class AvailableTrainingPlansListAdapter extends ArrayAdapter<TrainingPlan
                 try {
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
                     Boolean isSubscribed = json.getBoolean("subscribed");
                     if(isSubscribed){
                         Log.e("isSubscribed: ", json.getString("subscribed"));
@@ -265,10 +263,13 @@ public class AvailableTrainingPlansListAdapter extends ArrayAdapter<TrainingPlan
                         informationConfirmDialog("Dodano", "Dodano plan treningowy, do Twoich planów", getContext());
                     }
                     else {
-                        Dialogs.informationConfirmDialog("Błąd", "Wystąpił błąd i nie udało się dodać planu treningowego, spróbuj ponownie później", getContext());
+                        Dialogs.informationConfirmDialog(context.getString(R.string.ErrorDialogTitle), context.getString(R.string.AddTrainingDialogErrorMessage), getContext());
                     }
                     //editor.putString(Constants.SP_USER_SURNAME, userJson.getString("surname"));
                     //Log.e("gymId", String.valueOf(userJson.getInt("gymId")));
+                    } else {
+                        Dialogs.noNetworkDialog(context);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

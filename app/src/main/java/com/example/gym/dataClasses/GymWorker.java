@@ -1,4 +1,4 @@
-package com.example.gym;
+package com.example.gym.dataClasses;
 
 import org.json.JSONException;
 import org.json.JSONObject;

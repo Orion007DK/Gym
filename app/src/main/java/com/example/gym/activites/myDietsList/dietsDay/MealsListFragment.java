@@ -22,7 +22,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.gym.Constants;
-import com.example.gym.Meal;
+import com.example.gym.Dialogs;
+import com.example.gym.dataClasses.Meal;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
 import com.example.gym.UIUtils;
@@ -170,6 +171,7 @@ public class MealsListFragment extends Fragment {
                //     Log.e("Reciever","tre");
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
                     JSONArray jsonArray = json.getJSONArray("mealsList");
                     //jsonArray.getJSONObject(1);
                  //   Log.e("arrayLength ", String.valueOf(jsonArray.length()));
@@ -206,12 +208,16 @@ public class MealsListFragment extends Fragment {
 
                    // dietsListAdapter=new DietsListAdapter(MyDietsListActivity.this, dietNamesList, dietIdList);
                     //dietListView.setAdapter(dietsListAdapter);
+                    } else {
+                        Dialogs.noNetworkFinishDialog(context, getActivity());
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 if(getContext()!=null)
                 getContext().unregisterReceiver(broadcastReceiver);
-                progressDialog.dismiss();
+                if(progressDialog.isShowing())
+                    progressDialog.dismiss();
                 //if (dialog.isShowing()) {
                 //     dialog.dismiss();
                 //}

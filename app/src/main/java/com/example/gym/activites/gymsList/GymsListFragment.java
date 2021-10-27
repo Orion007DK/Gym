@@ -29,13 +29,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.gym.Address;
+import com.example.gym.Dialogs;
+import com.example.gym.dataClasses.Address;
 import com.example.gym.Constants;
-import com.example.gym.Dimensions;
-import com.example.gym.Gym;
+import com.example.gym.dataClasses.Gym;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
-import com.example.gym.activites.dimensionHistory.DimensionsHistoryListAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -129,7 +128,8 @@ public class GymsListFragment extends Fragment {
                 locationManager = (LocationManager) appContext.getSystemService(Context.LOCATION_SERVICE);
                // locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
                 String permissions[] = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
-                if (ActivityCompat.checkSelfPermission(appContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(appContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.checkSelfPermission(appContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                        && ActivityCompat.checkSelfPermission(appContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(appContext, permissions ,1 );
                     return;
                 }
@@ -146,14 +146,14 @@ public class GymsListFragment extends Fragment {
                 if(!gps_enabled && !network_enabled) {
                     // notify user
                     new AlertDialog.Builder(appContext)
-                            .setMessage("Funkcja lokalizacji jest wyłączona")
-                            .setPositiveButton("Przejdź do ustawień", new DialogInterface.OnClickListener() {
+                            .setMessage(R.string.gyms_list_gps_off_message)
+                            .setPositiveButton(R.string.gyms_list_gps_off_positive_button, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface paramDialogInterface, int paramInt) {
                                     appContext.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                                 }
                             })
-                            .setNegativeButton("Anuluj",null)
+                            .setNegativeButton(R.string.gyms_list_gps_off_negative_button,null)
                             .show();
                 } else {
                     progressDialog = new SpotsDialog(appContext, R.style.Custom);
@@ -222,42 +222,39 @@ public class GymsListFragment extends Fragment {
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.e("rec","Start");
             Bundle bundle = intent.getExtras(); //pobranie pakunku danych z zamiaru
             if (Objects.equals(intent.getAction(), GET_GYMS)) {
                 try {
-                    //Log.e("Reciever","tre");
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
                     JSONArray jsonArray = json.getJSONArray("gyms");
-                    //JSONObject userJson = json.getJSONObject("dimensionsData");
-                    //jsonArray.getJSONObject(1);
                     for(int i=0;i<jsonArray.length();i++){
                         Gym gym = new Gym(jsonArray.getJSONObject(i));
                         gymsArrayList.add(gym);
                     }
-                    //Log.e("object1:",jsonArray.getJSONObject(1).toString() );
-                   // Log.e("js",jsonstr);
-                    //Log.e("userjs: ",userJson.toString());
-                    //Log.e("jsonArray: ",jsonArray.toString());
-                    //Log.e("gymsArrayList: ",gymsArrayList.toString());
-
                     gymsListAdapter=new GymsListAdapter(appContext, gymsArrayList, fragment);
                     listView.setAdapter(gymsListAdapter);
+                    } else {
+                            Dialogs.noNetworkFinishDialog(context,getActivity());
+                        }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 getContext().unregisterReceiver(broadcastReceiver);
+                if(progressDialog.isShowing())
+                    progressDialog.dismiss();
                 //if (dialog.isShowing()) {
                 //     dialog.dismiss();
                 //}
-                progressDialog.dismiss();
             } else if (Objects.equals(intent.getAction(), GET_GYMS_BY_LOCALISATION)) {
                 try {
                     Log.e("Reciever","tre");
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
                     JSONArray jsonArray = json.getJSONArray("gyms");
+
                     //JSONObject userJson = json.getJSONObject("dimensionsData");
                     //jsonArray.getJSONObject(1);
                     gymsArrayList.clear();
@@ -276,19 +273,21 @@ public class GymsListFragment extends Fragment {
                     listView.setAdapter(gymsListAdapter);
                     listView.requestLayout();
                     locationManager.removeUpdates(locationListener);
+                    } else {
+                        Dialogs.noNetworkDialog(context);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 getContext().unregisterReceiver(broadcastReceiver);
+                if(progressDialog.isShowing())
+                    progressDialog.dismiss();
                 //if (dialog.isShowing()) {
                 //     dialog.dismiss();
                 //}
-                progressDialog.dismiss();
             }
         }
     };
-
-
 
 
 

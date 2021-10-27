@@ -14,7 +14,8 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.gym.Classes;
+import com.example.gym.Dialogs;
+import com.example.gym.dataClasses.Classes;
 import com.example.gym.Constants;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.SharedPreferencesOperations;
@@ -173,6 +174,7 @@ public class MyClassesListActivity extends OptionsMenuActivity {
                 try {
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
                     JSONArray jsonArray = json.getJSONArray("classesList");
                     Log.e("classesList:", jsonArray.toString());
                     for(int i=0;i<jsonArray.length();i++){
@@ -185,16 +187,16 @@ public class MyClassesListActivity extends OptionsMenuActivity {
                     Log.e("js",jsonstr);
 
                     Log.e("jsonArray: ",jsonArray.toString());
-
+                    } else {
+                        Dialogs.noNetworkFinishDialog(context, MyClassesListActivity.this);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 Log.e("KONIEC","BroadcatAvailableTickets");
                 unregisterReceiver(broadcastReceiver);
-                //if (dialog.isShowing()) {
-                //     dialog.dismiss();
-                //}
-                progressDialog.dismiss();
+                if(progressDialog.isShowing())
+                    progressDialog.dismiss();
             }
         }
     };

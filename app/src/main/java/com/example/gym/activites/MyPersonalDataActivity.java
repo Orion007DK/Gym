@@ -89,6 +89,7 @@ public class MyPersonalDataActivity extends OptionsMenuActivity {
             if(intent.getAction().equals(GET_USER_DATA)){
                 try {
                     JSONObject jsonObject = new JSONObject(bundle.getString("JSON"));
+                    if(jsonObject.isNull(Constants.NETWORK_ERROR_TAG)){
                     JSONObject jsonUserData = jsonObject.getJSONObject("userData");
                     String email = jsonUserData.getString("email");
                     String name = jsonUserData.getString("name");
@@ -97,6 +98,9 @@ public class MyPersonalDataActivity extends OptionsMenuActivity {
                     editTextInit(name,surname,email,phoneNumber);
                     watchersInit(name,surname,email,phoneNumber);
                     buttonSaveChangesInit();
+                } else {
+                    Dialogs.noNetworkFinishDialog(context, MyPersonalDataActivity.this);
+                }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -105,7 +109,7 @@ public class MyPersonalDataActivity extends OptionsMenuActivity {
                 unregisterReceiver(broadcastReceiver);
             } else if(intent.getAction().equals(UPDATE_USER_DATA)){
                 Log.e("MyPersonalDataActivity", bundle.getString("JSON"));
-                Dialogs.informationConfirmDialog("Zmieniono dane", "Twoje dane zostały pomyślnie zmienione", context);
+                Dialogs.informationConfirmDialog(getString(R.string.MyPersonalDataSucessfulDataChangeDialogTitle), getString(R.string.MyPersonalDataSucessfulDataChangeDialogMessage), context);
                 //rozmiar pliku przeliczony na kB
                 unregisterReceiver(broadcastReceiver);
             }

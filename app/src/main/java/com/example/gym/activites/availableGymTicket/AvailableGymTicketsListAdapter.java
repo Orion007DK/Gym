@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.gym.R;
-import com.example.gym.Ticket;
+import com.example.gym.dataClasses.Ticket;
 
 import java.util.List;
 
@@ -58,19 +58,19 @@ public class AvailableGymTicketsListAdapter extends ArrayAdapter<Ticket> {
                         textViewTicketName.setText(ticketsList.get(position).getName());
                 else{
                         TextView textViewTicketNameHeader=line.findViewById(R.id.textViewTicketNameHeader);
-                        textViewTicketNameHeader.setText("Nazwa");
+                        textViewTicketNameHeader.setText(R.string.AvailableTicketsNameHeader);
                 }
                 if(textViewTicketDuration!=null)
                         textViewTicketDuration.setText(ticketsList.get(position).getDuration()+" dni");
                 else {
                         TextView textViewTicketDatesHeader=line.findViewById(R.id.textViewTicketDatesHeader);
-                        textViewTicketDatesHeader.setText("Ważny");
+                        textViewTicketDatesHeader.setText(R.string.AvailableTicketsDatesHeader);
                 }
                 if(textViewTicketPrice!=null)
                         textViewTicketPrice.setText(ticketsList.get(position).getPrice()+" zł");
                 else {
                         TextView textViewTicketPriceHeader=line.findViewById(R.id.textViewTicketPriceHeader);
-                        textViewTicketPriceHeader.setText("Cena");
+                        textViewTicketPriceHeader.setText(R.string.AvailableTicketsPriceHeader);
                 }
 
 

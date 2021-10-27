@@ -1,39 +1,20 @@
 package com.example.gym.activites.MyGymTickets;
 
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import com.example.gym.Constants;
-import com.example.gym.GymWorker;
-import com.example.gym.PerformNetworkRequest;
 import com.example.gym.R;
-import com.example.gym.SharedPreferencesOperations;
-import com.example.gym.Ticket;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.util.HashMap;
-import java.util.Objects;
+import com.example.gym.dataClasses.Ticket;
 
 public class GymTicketDetailFragment extends Fragment{
 

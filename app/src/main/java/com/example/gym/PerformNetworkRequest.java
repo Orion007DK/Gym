@@ -2,6 +2,7 @@ package com.example.gym;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -49,25 +50,24 @@ public class PerformNetworkRequest extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        Log.e("exec","Eex");
-       // progressBar.setVisibility(GONE);
-        try {
-            Log.e("wynik","w");
-            Log.e("wynik",s);
-            JSONObject object = new JSONObject(s);
-            if (!object.getBoolean("error")) {
-             //   Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
-                //refreshing the herolist after every operation
-                //so we get an updated list
-                //we will create this method right now it is commented
-                sendBroadcastJSON(object, action);
-                //because we haven't created it yet
-
-            } else {
-                Log.e("error: ",object.getString("message"));
+        if(s!=null) {
+            try {
+                JSONObject object = new JSONObject(s);
+                if (!object.getBoolean(context.getString(R.string.requestError))) {
+                    sendBroadcastJSON(object, action);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
+        } else {
+            String error = Constants.NETWORK_ERROR;
+            JSONObject object;
+            try {
+                object = new JSONObject(error);
+                sendBroadcastJSON(object, action);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 

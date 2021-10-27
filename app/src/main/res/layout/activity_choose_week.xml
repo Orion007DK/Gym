@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="50dp"
                 android:paddingBottom="50dp"
-                android:text="Wybierz tydzień"
+                android:text="@string/ChooseWeekTitleTextView"
                 android:textAlignment="center"
                 android:textSize="@dimen/textSizeTitle"
                 android:fontFamily="@string/FontFamilyTitle"/>

@@ -1,13 +1,12 @@
 package com.example.gym.activites.trainingPlansList;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
 import com.example.gym.R;
-import com.example.gym.TrainingPlan;
+import com.example.gym.dataClasses.TrainingPlan;
 import com.example.gym.activites.OptionsMenuActivity;
 
 public class MyTrainingPlansListActivity extends OptionsMenuActivity implements MyTrainingPlansListFragment.MyTrainingPlansListFragmentActivityListener {

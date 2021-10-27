@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="50dp"
                 android:paddingBottom="50dp"
-                android:text="Mój Dietetyk"
+                android:text="@string/DieticianHomePageTitleTextView"
                 android:textAlignment="center"
                 android:textSize="@dimen/textSizeTitle"
                 android:fontFamily="@string/FontFamilyTitle"/>
@@ -34,10 +34,10 @@
                 android:paddingRight="60dp">
 
                 <com.bartbergmans.gradientbutton.views.GradientButton
-                    android:id="@+id/buttonShowDieticianProfil"
+                    android:id="@+id/buttonShowDieticianProfile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Pokaż profil dietetyka"
+                    android:text="@string/DieticianHomePageShowDieticianPriofileTextView"
                     app:circular="false"
                     app:end_color="@color/buttonStartColor"
                     android:textColor="@color/buttonStartColor"
@@ -59,7 +59,7 @@
                 android:id="@+id/buttonFindDietician"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Znajdź dietetyka"
+                android:text="@string/DieticianHomePageFindDieticianButton"
                 android:layout_marginTop="10dp"
                 android:drawableLeft="@drawable/show_trainer_list"
                 style="@style/GradientButtonLeftToRightStyle"

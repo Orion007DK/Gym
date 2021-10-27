@@ -64,9 +64,9 @@ public class DietDaysListActivity extends AppCompatActivity {
     private void buttonSubUnsubDietInit(){
         buttonSubUnsubDiet=findViewById(R.id.buttonSubUnsubDiet);
         if(buttonIsSub)
-            buttonSubUnsubDiet.setText("Dodaj dietę");
+            buttonSubUnsubDiet.setText(R.string.DietDaysListSubscribeDietButton);
         else
-            buttonSubUnsubDiet.setText("Usuń dietę");
+            buttonSubUnsubDiet.setText(R.string.DietDaysListUnsubscribeDietButton);
 
             buttonSubUnsubDiet.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -174,22 +174,22 @@ public class DietDaysListActivity extends AppCompatActivity {
         String message  ="";
         String title ="";
         if (buttonIsSub) {
-            message="Czy na pewno chcesz dodać tą dietę?";
-            title="Dodawanie diety";
+            message=getString(R.string.DietDaysListWantDietSubscribeDialogMessage);
+            title=getString(R.string.DietDaysListWantDietSubscribeDialogTitle);
         } else {
-            message="Czy na pewno chcesz usunąć tą dietę";
-            title="Usuwanie diety";
+            message=getString(R.string.DietDaysListWantDietUnsubscribeDialogMessage);
+            title=getString(R.string.DietDaysListWantDietUnsubscribeDialogTitle);
         }
         final AlertDialog.Builder builder = new AlertDialog.Builder(DietDaysListActivity.this);
         builder.setMessage(message)
                 .setCancelable(true)
                 .setTitle(title)
-                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.DialogPositiveButtonYes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         subscribeOrUnsubscribeDiet();
                     }
                 })
-                .setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.DialogNegativeButtonNo, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 

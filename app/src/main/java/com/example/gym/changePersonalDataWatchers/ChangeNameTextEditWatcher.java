@@ -44,7 +44,7 @@ public class ChangeNameTextEditWatcher implements TextWatcher {
         {
             changeDataCorrectWatcher.setNameChanged(true);
             if(textName.length()!=0) {
-                if(ValidationRules.isNameRight(textName)){
+                if(ValidationRules.isNameCorrect(textName)){
                     //ustawienie flagi poprawności pola na "true"
                     changeDataCorrectWatcher.setNameCorrect(true);
 

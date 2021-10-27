@@ -23,8 +23,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.gym.activites.availableDietsList.AvailableDietsList;
 import com.example.gym.activites.trainingPlansList.MyTrainingPlansListActivity;
+import com.example.gym.dataClasses.Exercise;
+import com.example.gym.dataClasses.TrainingPlan;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -65,6 +69,8 @@ public class InteractiveTrainingActivity extends AppCompatActivity {
     TextView textViewSets;
     TextView textViewTitle;
     TextView textViewDescription;
+    TextView textViewLoad;
+    TextView textViewLoadLabel;
 
     private int currentExerciseNumber=0;
     private int currentSet=0;
@@ -87,7 +93,7 @@ public class InteractiveTrainingActivity extends AppCompatActivity {
         idInit();
         stepProgressViewInit();
         execiseDataSet();
-        textViewPerformedExerciseProgress.setText("Wykonane ćwiczenia: "+String.valueOf(performedExercises)+"/"+String.valueOf(exerciseList.size()));
+        textViewPerformedExerciseProgress.setText(getString(R.string.InteractiveTrainingExercisePerformedInfo)+String.valueOf(performedExercises)+"/"+String.valueOf(exerciseList.size()));
 
 
         buttonStopTraining.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +122,7 @@ public class InteractiveTrainingActivity extends AppCompatActivity {
                     }
                 }
                 if(currentSet+1==Integer.valueOf(exerciseList.get(currentExerciseNumber).getSets()))
-                    buttonFinishExercise.setText("Ćwiczenie wykonane!");
+                    buttonFinishExercise.setText(R.string.InteractiveTrainingExercisePerformedButton);
             }
         });
 
@@ -145,11 +151,24 @@ public class InteractiveTrainingActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             Bundle bundle = intent.getExtras(); //pobranie pakunku danych z zamiaru
             if (intent.getAction().equals(INSERT_INTO_USER_FINISHED_TRAINING_PLANS)) {
+                String jsonstr =bundle.getString("JSON");
+                JSONObject json = null;
+                try {
+                    json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
+                        finishedTrainingDialog();
+                    } else {
+                        Dialogs.noNetworkFinishDialog(context, InteractiveTrainingActivity.this);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 Log.e("InsertFinishedTraining:", bundle.getString("JSON"));
 
                 unregisterReceiver(broadcastReceiver); //odrejestrowanie odbiorcy
                 progressDialog.dismiss();
-                finishedTrainingDialog();
+
 
             }
         }
@@ -159,10 +178,10 @@ public class InteractiveTrainingActivity extends AppCompatActivity {
             currentExerciseNumber++;
             currentSet = 0;
             performedExercises++;
-            textViewPerformedExerciseProgress.setText("Wykonane ćwiczenia: " + String.valueOf(performedExercises) + "/" + String.valueOf(exerciseList.size()));
+            textViewPerformedExerciseProgress.setText(getString(R.string.InteractiveTrainingExercisePerformedInfo) + String.valueOf(performedExercises) + "/" + String.valueOf(exerciseList.size()));
             stepProgressView.setCurrentProgress(performedExercises);
             execiseDataSet();
-            buttonFinishExercise.setText("Seria wykonana!");
+            buttonFinishExercise.setText(R.string.InteractiveTrainingSetPerformedInfo);
     }
 
     PieProgressDrawable pieProgressDrawable;
@@ -239,10 +258,10 @@ public class InteractiveTrainingActivity extends AppCompatActivity {
 
     private void finishedTrainingDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(InteractiveTrainingActivity.this);
-        builder.setMessage("Gratulacje! ukończyłeś trening, trwał on: "+String.format("%02d:%02d:%02d", hours, minutes, seconds))
+        builder.setMessage(getString(R.string.InteractiveTrainingTrainingFinishedDialogMessage)+String.format("%02d:%02d:%02d", hours, minutes, seconds))
                 .setCancelable(true)
-                .setTitle("Trening ukończony")
-                .setPositiveButton("Super!", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.InteractiveTrainingTrainingFinishedDialogTitle)
+                .setPositiveButton(R.string.InteractiveTrainingTrainingFinishedDialogPositiveButton, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent finishTrainingIntent = new Intent(InteractiveTrainingActivity.this, MyTrainingPlansListActivity.class);
                         startActivity(finishTrainingIntent);
@@ -260,6 +279,8 @@ public class InteractiveTrainingActivity extends AppCompatActivity {
         textViewTitle=findViewById(R.id.textViewTitle);
         textViewDescription=findViewById(R.id.textViewDescriptionValue);
         textViewTime=findViewById(R.id.textViewTime);
+        textViewLoad=findViewById(R.id.textViewLoadValue);
+        textViewLoadLabel=findViewById(R.id.textViewLoad);
 
         buttonStopTraining=findViewById(R.id.buttonStopTraining);
         buttonFinishExercise=findViewById(R.id.buttonFinishExercise);
@@ -267,9 +288,17 @@ public class InteractiveTrainingActivity extends AppCompatActivity {
 
     private void execiseDataSet(){
         textViewTitle.setText(exerciseList.get(currentExerciseNumber).getExerciseName());
-        textViewRepetitions.setText(exerciseList.get(currentExerciseNumber).repetitions);
+        textViewRepetitions.setText(exerciseList.get(currentExerciseNumber).getRepetitions());
         textViewSets.setText(String.valueOf(currentSet)+"/"+exerciseList.get(currentExerciseNumber).getSets());
         textViewDescription.setText(exerciseList.get(currentExerciseNumber).getExerciseDescription());
+        if(exerciseList.get(currentExerciseNumber).getLoad()!=null){
+            textViewLoadLabel.setVisibility(View.VISIBLE);
+            textViewLoad.setVisibility(View.VISIBLE);
+            textViewLoad.setText(exerciseList.get(currentExerciseNumber).getLoad());
+        } else {
+            textViewLoadLabel.setVisibility(View.GONE);
+            textViewLoad.setVisibility(View.GONE);
+        }
     }
 
 
@@ -338,5 +367,9 @@ public class InteractiveTrainingActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         startTimer();
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }

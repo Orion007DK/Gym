@@ -8,6 +8,11 @@ public class Constants {
     private static final String TICKET_ROOT_URL = "http://192.168.0.102/GymApi/v1/TicketApi.php?apicall=";
     private static final String CLASSES_ROOT_URL = "http://192.168.0.102/GymApi/v1/ClassesApi.php?apicall=";
     private static final String TRAINING_PLAN_ROOT_URL = "http://192.168.0.102/GymApi/v1/TrainingPlansApi.php?apicall=";
+    private static final String DIMENSIONS_ROOT_URL = "http://192.168.0.102/GymApi/v1/DimensionsApi.php?apicall=";
+    private static final String GYM_ROOT_URL = "http://192.168.0.102/GymApi/v1/GymApi.php?apicall=";
+    private static final String TRAINER_ROOT_URL = "http://192.168.0.102/GymApi/v1/TrainerApi.php?apicall=";
+    private static final String DIETICIAN_ROOT_URL = "http://192.168.0.102/GymApi/v1/DieticianApi.php?apicall=";
+
 
    //private static final String ROOT_URL = "http://192.168.43.231/GymApi/v1/Api.php?apicall=";
 
@@ -15,6 +20,7 @@ public class Constants {
     public static final String URL_READ_USERS = ROOT_URL + "getUsers";
     public static final String URL_UPDATE_USER = ROOT_URL + "updateUser";
     public static final String URL_DELETE_USER = ROOT_URL + "deleteUser";
+    public static final String URL_SOFT_DELETE_USER = ROOT_URL + "softDeleteUser";
     public static final String URL_GET_USER_ID = ROOT_URL + "getUserId";
     public static final String URL_GET_USER_DATA = ROOT_URL + "getUserData";
     public static final String URL_LOG_IN = ROOT_URL + "logIn";
@@ -50,27 +56,47 @@ public class Constants {
     public static final String SP_GYM_ID="gymId";
     public static final String SP_TRAINER_ID="trainerId";
     public static final String SP_DIETICIAN_ID="dieticianId";
-
+/*
     public static final String URL_CREATE_DIMENSIONS=ROOT_URL + "createDimensions";
     public static final String URL_GET_USER_ALL_DIMENSIONS=ROOT_URL + "getUserAllDimensions";
     public static final String URL_GET_DIMENSIONS=ROOT_URL + "getDimensions";
-
+*/
+    public static final String URL_CREATE_DIMENSIONS=DIMENSIONS_ROOT_URL + "createDimensions";
+    public static final String URL_GET_USER_ALL_DIMENSIONS=DIMENSIONS_ROOT_URL + "getUserAllDimensions";
+    public static final String URL_GET_DIMENSIONS=DIMENSIONS_ROOT_URL + "getDimensions";
+/*
     public static final String URL_GET_GYMS=ROOT_URL + "getGyms";
     public static final String URL_GET_GYMS_BY_LOCALISATION=ROOT_URL + "getGymsByLocalisation";
     public static final String URL_GET_GYM_DATA=ROOT_URL + "getGymData";
     public static final String URL_GET_GYM_IMAGES=ROOT_URL + "getGymImages";
+*/
+    public static final String URL_GET_GYMS=GYM_ROOT_URL + "getGyms";
+    public static final String URL_GET_GYMS_BY_LOCALISATION=GYM_ROOT_URL + "getGymsByLocalisation";
+    public static final String URL_GET_GYM_DATA=GYM_ROOT_URL + "getGymData";
+    public static final String URL_GET_GYM_IMAGES=GYM_ROOT_URL + "getGymImages";
+
     public static final String URL_SUBSCRIBE_GYM=ROOT_URL + "subscribeGym";
     public static final String URL_UNSUBSCRIBE_GYM=ROOT_URL + "unsubscribeGym";
-
+/*
     public static final String URL_GET_TRAINERS=ROOT_URL + "getTrainers";
     public static final String URL_GET_TRAINER_DATA=ROOT_URL + "getTrainerData";
     public static final String URL_GET_TRAINER_IMAGE=ROOT_URL + "getTrainerImage";
+*/
+    public static final String URL_GET_TRAINERS=TRAINER_ROOT_URL + "getTrainers";
+    public static final String URL_GET_TRAINER_DATA=TRAINER_ROOT_URL + "getTrainerData";
+    public static final String URL_GET_TRAINER_IMAGE=TRAINER_ROOT_URL + "getTrainerImage";
+
     public static final String URL_SUBSCRIBE_TRAINER=ROOT_URL + "subscribeTrainer";
     public static final String URL_UNSUBSCRIBE_TRAINER=ROOT_URL + "unsubscribeTrainer";
-
+/*
     public static final String URL_GET_DIETICIANS=ROOT_URL + "getDieticians";
     public static final String URL_GET_DIETICIAN_DATA=ROOT_URL + "getDieticianData";
     public static final String URL_GET_DIETICIAN_IMAGE=ROOT_URL + "getDieticianImage";
+*/
+    public static final String URL_GET_DIETICIANS=DIETICIAN_ROOT_URL + "getDieticians";
+    public static final String URL_GET_DIETICIAN_DATA=DIETICIAN_ROOT_URL + "getDieticianData";
+    public static final String URL_GET_DIETICIAN_IMAGE=DIETICIAN_ROOT_URL + "getDieticianImage";
+
     public static final String URL_SUBSCRIBE_DIETICIAN=ROOT_URL + "subscribeDietician";
     public static final String URL_UNSUBSCRIBE_DIETICIAN=ROOT_URL + "unsubscribeDietician";
 
@@ -108,6 +134,9 @@ public class Constants {
 
     public static final int CODE_GET_REQUEST = 1024;
     public static final int CODE_POST_REQUEST = 1025;
+
+    public static final String NETWORK_ERROR = "{networkError: true}";
+    public static final String NETWORK_ERROR_TAG = "networkError";
 
 
 

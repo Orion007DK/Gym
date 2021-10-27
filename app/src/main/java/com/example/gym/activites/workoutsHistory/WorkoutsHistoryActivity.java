@@ -1,17 +1,13 @@
 package com.example.gym.activites.workoutsHistory;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.gym.FinishedTrainingPlan;
+import com.example.gym.dataClasses.FinishedTrainingPlan;
 import com.example.gym.R;
 import com.example.gym.activites.OptionsMenuActivity;
-
-import java.util.Date;
 
 public class WorkoutsHistoryActivity extends OptionsMenuActivity implements WorkoutsHistoryListFragment.WorkoutHistoryListFragmentActivityListener {
 

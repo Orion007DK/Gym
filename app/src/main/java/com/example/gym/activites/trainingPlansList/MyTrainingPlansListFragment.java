@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,14 +19,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.gym.Classes;
 import com.example.gym.Constants;
+import com.example.gym.Dialogs;
 import com.example.gym.PerformNetworkRequest;
 import com.example.gym.SharedPreferencesOperations;
-import com.example.gym.TrainingPlan;
+import com.example.gym.dataClasses.TrainingPlan;
 import com.example.gym.activites.availableTreningPlansList.AvailableTrainingPlansListActivity;
 import com.example.gym.R;
-import com.example.gym.activites.myClassesList.MyClassesListAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
@@ -36,7 +34,6 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -163,6 +160,7 @@ public class MyTrainingPlansListFragment extends Fragment {
                 try {
                     String jsonstr =bundle.getString("JSON");
                     JSONObject json = new JSONObject(jsonstr);
+                    if(json.isNull(Constants.NETWORK_ERROR_TAG)){
                     JSONArray jsonArray = json.getJSONArray("trainingPlansList");
                     Log.e("TrainingPlansList:", jsonArray.toString());
                     for(int i=0;i<jsonArray.length();i++){
@@ -171,6 +169,9 @@ public class MyTrainingPlansListFragment extends Fragment {
                     }
                     MyTrainingPlansListAdapter trainingPlansListAdapter = new MyTrainingPlansListAdapter(appContext, arrayListTrainingPlans, fragment);
                     listView.setAdapter(trainingPlansListAdapter);
+                    } else {
+                        Dialogs.noNetworkFinishDialog(context, getActivity());
+                    }
 
                 } catch (JSONException | ParseException e) {
                     e.printStackTrace();
@@ -180,7 +181,8 @@ public class MyTrainingPlansListFragment extends Fragment {
                 //if (dialog.isShowing()) {
                 //     dialog.dismiss();
                 //}
-                progressDialog.dismiss();
+                if(progressDialog.isShowing())
+                    progressDialog.dismiss();
             }
         }
     };

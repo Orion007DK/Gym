@@ -123,10 +123,9 @@
 
                 <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp">
+>
                 <TextView
                     android:id="@+id/textViewTicketPossibilities"
                     android:layout_width="match_parent"
@@ -146,7 +145,81 @@
                             android:layout_height="wrap_content"
                             android:text=""
                             android:textSize="20sp"
-                            tools:layout_editor_absoluteY="424dp" />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewTicketPossibilitiesValue">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:id="@+id/textViewTicketStartDate"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Ważny od:"
+                                    android:textAlignment="textStart"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/textViewTicketStartDateValue"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textAlignment="textEnd"
+                                    android:text="Miesiac"
+                                    android:textSize="20sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:id="@+id/textViewTicketEndDate"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Ważny do:"
+                                    android:textAlignment="textStart"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/textViewTicketEndDateValue"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textAlignment="textEnd"
+                                    android:text="Miesiac"
+                                    android:textSize="20sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <com.bartbergmans.gradientbutton.views.GradientButton
+                            android:id="@+id/buttonChangeDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:text="Zmień datę początkową"
+                            android:textColor="@color/buttonStartColor"
+                            app:circular="false"
+                            app:end_color="@color/buttonStartColor"
+                            app:filled="false"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                            app:orientation="top_bottom"
+                            app:start_color="@color/buttonEndColor"
+                            app:stroke="3dp" />
 
                         <com.bartbergmans.gradientbutton.views.GradientButton
                             android:id="@+id/buttonQR"
@@ -158,10 +231,12 @@
                             app:circular="false"
                             app:end_color="@color/buttonStartColor"
                             app:filled="false"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textViewTicketPossibilitiesValue"
+                            app:layout_constraintTop_toBottomOf="@+id/buttonChangeDate"
                             app:orientation="top_bottom"
                             app:start_color="@color/buttonEndColor"
+                            android:layout_marginTop="5dp"
                             app:stroke="3dp" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
